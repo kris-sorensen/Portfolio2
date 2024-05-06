@@ -21,6 +21,7 @@ const VideoShader = () => {
   console.log(`dogvideo`, dogVideo);
   return (
     <shaderMaterial
+      // transparent
       ref={mat}
       vertexShader={vertexShader}
       fragmentShader={fragmentShader}

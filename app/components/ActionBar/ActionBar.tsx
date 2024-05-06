@@ -16,7 +16,16 @@ function ActionBar() {
 
         {/* Information Sections */}
         <div className="flex items-center space-x-8 text-black">
-          {/* Destination Section */}
+          {/* More Info Section */}
+          <div className="flex items-center space-x-3">
+            <MdPermDeviceInformation className="text-xl" />
+            <div>
+              <h2 className="text-sm">First Time</h2>
+              <p className="text-xs">More Info</p>
+            </div>
+          </div>
+
+          {/* Map Section */}
           <div className="flex items-center space-x-3">
             <MdPlace className="text-xl " />
             <div>
@@ -25,16 +34,7 @@ function ActionBar() {
             </div>
           </div>
 
-          {/* Average Price Section */}
-          <div className="flex items-center space-x-3">
-            <MdPermDeviceInformation className="text-xl" />
-            <div>
-              <h2 className="text-sm">More Info</h2>
-              <p className="text-xs">First Time</p>
-            </div>
-          </div>
-
-          {/* Date Section */}
+          {/* Special Events Section */}
           <div className="flex items-center space-x-3">
             <MdDateRange className="text-xl" />
             <div>
