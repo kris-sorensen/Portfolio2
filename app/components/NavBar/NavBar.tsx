@@ -16,7 +16,7 @@ import Image from "next/image";
 
 const NavBar = () => {
   return (
-    <div className="flex justify-between  bg-slate-200 p-5">
+    <div className="flex justify-between bg-slate-200 p-5 relative z-10">
       {/* Logo */}
       <div>
         <Image
@@ -40,13 +40,19 @@ const NavBar = () => {
             Home
           </Link>
           <Link className="text-blue-500 hover:text-blue-700" href="/about">
-            About
+            More Info
           </Link>
           <Link
             className="text-blue-500 hover:text-blue-700"
             href="/contact-us"
           >
             Contact Us
+          </Link>
+          <Link className="text-blue-500 hover:text-blue-700" href="/services">
+            Services
+          </Link>
+          <Link className="text-blue-500 hover:text-blue-700" href="/memories">
+            Memories
           </Link>
         </div>
         <h1 className="text-6xl font-bold text-gray-700">Join the Fun!</h1>
