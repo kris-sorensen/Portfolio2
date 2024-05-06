@@ -10,7 +10,7 @@ function ActionBar() {
         style={{ maxWidth: "90%" }}
       >
         {/* Schedule Button */}
-        <button className="bg-blue-500 text-black py-3 px-8 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+        <button className="bg-blue-500 text-white py-3 px-8 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
           Schedule
         </button>
 

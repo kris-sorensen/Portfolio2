@@ -1,9 +1,10 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Logo = () => {
   return (
-    <div>
+    <Link href="/">
       <Image
         src={"https://bit.ly/react-cover"}
         alt="Happy Tails Utah Logo"
@@ -16,7 +17,7 @@ const Logo = () => {
         priority //* don't lazy load. Lazy load Images auto on
       />
       {/* <Image src="/path-to-your-logo.png" alt="Logo" className="h-10" /> */}
-    </div>
+    </Link>
   );
 };
 
