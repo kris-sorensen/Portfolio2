@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import NavBar from "./components/NavBar/NavBar";
+import Header from "./components/Header/Header";
 import localFont from "next/font/local";
 // import GoogleAnalyticsScript from "./GoogleAnalyticsScript";
 
@@ -33,8 +33,8 @@ export default function RootLayout({
     <html lang="en" data-theme={"winter"}>
       {/* <GoogleAnalyticsScript/> */}
       <body className={crocante.variable}>
-        <NavBar />
-        <main className="p-5">{children}</main>
+        <Header />
+        <main className="">{children}</main>
       </body>
     </html>
   );

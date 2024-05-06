@@ -7,7 +7,8 @@ import FullScreenPlane from "./FullScreenPlane";
 
 const CanvasComponent = () => {
   return (
-    <div className="fixed top-0 left-0 w-full h-screen outline-none">
+    <div className="absolute top-[0px] left-0 w-full h-[calc(100vh-156px)] outline-none">
+      {" "}
       <Suspense fallback={null}>
         <Canvas linear dpr={[1, 2]}>
           {/* <color attach="background" args={["#e1f5ff"]} /> */}

@@ -11,9 +11,11 @@ const FullScreenPlane = () => {
 
   return (
     <mesh position={[0, 0, 0]}>
-      <Plane args={[scale, scale]} />
+      <Plane args={[scale, scale]}>
+        <VideoShader />
+      </Plane>
+
       {/* Scale the plane to cover the entire viewport */}
-      <VideoShader />
     </mesh>
   );
 };
