@@ -7,6 +7,7 @@ const services = [
   { name: "Cat Boarding", href: "/services/cat-boarding" },
   { name: "Grooming", href: "/services/grooming" },
   { name: "Training", href: "/services/training" },
+  { name: "Memberships", href: "/services/memberships" },
   { name: "Other Services", href: "/services/other" },
 ];
 

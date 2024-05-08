@@ -10,7 +10,7 @@ function ActionBar() {
         style={{ maxWidth: "90%" }}
       >
         {/* Schedule Button */}
-        <button className="bg-blue-500 text-white py-3 px-8 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+        <button className="bg-custom-red text-white py-3 px-8 rounded hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-bold">
           Schedule
         </button>
 
@@ -18,27 +18,27 @@ function ActionBar() {
         <div className="flex items-center space-x-8 text-black">
           {/* More Info Section */}
           <div className="flex items-center space-x-3">
-            <MdPermDeviceInformation className="text-xl" />
+            <MdPermDeviceInformation className="text-xl" color="#6861d5" />
             <div>
-              <h2 className="text-sm">First Time</h2>
+              <h2 className="text-sm font-medium">First Time</h2>
               <p className="text-xs">More Info</p>
             </div>
           </div>
 
           {/* Map Section */}
           <div className="flex items-center space-x-3">
-            <MdPlace className="text-xl " />
+            <MdPlace className="text-xl" color="#61d568" />
             <div>
-              <h2 className="text-sm ">Lehi, Utah</h2>
+              <h2 className="text-sm font-medium">Lehi, Utah</h2>
               <p className="text-xs">Map</p>
             </div>
           </div>
 
           {/* Special Events Section */}
           <div className="flex items-center space-x-3">
-            <MdDateRange className="text-xl" />
+            <MdDateRange color="#D56861" className="text-xl" />
             <div>
-              <h2 className="text-sm ">Special Events</h2>
+              <h2 className="text-sm font-medium">Special Events</h2>
               <p className="text-xs">Calendar</p>
             </div>
           </div>

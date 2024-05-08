@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "custom-blue": "#61ced5",
+        "custom-green": "#61d5a5",
+        "custom-red": "#d56161",
+      },
       fontFamily: {
         crocante: "var(--font-crocante)",
       },

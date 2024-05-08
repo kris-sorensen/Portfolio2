@@ -10,7 +10,7 @@ import PortalBtn from "./PortalBtn";
 
 const Header = () => {
   return (
-    <div className="flex justify-between bg-slate-200 p-5 relative z-10">
+    <div className="flex justify-between bg-slate-200 p-5 relative z-10 shadow-lg">
       <Logo />
       <div className="flex flex-col items-center">
         <NavBar />
