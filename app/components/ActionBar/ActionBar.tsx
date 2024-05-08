@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { MdPlace, MdPermDeviceInformation, MdDateRange } from "react-icons/md";
 
@@ -17,31 +18,34 @@ function ActionBar() {
         {/* Information Sections */}
         <div className="flex items-center space-x-8 text-black">
           {/* More Info Section */}
-          <div className="flex items-center space-x-3">
+          <Link
+            href="/more-info/first-time"
+            className="flex items-center space-x-3"
+          >
             <MdPermDeviceInformation className="text-xl" color="#6861d5" />
             <div>
               <h2 className="text-sm font-medium">First Time</h2>
               <p className="text-xs">More Info</p>
             </div>
-          </div>
+          </Link>
 
           {/* Map Section */}
-          <div className="flex items-center space-x-3">
+          <Link href="/location" className="flex items-center space-x-3">
             <MdPlace className="text-xl" color="#61d568" />
             <div>
               <h2 className="text-sm font-medium">Lehi, Utah</h2>
               <p className="text-xs">Map</p>
             </div>
-          </div>
+          </Link>
 
           {/* Special Events Section */}
-          <div className="flex items-center space-x-3">
+          <Link href="/calendar" className="flex items-center space-x-3">
             <MdDateRange color="#D56861" className="text-xl" />
             <div>
               <h2 className="text-sm font-medium">Special Events</h2>
               <p className="text-xs">Calendar</p>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </>

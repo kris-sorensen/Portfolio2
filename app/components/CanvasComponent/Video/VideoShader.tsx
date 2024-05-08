@@ -17,7 +17,7 @@ const VideoShader = () => {
   //   mat.current.uniforms.iTime.value = elapsedTime;
   // });
 
-  const dogVideo = useVideoTexture("/videos/stockDogVideo.mov");
+  const dogVideo = useVideoTexture("/videos/dogs_petting_1_mp4.mp4");
   console.log(`dogvideo`, dogVideo);
   return (
     <shaderMaterial
