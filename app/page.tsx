@@ -3,17 +3,23 @@ import { Metadata } from "next";
 import ActionBar from "./components/ActionBar/ActionBar";
 import CanvasComponent from "./components/CanvasComponent/CanvasComponent";
 import { HEADER_HEIGHT } from "./constants/style.constant";
+import EventsCalendarModal from "./components/EventsCalendarModal/EventsCalendarModal";
 
-export default function Home() {
+interface Props {
+  searchParams: { eventsCalendar: string; displayMap: string };
+}
+
+export default function Home({
+  searchParams: { eventsCalendar, displayMap },
+}: Props) {
   return (
     <div
       className="min-h-screen relative"
       style={{ minHeight: `calc(100vh - ${HEADER_HEIGHT})` }}
     >
       <CanvasComponent />
-      {/* React Three Fiber Canvas */}
-      {/* <Canvas>Your 3D scene setup here</Canvas> */}
       <ActionBar />
+      {eventsCalendar === "true" && <EventsCalendarModal />}
     </div>
   );
 }

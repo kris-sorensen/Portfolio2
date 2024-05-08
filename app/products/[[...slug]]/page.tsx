@@ -11,6 +11,9 @@ const ProductPage = ({
   params: { slug },
   searchParams: { sortOrder },
 }: Props) => {
+  console.log(`products page`);
+  console.log(`slug`, slug);
+  console.log(`sortOrder`, sortOrder);
   return (
     <div>
       ProductPage {slug} {sortOrder}
