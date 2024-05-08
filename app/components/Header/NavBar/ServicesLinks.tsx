@@ -21,22 +21,25 @@ const ServicesLinks = () => {
       // onMouseLeave={closeDropdown}
       className="relative"
     >
-      <a className="cursor-pointer text-blue-500 hover:text-blue-700">
+      <Link
+        href="/services"
+        className="cursor-pointer text-blue-500 hover:text-blue-700"
+      >
         Services
-      </a>
+      </Link>
       {isDropdownOpen && (
         <div
           onMouseLeave={closeDropdown}
           className="absolute left-0 py-2 w-48 bg-white shadow-xl z-50"
         >
           <Link
-            href="/services/boarding"
+            href="/services/dog-boarding"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
             Boarding
           </Link>
           <Link
-            href="/services/daycare"
+            href="/services/dog-daycare"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
             Daycare
@@ -52,6 +55,12 @@ const ServicesLinks = () => {
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
             Training
+          </Link>
+          <Link
+            href="/services/other-services"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            Memberships
           </Link>
           <Link
             href="/services/other-services"

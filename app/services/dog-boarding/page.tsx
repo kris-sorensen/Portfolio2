@@ -1,9 +1,9 @@
 import React from "react";
 
-const OtherServices = () => {
+function Boarding() {
   return (
     <div>
-      <h1>Other Services</h1>
+      <h1>Dog Boarding</h1>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed vitae,
       similique veritatis nobis molestiae nemo porro qui magni error est rem
       cumque, harum minus totam culpa, accusamus ipsa praesentium quas? Eius
@@ -39,6 +39,6 @@ const OtherServices = () => {
       veniam recusandae neque enim! Facere ex modi neque nulla magnam vel.
     </div>
   );
-};
+}
 
-export default OtherServices;
+export default Boarding;

@@ -1,17 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import ProductCard from "./components/ProductCard/ProductCard";
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
-import Loader from "./components/Loader/Loader";
+// import dynamic from "next/dynamic";
 import ActionBar from "./components/ActionBar/ActionBar";
 import CanvasComponent from "./components/CanvasComponent/CanvasComponent";
+import { HEADER_HEIGHT } from "./constants/style.constant";
 
 export default function Home() {
   return (
     <div
       className="min-h-screen relative"
-      style={{ minHeight: "calc(100vh - 188px)" }}
+      style={{ minHeight: `calc(100vh - ${HEADER_HEIGHT})` }}
     >
       <CanvasComponent />
       {/* React Three Fiber Canvas */}
