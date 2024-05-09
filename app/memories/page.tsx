@@ -1,7 +1,15 @@
 import React from "react";
+import CanvasGallery from "./CanvasGallery/CanvasGallery";
+import GalleryOverlay from "./GalleryOverlay/GalleryOverlay";
+// todo: auto gallery move if user is not scrolling at first?
 
 function Memories() {
-  return <div>Memories</div>;
+  return (
+    <>
+      <CanvasGallery />
+      <GalleryOverlay />
+    </>
+  );
 }
 
 export default Memories;

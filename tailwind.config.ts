@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing: {
+        "header-PlusPadding": "12rem", // Custom margin/padding value
+      },
       colors: {
         "custom-blue": "#61ced5",
         "custom-green": "#61d5a5",

@@ -8,13 +8,12 @@ import FullScreenPlane from "./FullScreenPlane";
 const CanvasComponent = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-[calc(100vh-156px)] outline-none">
-      {" "}
-      <Suspense fallback={null}>
-        <Canvas linear dpr={[1, 2]}>
+      <Canvas linear dpr={[1, 2]}>
+        <Suspense fallback={null}>
           {/* <color attach="background" args={["#e1f5ff"]} /> */}
           <FullScreenPlane />
-        </Canvas>
-      </Suspense>
+        </Suspense>
+      </Canvas>
       <Loader />
     </div>
   );
