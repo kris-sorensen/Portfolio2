@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Image as ImageImpl } from "@react-three/drei";
+import { Image as GalImage } from "@react-three/drei";
 import { useScroll } from "../../../../../components/ScrollControls/ScrollControls";
 
 export default function GalleryImage(props) {
@@ -24,7 +24,7 @@ export default function GalleryImage(props) {
   });
   return (
     <group ref={group}>
-      <ImageImpl ref={ref} {...props} />
+      <GalImage ref={ref} {...props} />
     </group>
   );
 }
