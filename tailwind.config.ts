@@ -15,6 +15,8 @@ const config: Config = {
         "custom-blue": "#61ced5",
         "custom-green": "#61d5a5",
         "custom-red": "#d56161",
+        "custom-yellow": "#d5d161",
+        "custom-offWhite": "#efefef",
       },
       fontFamily: {
         crocante: "var(--font-crocante)",
