@@ -13,16 +13,14 @@ const services = [
 
 const ServicesMenu = () => {
   return (
-    <div className="w-1/2  bg-white p-8">
-      <h1 className="text-2xl font-bold mb-4 text-black">
-        Happy Tails Services
-      </h1>
+    <div className="w-1/2  bg-white p-32">
+      <h1 className="text-5xl mb-10 text-black">Happy Tails Services</h1>
       <ul>
         {services.map((service) => (
-          <li key={service.name} className="mb-2">
+          <li key={service.name} className="mb-5">
             <Link
               href={service.href}
-              className="text-lg text-blue-500 hover:text-blue-700"
+              className="text-4xl font-medium text-blue-500 hover:text-blue-700"
             >
               {service.name}
             </Link>

@@ -1,8 +1,4 @@
 import { Preload, ScrollControls, Scroll } from "@react-three/drei";
-// import {
-//   ScrollControls,
-//   Scroll,
-// } from "../../components/ScrollControls/ScrollControls";
 import GalleryPages from "./GalleryPages/GalleryPages";
 
 const Gallery = () => {

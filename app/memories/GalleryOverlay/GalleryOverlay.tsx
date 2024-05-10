@@ -14,7 +14,7 @@ const GalleryOverlay = () => {
           Follow us
         </Link>
         <div
-          className={`absolute top-0 left-10 text-xl text-black mt-header-PlusPadding font-medium`}
+          className={`absolute top-0 left-10 text-lg text-black mt-header-PlusPadding font-medium`}
         >
           Like your dogs image on Instagram to be featured here!
         </div>
