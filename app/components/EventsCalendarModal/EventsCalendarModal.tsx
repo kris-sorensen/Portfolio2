@@ -25,7 +25,7 @@ function EventsCalendarModal() {
     }, animationTime);
   };
 
-  const changeMonth = (delta) => {
+  const changeMonth = (delta: number) => {
     setCurrentDate((prev) => {
       const newDate = new Date(prev.getFullYear(), prev.getMonth() + delta, 1);
       return newDate;
@@ -51,10 +51,10 @@ function EventsCalendarModal() {
         </div>
         <div className="flex-1 overflow-y-auto p-2 text-center">
           {events.length > 0 ? (
-            events.map((event) => (
-              <div key={event.date}>
+            events.map((event, index: number) => (
+              <div key={event.date + index}>
                 <h1>{event.title}</h1>
-                <h2 className="font-bold">{event.date}</h2>
+                <h2 className="font-bold">{`${event.date} - ${event.time}`}</h2>
               </div>
             ))
           ) : (

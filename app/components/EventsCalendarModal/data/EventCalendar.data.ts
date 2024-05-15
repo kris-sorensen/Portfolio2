@@ -1,4 +1,13 @@
-export const eventData = {
+export interface IEvent {
+  title: string;
+  date: string;
+  time: string;
+}
+export interface IEventData {
+  [key: string]: IEvent[];
+}
+
+export const eventData: IEventData = {
   "January 2024": [
     { title: "New Year Celebration", date: "Jan 01", time: "10am-12pm" },
     { title: "Pet Appreciation Night", date: "Jan 12", time: "5-7pm" },
