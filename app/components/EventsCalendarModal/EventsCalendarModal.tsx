@@ -16,7 +16,6 @@ const animationTime = 300;
 
 function EventsCalendarModal() {
   const router = useRouter();
-
   const [isOpen, setIsOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -40,7 +39,7 @@ function EventsCalendarModal() {
 
   const renderCalendar = () => {
     console.log(`render cal`);
-    const month = currentDate.toLocaleString("default", { month: "long" });
+    const month = currentDate.toLocaleString("en-US", { month: "long" });
     const year = currentDate.getFullYear();
     const currentKey = `${month} ${year}`;
 
@@ -48,15 +47,16 @@ function EventsCalendarModal() {
 
     return (
       <div className="flex w-full h-full py-8">
-        <div className="flex-2 bg-black mr-5">
+        <div className="flex-2 bg-white mr-5">
           <Image
-            src={`/path/to/images/${month}-${year}.png`}
+            // src={`/path/to/images/${month}-${year}.png`}
+            src={`/images/calendar/1.png`}
             alt={`${month} ${year}`}
             width={800}
             height={500}
           />
         </div>
-        <div className="flex-1 overflow-y-auto p-2 text-center">
+        <div className="flex-1 overflow-y-auto p-6 text-center">
           {events.length > 0 ? (
             events.map((event, index: number) => (
               <div key={event.date + index}>
@@ -80,16 +80,20 @@ function EventsCalendarModal() {
       } ease-out duration-300 z-20`}
     >
       <div
-        className="bg-white rounded-lg absolute w-5/6 h-5/6 p-20 text-black flex flex-col items-center"
+        className="bg-white rounded-lg absolute w-5/6 h-4/5 p-16 text-black flex flex-col items-center"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4">
-          <button onClick={() => changeMonth(-1)}>←</button>
-          <span className="mx-4">
-            {currentDate.toLocaleString("default", { month: "long" })}{" "}
+          <button className="text-2xl" onClick={() => changeMonth(-1)}>
+            ←
+          </button>
+          <span className="mx-4 text-2xl">
+            {currentDate.toLocaleString("en-US", { month: "long" })}{" "}
             {currentDate.getFullYear()}
           </span>
-          <button onClick={() => changeMonth(1)}>→</button>
+          <button className="text-2xl" onClick={() => changeMonth(1)}>
+            →
+          </button>
         </div>
         {renderCalendar()}
       </div>
