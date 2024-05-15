@@ -7,6 +7,12 @@ import { eventData } from "./data/EventCalendar.data";
 
 const animationTime = 300;
 // todo: instead of setTimeout, use transitionend event listener
+// todo: animate
+// todo: stylize
+// todo: add cal images
+// todo: if no cal images exist. say no events scheduled
+// todo: for mobile and smaller screens only render list
+// todo: make cal images dynamic sizing
 
 function EventsCalendarModal() {
   const router = useRouter();
@@ -33,6 +39,7 @@ function EventsCalendarModal() {
   };
 
   const renderCalendar = () => {
+    console.log(`render cal`);
     const month = currentDate.toLocaleString("default", { month: "long" });
     const year = currentDate.getFullYear();
     const currentKey = `${month} ${year}`;

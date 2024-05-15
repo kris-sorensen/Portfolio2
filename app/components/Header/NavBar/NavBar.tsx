@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import ServicesLinks from "./ServicesLinks";
+import MoreInfoLinks from "./MoreInfoLinks";
 
 const NavBar = () => {
   return (
@@ -8,9 +9,7 @@ const NavBar = () => {
       <Link href="/" className="text-blue-500 hover:text-blue-700">
         Home
       </Link>
-      <Link className="text-blue-500 hover:text-blue-700" href="/about">
-        More Info
-      </Link>
+      <MoreInfoLinks />
       <Link className="text-blue-500 hover:text-blue-700" href="/contact-us">
         Contact Us
       </Link>
