@@ -15,22 +15,26 @@ const Gallery = () => {
           <GalleryPages />
         </Scroll>
         <Scroll html>
-          <h1 className="absolute top-[20vh] left-[-75vw] text-[14rem]">
+          <h1 className="absolute top-[20vh] left-[-75vw] text-[14rem] font-bold">
             Tails
           </h1>
-          <h1 className="absolute top-[20vh] left-[25vw] text-[14rem]">We</h1>
-          <h1 className="absolute top-[20vh] left-[125vw] text-[14rem]">
+          <h1 className="absolute top-[20vh] left-[25vw] text-[14rem] font-bold">
+            We
+          </h1>
+          <h1 className="absolute top-[20vh] left-[125vw] text-[14rem] font-bold">
             Love
           </h1>
-          <h1 className="absolute top-[20vh] left-[225vw] text-[14rem]">
+          <h1 className="absolute top-[20vh] left-[225vw] text-[14rem] font-bold">
             Dogs
           </h1>
-          <h1 className="absolute top-[20vh] left-[325vw] text-[14rem]">At</h1>
+          <h1 className="absolute top-[20vh] left-[325vw] text-[14rem] font-bold">
+            At
+          </h1>
 
-          <h1 className="absolute top-[20vh] left-[425vw] text-[14rem]">
+          <h1 className="absolute top-[20vh] left-[425vw] text-[14rem] font-bold">
             Happy
           </h1>
-          <h1 className="absolute top-[20vh] left-[525vw] text-[14rem]">
+          <h1 className="absolute top-[20vh] left-[525vw] text-[14rem] font-bold">
             Tails
           </h1>
           {/* <h1 className="absolute top-[20vh] left-[625vw] text-[14rem]">Of</h1>

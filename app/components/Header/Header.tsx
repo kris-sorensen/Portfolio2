@@ -14,7 +14,7 @@ const Header = () => {
       <Logo />
       <div className="flex flex-col items-center">
         <NavBar />
-        <h1 className="text-6xl font-bold text-gray-700">Join the Fun!</h1>
+        <h1 className="text-6xl font-light  text-gray-700">Join the Fun!</h1>
       </div>
       <PortalBtn />
     </div>

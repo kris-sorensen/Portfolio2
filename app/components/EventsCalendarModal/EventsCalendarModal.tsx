@@ -60,8 +60,10 @@ function EventsCalendarModal() {
           {events.length > 0 ? (
             events.map((event, index: number) => (
               <div key={event.date + index}>
-                <h1>{event.title}</h1>
+                <h1 className="text-4xl">{event.title}</h1>
                 <h2 className="font-bold">{`${event.date} - ${event.time}`}</h2>
+                <br />
+                <br />
               </div>
             ))
           ) : (

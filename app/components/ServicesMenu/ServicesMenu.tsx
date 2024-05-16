@@ -14,7 +14,9 @@ const services = [
 const ServicesMenu = () => {
   return (
     <div className="w-1/2  bg-white p-32">
-      <h1 className="text-5xl mb-10 text-black">Happy Tails Services</h1>
+      <h1 className="text-7xl mb-10 font-bold text-black">
+        Happy Tails Services
+      </h1>
       <ul>
         {services.map((service) => (
           <li key={service.name} className="mb-5">

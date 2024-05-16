@@ -6,13 +6,14 @@ import localFont from "next/font/local";
 // import GoogleAnalyticsScript from "./GoogleAnalyticsScript";
 
 // * Google fonts
-import { Roboto } from "next/font/google";
-const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
+// import { Roboto } from "next/font/google";
+// const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
 
-const crocante = localFont({
-  src: "../public/fonts/Crocante.woff2",
-  variable: "--font-crocante",
+const orangefont = localFont({
+  src: "../public/fonts/BDOrange.woff2",
+  variable: "--font-orangefont",
 });
+
 // * every page needs proper metadata
 export const metadata: Metadata = {
   title: "Happy Tails Dog Boarding and Dog Daycare",
@@ -32,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme={"winter"}>
       {/* <GoogleAnalyticsScript/> */}
-      <body className={crocante.variable}>
+      <body className={orangefont.variable}>
         <Header />
         <main className="">{children}</main>
       </body>

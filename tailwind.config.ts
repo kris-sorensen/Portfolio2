@@ -19,7 +19,7 @@ const config: Config = {
         "custom-offWhite": "#efefef",
       },
       fontFamily: {
-        crocante: "var(--font-crocante)",
+        orangefont: "var(--font-orangefont)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
