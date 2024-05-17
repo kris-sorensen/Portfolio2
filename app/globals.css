@@ -28,7 +28,8 @@ body {
   };
   h1{
     @apply text-5xl mb-3 font-orange
-  }
+  };
+ 
 }
 
 
