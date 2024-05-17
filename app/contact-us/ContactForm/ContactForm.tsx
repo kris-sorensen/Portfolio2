@@ -1,23 +1,23 @@
-"use client";
-import { useState } from "react";
-import SelectInput from "./SelectInput/SelectInput";
-import FormField from "./FormField/FormField";
-import TextInput from "./TextInput/TextInput";
-import styles from "./ContactForm/contactForm.module.css";
-import Textarea from "./TextArea/TextArea";
-import Checkbox from "./Checkbox/Checkbox";
-import Button from "./Button/Button";
+import { useEffect, useState } from "react";
+import SelectInput from "../SelectInput/SelectInput";
+import FormField from "../FormField/FormField";
+import TextInput from "../TextInput/TextInput";
+import styles from "./contactForm.module.css";
+import Textarea from "../TextArea/TextArea";
+import Checkbox from "../Checkbox/Checkbox";
+import Button from "../Button/Button";
 
 import { toast } from "react-hot-toast";
-import { RequestBody } from "../api/contact-form";
+import { RequestBody } from "../../api/contact-form";
+
 import {
   customTimelineEntryForBug,
   customTimelineEntryForDemo,
   customTimelineEntryForFeatureRequest,
   customTimelineEntryForQuestion,
   customTimelineEntryForSecurityReport,
-} from "./CustomTimelineEntry/custom-timeline-entry";
-import { getIssue } from "./Issue/issue";
+} from "../CustomTimelineEntry/custom-timeline-entry";
+import { getIssue } from "../Issue/issue";
 
 const formOptions = [
   {
