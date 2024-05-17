@@ -36,13 +36,19 @@ const ServicesLinks = () => {
             href="/services/dog-boarding"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
-            Boarding
+            Dog Boarding
           </Link>
           <Link
             href="/services/dog-daycare"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
-            Daycare
+            Dog Daycare
+          </Link>
+          <Link
+            href="/services/cat-boarding"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            Cat Boarding
           </Link>
           <Link
             href="/services/grooming"
@@ -57,7 +63,7 @@ const ServicesLinks = () => {
             Training
           </Link>
           <Link
-            href="/services/other-services"
+            href="/services/memberships"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
             Memberships

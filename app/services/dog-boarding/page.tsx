@@ -4,39 +4,49 @@ function Boarding() {
   return (
     <div>
       <h1>Dog Boarding</h1>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed vitae,
-      similique veritatis nobis molestiae nemo porro qui magni error est rem
-      cumque, harum minus totam culpa, accusamus ipsa praesentium quas? Eius
       <br />
+      <p>
+        At Happy Tails Dog Boarding, we provide your beloved pet with a safe and
+        loving environment while you are away. Our facility in Lehi, Utah,
+        offers spacious, clean, and monitored boarding options to ensure the
+        comfort and well-being of your dog.
+      </p>
       <br />
-      commodi ad quaerat illo beatae libero autem sint deserunt aliquam,
-      repellendus maiores inventore distinctio doloribus totam quisquam ullam.
-      Laudantium vitae dignissimos error cupiditate quia magnam consequatur
-      praesentium, vero amet! Ea ab, tempore ipsam nesciunt sint ratione quo
+      <p>
+        Our experienced staff are passionate about pets and provide
+        round-the-clock care. We offer a variety of boarding services that
+        include regular exercise sessions, socialization opportunities with
+        other dogs, and individual care plans tailored to meet the specific
+        needs of your pet.
+      </p>
       <br />
+      <p>
+        We understand the importance of your dog's health and happiness. That's
+        why our boarding includes outdoor playtime, comfortable sleeping areas,
+        and a balanced diet. Our facility is equipped with the latest in pet
+        care technology, including climate-controlled areas and comprehensive
+        security systems.
+      </p>
       <br />
-      perspiciatis cum animi alias facere dicta porro atque quibusdam id.
-      Obcaecati enim dolore tempora odit perspiciatis delectus iusto consectetur
-      temporibus facilis voluptatem.
+      <p>
+        Transparency is key to our service. At Happy Tails, you can check in on
+        your pet anytime via our secure pet cams. These are accessible online
+        and are designed to give you peace of mind while you're apart from your
+        furry friend.
+      </p>
       <br />
+      <p>
+        Choosing our dog boarding service means your pet will be in the hands of
+        trusted professionals who treat every dog as if it were their own.
+        Whether it’s just for the weekend, or longer, we are committed to
+        providing the highest level of dog care.
+      </p>
       <br />
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nam at
-      quas ipsam quisquam sit, dolore amet minima commodi nemo dolorum ad odit
-      et, itaque voluptas error facilis? Obcaecati, doloribus!
-      <br />
-      <br />
-      Cupiditate incidunt harum a modi ea quod esse omnis repellendus
-      consequuntur labore voluptas corrupti, expedita accusantium, ipsa veniam
-      eveniet sunt vero totam eligendi adipisci. Veritatis cum eligendi
-      quibusdam culpa nisi. Aspernatur ratione doloremque totam nostrum
-      molestias amet fugit cum laudantium blanditiis earum, suscipit nihil omnis
-      voluptate maiores porro at officiis sint similique sequi nobis quisquam
-      excepturi eos? Esse, beatae sapiente! Sunt, neque. Cumque voluptates
-      commodi nulla aperiam, doloribus sit consequatur. Repellendus, ullam.
-      <br />
-      <br />
-      Cupiditate nostrum architecto explicabo consequuntur, provident adipisci
-      veniam recusandae neque enim! Facere ex modi neque nulla magnam vel.
+      <p>
+        Ready to book a stay for your dog or need more information? Contact us
+        today. We're excited to meet you and your pet and show you everything
+        Happy Tails has to offer!
+      </p>
     </div>
   );
 }

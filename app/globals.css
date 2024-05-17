@@ -23,8 +23,11 @@ body {
 
 
 @layer base {
+  p{
+    @apply font-citrine
+  };
   h1{
-    @apply font-extrabold text-2xl mb-3 font-orangefont
+    @apply text-5xl mb-3 font-orange
   }
 }
 

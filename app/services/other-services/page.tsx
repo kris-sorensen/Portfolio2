@@ -4,39 +4,43 @@ const OtherServices = () => {
   return (
     <div>
       <h1>Other Services</h1>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed vitae,
-      similique veritatis nobis molestiae nemo porro qui magni error est rem
-      cumque, harum minus totam culpa, accusamus ipsa praesentium quas? Eius
       <br />
+      <p>
+        At Happy Tails, we go beyond the basics of dog boarding and grooming to
+        offer you a variety of specialized services designed to meet the unique
+        needs of your pet. Whether it's advanced training sessions or fun pet
+        photography, we have something special for every furry friend.
+      </p>
       <br />
-      commodi ad quaerat illo beatae libero autem sint deserunt aliquam,
-      repellendus maiores inventore distinctio doloribus totam quisquam ullam.
-      Laudantium vitae dignissimos error cupiditate quia magnam consequatur
-      praesentium, vero amet! Ea ab, tempore ipsam nesciunt sint ratione quo
+      <p>
+        <strong>Pet Training:</strong> Our professional trainers use positive
+        reinforcement techniques to help your dog learn essential obedience
+        skills, good manners, and even a few fun tricks. Training sessions are
+        available for dogs of all ages and skill levels, ensuring a well-behaved
+        and happy pet.
+      </p>
       <br />
+      <p>
+        <strong>Pet Photography:</strong> Capture your pet's best moments with
+        our pet photography service. Our experienced photographers know just how
+        to bring out your pet’s personality in every shot. Perfect for creating
+        lasting memories of your beloved companion.
+      </p>
       <br />
-      perspiciatis cum animi alias facere dicta porro atque quibusdam id.
-      Obcaecati enim dolore tempora odit perspiciatis delectus iusto consectetur
-      temporibus facilis voluptatem.
+      <p>
+        <strong>Specialized Pet Care:</strong> For pets with special needs,
+        whether dietary, health, or behavior, our team offers personalized care
+        plans. We work closely with you and your vet to ensure your pet receives
+        the best possible care while staying with us.
+      </p>
       <br />
-      <br />
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nam at
-      quas ipsam quisquam sit, dolore amet minima commodi nemo dolorum ad odit
-      et, itaque voluptas error facilis? Obcaecati, doloribus!
-      <br />
-      <br />
-      Cupiditate incidunt harum a modi ea quod esse omnis repellendus
-      consequuntur labore voluptas corrupti, expedita accusantium, ipsa veniam
-      eveniet sunt vero totam eligendi adipisci. Veritatis cum eligendi
-      quibusdam culpa nisi. Aspernatur ratione doloremque totam nostrum
-      molestias amet fugit cum laudantium blanditiis earum, suscipit nihil omnis
-      voluptate maiores porro at officiis sint similique sequi nobis quisquam
-      excepturi eos? Esse, beatae sapiente! Sunt, neque. Cumque voluptates
-      commodi nulla aperiam, doloribus sit consequatur. Repellendus, ullam.
-      <br />
-      <br />
-      Cupiditate nostrum architecto explicabo consequuntur, provident adipisci
-      veniam recusandae neque enim! Facere ex modi neque nulla magnam vel.
+      <p>
+        Each of these services is designed to enhance your pet's quality of life
+        and provide you with peace of mind. Learn more about these offerings by
+        contacting us or visiting our facility. We're excited to offer these
+        additional services to make your pet’s experience at Happy Tails as
+        enjoyable and enriching as possible.
+      </p>
     </div>
   );
 };

@@ -9,9 +9,14 @@ import localFont from "next/font/local";
 // import { Roboto } from "next/font/google";
 // const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
 
-const orangefont = localFont({
+const orange = localFont({
   src: "../public/fonts/BDOrange.woff2",
-  variable: "--font-orangefont",
+  variable: "--font-orange",
+});
+
+const citrine = localFont({
+  src: "../public/fonts/citrine.woff2",
+  variable: "--font-citrine",
 });
 
 // * every page needs proper metadata
@@ -33,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme={"winter"}>
       {/* <GoogleAnalyticsScript/> */}
-      <body className={orangefont.variable}>
+      <body className={`${orange.variable} ${citrine.variable}`}>
         <Header />
         <main className="">{children}</main>
       </body>

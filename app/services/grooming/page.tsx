@@ -4,39 +4,45 @@ function Grooming() {
   return (
     <div>
       <h1>Grooming</h1>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed vitae,
-      similique veritatis nobis molestiae nemo porro qui magni error est rem
-      cumque, harum minus totam culpa, accusamus ipsa praesentium quas? Eius
       <br />
+      <p>
+        Discover the difference with Happy Tails&apos; professional dog grooming
+        services. Our experienced groomers are dedicated to ensuring that your
+        pet not only looks good but feels good too. We use only the highest
+        quality products and techniques to care for your dog&apos;s fur, nails,
+        and skin.
+      </p>
       <br />
-      commodi ad quaerat illo beatae libero autem sint deserunt aliquam,
-      repellendus maiores inventore distinctio doloribus totam quisquam ullam.
-      Laudantium vitae dignissimos error cupiditate quia magnam consequatur
-      praesentium, vero amet! Ea ab, tempore ipsam nesciunt sint ratione quo
+      <p>
+        Our full-service grooming salon offers a range of services from basic
+        baths and trims to more detailed grooming including ear cleaning, nail
+        trimming, and teeth brushing. Whether it&apos;s a simple shampoo or a
+        complete grooming session, we tailor our services to meet the specific
+        needs of your pet.
+      </p>
       <br />
+      <p>
+        At Happy Tails, we understand that some dogs might feel anxious about
+        grooming. We pride ourselves on our gentle approach and take the time to
+        ensure your dog is comfortable throughout their grooming session. Our
+        groomers are trained to handle a variety of dog temperaments and breeds
+        with care and professionalism.
+      </p>
       <br />
-      perspiciatis cum animi alias facere dicta porro atque quibusdam id.
-      Obcaecati enim dolore tempora odit perspiciatis delectus iusto consectetur
-      temporibus facilis voluptatem.
+      <p>
+        Regular grooming is essential for your dog&apos;s health, helping to
+        prevent skin issues and matting, and keeping their coat in top
+        condition. Our staff can also provide advice on how to maintain your
+        dog&apos;s coat between visits, ensuring they stay looking their best
+        all year round.
+      </p>
       <br />
-      <br />
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nam at
-      quas ipsam quisquam sit, dolore amet minima commodi nemo dolorum ad odit
-      et, itaque voluptas error facilis? Obcaecati, doloribus!
-      <br />
-      <br />
-      Cupiditate incidunt harum a modi ea quod esse omnis repellendus
-      consequuntur labore voluptas corrupti, expedita accusantium, ipsa veniam
-      eveniet sunt vero totam eligendi adipisci. Veritatis cum eligendi
-      quibusdam culpa nisi. Aspernatur ratione doloremque totam nostrum
-      molestias amet fugit cum laudantium blanditiis earum, suscipit nihil omnis
-      voluptate maiores porro at officiis sint similique sequi nobis quisquam
-      excepturi eos? Esse, beatae sapiente! Sunt, neque. Cumque voluptates
-      commodi nulla aperiam, doloribus sit consequatur. Repellendus, ullam.
-      <br />
-      <br />
-      Cupiditate nostrum architecto explicabo consequuntur, provident adipisci
-      veniam recusandae neque enim! Facere ex modi neque nulla magnam vel.
+      <p>
+        Book an appointment today to experience our expert grooming services. At
+        Happy Tails, we&apos;re committed to providing your beloved pet with a
+        safe, stress-free grooming experience that leaves them looking great and
+        feeling even better!
+      </p>
     </div>
   );
 }

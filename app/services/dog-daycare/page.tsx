@@ -4,39 +4,46 @@ function Daycare() {
   return (
     <div>
       <h1>Doggy Daycare</h1>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed vitae,
-      similique veritatis nobis molestiae nemo porro qui magni error est rem
-      cumque, harum minus totam culpa, accusamus ipsa praesentium quas? Eius
       <br />
+      <p>
+        Welcome to our Doggy Daycare, the perfect place for your furry friend to
+        play, learn, and grow while you're busy during the day. Our
+        state-of-the-art facility provides a safe and stimulating environment
+        for dogs of all sizes and breeds.
+      </p>
       <br />
-      commodi ad quaerat illo beatae libero autem sint deserunt aliquam,
-      repellendus maiores inventore distinctio doloribus totam quisquam ullam.
-      Laudantium vitae dignissimos error cupiditate quia magnam consequatur
-      praesentium, vero amet! Ea ab, tempore ipsam nesciunt sint ratione quo
+      <p>
+        Our professional staff is passionate about pets and dedicated to
+        providing the best possible care. We offer a variety of activities
+        designed to keep your dog active and engaged, including group play
+        sessions, individual exercise times, and skill training.
+      </p>
       <br />
+      <p>
+        The health and safety of your pet is our top priority. That’s why our
+        daycare includes regular health checks, a balanced schedule that mixes
+        play and rest, and a clean, secure area that's monitored at all times.
+      </p>
       <br />
-      perspiciatis cum animi alias facere dicta porro atque quibusdam id.
-      Obcaecati enim dolore tempora odit perspiciatis delectus iusto consectetur
-      temporibus facilis voluptatem.
+      <p>
+        We also provide socialization opportunities that help your dog learn how
+        to interact with other dogs in a safe and controlled way. This is
+        essential for maintaining a well-behaved and socially adept pet.
+      </p>
       <br />
+      <p>
+        At the end of each day, you’ll receive a report card detailing your
+        dog’s activities, behavior, and any notable interactions or
+        achievements. We believe in transparent communication to ensure you are
+        informed and confident in the care we provide.
+      </p>
       <br />
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nam at
-      quas ipsam quisquam sit, dolore amet minima commodi nemo dolorum ad odit
-      et, itaque voluptas error facilis? Obcaecati, doloribus!
-      <br />
-      <br />
-      Cupiditate incidunt harum a modi ea quod esse omnis repellendus
-      consequuntur labore voluptas corrupti, expedita accusantium, ipsa veniam
-      eveniet sunt vero totam eligendi adipisci. Veritatis cum eligendi
-      quibusdam culpa nisi. Aspernatur ratione doloremque totam nostrum
-      molestias amet fugit cum laudantium blanditiis earum, suscipit nihil omnis
-      voluptate maiores porro at officiis sint similique sequi nobis quisquam
-      excepturi eos? Esse, beatae sapiente! Sunt, neque. Cumque voluptates
-      commodi nulla aperiam, doloribus sit consequatur. Repellendus, ullam.
-      <br />
-      <br />
-      Cupiditate nostrum architecto explicabo consequuntur, provident adipisci
-      veniam recusandae neque enim! Facere ex modi neque nulla magnam vel.
+      <p>
+        Whether it’s just for a day or regular weekly care, our Doggy Daycare is
+        the ideal solution for busy pet owners who want the best for their dogs.
+        Contact us today to schedule a visit or to learn more about our
+        services. We look forward to meeting you and your canine companion!
+      </p>
     </div>
   );
 }
