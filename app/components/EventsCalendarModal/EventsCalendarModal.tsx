@@ -82,9 +82,17 @@ function EventsCalendarModal() {
       } ease-out duration-300 z-20`}
     >
       <div
-        className="bg-white rounded-lg absolute w-5/6 h-4/5 p-16 text-black flex flex-col items-center"
+        className="bg-white rounded-lg absolute w-5/6 h-4/5 p-16 text-black flex flex-col items-center shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
+        <div className="absolute top-2 right-5">
+          <button
+            className="text-6xl text-gray-800 hover:text-gray-600 pr-1"
+            onClick={closeModal}
+          >
+            &times; {/* This represents the 'X' to close modal */}
+          </button>
+        </div>
         <div className="mb-4">
           <button className="text-2xl" onClick={() => changeMonth(-1)}>
             ←
