@@ -18,6 +18,7 @@ body {
   background: rgb(var(--background-rgb));
   color: rgb(var(--foreground-rgb));
   overscroll-behavior-y: none;
+  
 }
 
 
@@ -29,7 +30,12 @@ body {
   h1{
     @apply text-5xl mb-3 font-orange
   };
- 
+  /* span{
+    @apply font-citrine
+  };
+  a{
+    @apply font-citrine
+  } */
 }
 
 

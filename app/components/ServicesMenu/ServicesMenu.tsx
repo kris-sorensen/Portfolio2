@@ -21,7 +21,7 @@ const ServicesMenu = () => {
         {services.map((service) => (
           <li key={service.name} className="mb-5">
             <Link href={service.href} className="">
-              <p className="text-4xl font-medium text-blue-500 hover:text-blue-700">
+              <p className="text-3xl font-medium text-blue-500 hover:text-blue-700">
                 <strong>{service.name}</strong>
               </p>
             </Link>

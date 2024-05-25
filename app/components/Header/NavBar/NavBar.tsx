@@ -5,12 +5,15 @@ import MoreInfoLinks from "./MoreInfoLinks";
 
 const NavBar = () => {
   return (
-    <div className="space-x-5 mb-5">
+    <div className="flex-col lg:flex lg:flex-row lg:items-center lg:justify-between lg:space-x-3 mb-5">
       <Link href="/" className="text-blue-500 hover:text-blue-700">
         Home
       </Link>
       <MoreInfoLinks />
-      <Link className="text-blue-500 hover:text-blue-700" href="/contact-us">
+      <Link
+        className="text-blue-500 hover:text-blue-700 whitespace-nowrap"
+        href="/contact-us"
+      >
         Contact Us
       </Link>
       <ServicesLinks />

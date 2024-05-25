@@ -23,7 +23,7 @@ const MoreInfoLinks = () => {
     >
       <Link
         href="/more-info"
-        className="cursor-pointer text-blue-500 hover:text-blue-700"
+        className="cursor-pointer text-blue-500 hover:text-blue-700 whitespace-nowrap"
       >
         More Info
       </Link>
