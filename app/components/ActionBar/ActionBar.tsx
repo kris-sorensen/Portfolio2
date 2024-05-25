@@ -20,7 +20,7 @@ function ActionBar() {
             <MdPermDeviceInformation className="text-xl" color="#6861d5" />
             <div>
               <h2 className="text-sm font-medium">First Time</h2>
-              <p className="text-xs">More Info</p>
+              <p className="text-xs">Help</p>
             </div>
           </Link>
           <Link href="/location" className="flex items-center space-x-3">

@@ -13,6 +13,7 @@ const animationTime = 300;
 // todo: if no cal images exist. say no events scheduled
 // todo: for mobile and smaller screens only render list
 // todo: make cal images dynamic sizing
+// todo: info btn that shows details for each event
 
 function EventsCalendarModal() {
   const router = useRouter();
