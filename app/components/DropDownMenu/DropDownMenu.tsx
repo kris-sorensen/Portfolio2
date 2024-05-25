@@ -35,7 +35,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
         {label}
       </Link>
       <div
-        className={`absolute left-0 py-2 w-48 bg-white shadow-xl z-50 transition-opacity duration-700 ease-in-out ${
+        className={`absolute left-0 py-2 w-48 bg-white shadow-xl z-50 transition-opacity delay-200 duration-700 ease ${
           isDropdownOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
