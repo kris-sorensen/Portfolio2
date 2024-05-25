@@ -26,6 +26,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     <span
       onMouseEnter={openDropdown}
       onMouseLeave={closeDropdown}
+      onClick={closeDropdown}
       className="relative"
     >
       <Link
