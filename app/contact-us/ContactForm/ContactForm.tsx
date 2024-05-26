@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SelectInput from "../SelectInput/SelectInput";
 import FormField from "../FormField/FormField";
 import TextInput from "../TextInput/TextInput";
@@ -7,17 +7,17 @@ import Textarea from "../TextArea/TextArea";
 import Checkbox from "../Checkbox/Checkbox";
 import Button from "../Button/Button";
 
-import { toast } from "react-hot-toast";
-import { RequestBody } from "../../api/contact-form";
+// import { toast } from "react-hot-toast";
+// import { RequestBody } from "../../api/contact-form";
 
-import {
-  customTimelineEntryForBug,
-  customTimelineEntryForDemo,
-  customTimelineEntryForFeatureRequest,
-  customTimelineEntryForQuestion,
-  customTimelineEntryForSecurityReport,
-} from "../CustomTimelineEntry/custom-timeline-entry";
-import { getIssue } from "../Issue/issue";
+// import {
+//   customTimelineEntryForBug,
+//   customTimelineEntryForDemo,
+//   customTimelineEntryForFeatureRequest,
+//   customTimelineEntryForQuestion,
+//   customTimelineEntryForSecurityReport,
+// } from "../CustomTimelineEntry/custom-timeline-entry";
+// import { getIssue } from "../Issue/issue";
 
 const formOptions = [
   {
@@ -104,60 +104,60 @@ function ContactForm() {
     setIsProcessing(false);
   }
 
-  function getCustomTimelineEntry(): RequestBody["customeTimelineEntry"] {
-    if (!formType) {
-      throw new Error("form not set");
-    }
+  // function getCustomTimelineEntry(): RequestBody["customeTimelineEntry"] {
+  //   if (!formType) {
+  //     throw new Error("form not set");
+  //   }
 
-    switch (formType) {
-      case "bug":
-        return customTimelineEntryForBug(bugDescription);
-      case "feature":
-        return customTimelineEntryForFeatureRequest(featureRequest);
-      case "question":
-        return customTimelineEntryForQuestion(question);
-      case "security":
-        return customTimelineEntryForSecurityReport(securityIssue);
-      case "demo":
-        return customTimelineEntryForDemo(
-          demoMessage,
-          demoCurrentProviderOptions.find(
-            (o) => o.value === demoCurrentProvider
-          )?.label || "",
-          demoExpectedVolumeOptions.find((o) => o.value === demoExpectedVolume)
-            ?.label || ""
-        );
-    }
-  }
+  //   switch (formType) {
+  //     case "bug":
+  //       return customTimelineEntryForBug(bugDescription);
+  //     case "feature":
+  //       return customTimelineEntryForFeatureRequest(featureRequest);
+  //     case "question":
+  //       return customTimelineEntryForQuestion(question);
+  //     case "security":
+  //       return customTimelineEntryForSecurityReport(securityIssue);
+  //     case "demo":
+  //       return customTimelineEntryForDemo(
+  //         demoMessage,
+  //         demoCurrentProviderOptions.find(
+  //           (o) => o.value === demoCurrentProvider
+  //         )?.label || "",
+  //         demoExpectedVolumeOptions.find((o) => o.value === demoExpectedVolume)
+  //           ?.label || ""
+  //       );
+  //   }
+  // }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setIsProcessing(true);
 
-    const body: RequestBody = {
-      customer: {
-        name,
-        email,
-      },
-      customeTimelineEntry: getCustomTimelineEntry(),
-      issue: getIssue(formType, bugIsBlocking),
-    };
+    // const body: RequestBody = {
+    //   customer: {
+    //     name,
+    //     email,
+    //   },
+    //   customeTimelineEntry: getCustomTimelineEntry(),
+    //   issue: getIssue(formType, bugIsBlocking),
+    // };
 
-    try {
-      const result = await fetch("/api/contact-form/", {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-      if (result.ok) {
-        clearForm();
-        toast.success("Success!");
-      } else {
-        toast.error("Oops");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Oops");
-    }
+    // try {
+    //   const result = await fetch("/api/contact-form/", {
+    //     method: "POST",
+    //     body: JSON.stringify(body),
+    //   });
+    //   if (result.ok) {
+    //     clearForm();
+    //     toast.success("Success!");
+    //   } else {
+    //     toast.error("Oops");
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   toast.error("Oops");
+    // }
 
     setIsProcessing(false);
   }

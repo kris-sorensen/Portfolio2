@@ -48,14 +48,14 @@ function Training() {
       <br />
       <p>
         Training sessions can be conducted in group settings or as private
-        lessons, depending on your preference and your dog's needs. All training
-        programs emphasize positive reinforcement and are designed to be fun and
-        rewarding for both you and your dog.
+        lessons, depending on your preference and your dog&apos;s needs. All
+        training programs emphasize positive reinforcement and are designed to
+        be fun and rewarding for both you and your dog.
       </p>
       <br />
       <p>
         Contact us today to learn more about our training services and how we
-        can help enhance your life with your dog. Whether you’re looking to
+        can help enhance your life with your dog. Whether you&apos;re looking to
         teach new skills, address behavior issues, or simply enjoy a more
         harmonious relationship with your pet, Happy Tails is here to help.
       </p>

@@ -8,8 +8,8 @@ const OtherServices = () => {
       <p>
         At Happy Tails, we go beyond the basics of dog boarding and grooming to
         offer you a variety of specialized services designed to meet the unique
-        needs of your pet. Whether it's advanced training sessions or fun pet
-        photography, we have something special for every furry friend.
+        needs of your pet. Whether it&apos;s advanced training sessions or fun
+        pet photography, we have something special for every furry friend.
       </p>
       <br />
       <p>
@@ -21,10 +21,10 @@ const OtherServices = () => {
       </p>
       <br />
       <p>
-        <strong>Pet Photography:</strong> Capture your pet's best moments with
-        our pet photography service. Our experienced photographers know just how
-        to bring out your pet’s personality in every shot. Perfect for creating
-        lasting memories of your beloved companion.
+        <strong>Pet Photography:</strong> Capture your pet&apos;s best moments
+        with our pet photography service. Our experienced photographers know
+        just how to bring out your pet’s personality in every shot. Perfect for
+        creating lasting memories of your beloved companion.
       </p>
       <br />
       <p>
@@ -35,11 +35,11 @@ const OtherServices = () => {
       </p>
       <br />
       <p>
-        Each of these services is designed to enhance your pet's quality of life
-        and provide you with peace of mind. Learn more about these offerings by
-        contacting us or visiting our facility. We're excited to offer these
-        additional services to make your pet’s experience at Happy Tails as
-        enjoyable and enriching as possible.
+        Each of these services is designed to enhance your pet&apos;s quality of
+        life and provide you with peace of mind. Learn more about these
+        offerings by contacting us or visiting our facility. We&apos;re excited
+        to offer these additional services to make your pet&apos;s experience at
+        Happy Tails as enjoyable and enriching as possible.
       </p>
     </div>
   );

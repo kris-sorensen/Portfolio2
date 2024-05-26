@@ -21,31 +21,31 @@ function Boarding() {
       </p>
       <br />
       <p>
-        We understand the importance of your dog's health and happiness. That's
-        why our boarding includes outdoor playtime, comfortable sleeping areas,
-        and a balanced diet. Our facility is equipped with the latest in pet
-        care technology, including climate-controlled areas and comprehensive
-        security systems.
+        We understand the importance of your dog&apos;s health and happiness.
+        That&apos;s why our boarding includes outdoor playtime, comfortable
+        sleeping areas, and a balanced diet. Our facility is equipped with the
+        latest in pet care technology, including climate-controlled areas and
+        comprehensive security systems.
       </p>
       <br />
       <p>
         Transparency is key to our service. At Happy Tails, you can check in on
         your pet anytime via our secure pet cams. These are accessible online
-        and are designed to give you peace of mind while you're apart from your
-        furry friend.
+        and are designed to give you peace of mind while you&apos;re apart from
+        your furry friend.
       </p>
       <br />
       <p>
         Choosing our dog boarding service means your pet will be in the hands of
-        trusted professionals who treat every dog as if it were their own.
-        Whether it’s just for the weekend, or longer, we are committed to
-        providing the highest level of dog care.
+        ted professionals who treat every dog as if it were their own. Whether
+        it&apos;s just for the weekend, or longer, we are committed to providing
+        the highest level of dog care.
       </p>
       <br />
       <p>
         Ready to book a stay for your dog or need more information? Contact us
-        today. We're excited to meet you and your pet and show you everything
-        Happy Tails has to offer!
+        today. We&apos;re excited to meet you and your pet and show you
+        everything Happy Tails has to offer!
       </p>
     </div>
   );

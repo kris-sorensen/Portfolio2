@@ -1,7 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import ServicesLinks from "./ServicesLinks";
-import MoreInfoLinks from "./MoreInfoLinks";
 import DropdownMenu from "../../DropDownMenu/DropDownMenu";
 
 const NavBar = () => {

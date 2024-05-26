@@ -7,7 +7,7 @@ function Daycare() {
       <br />
       <p>
         Welcome to our Doggy Daycare, the perfect place for your furry friend to
-        play, learn, and grow while you're busy during the day. Our
+        play, learn, and grow while you&apos;re busy during the day. Our
         state-of-the-art facility provides a safe and stimulating environment
         for dogs of all sizes and breeds.
       </p>
@@ -20,9 +20,10 @@ function Daycare() {
       </p>
       <br />
       <p>
-        The health and safety of your pet is our top priority. That’s why our
-        daycare includes regular health checks, a balanced schedule that mixes
-        play and rest, and a clean, secure area that's monitored at all times.
+        The health and safety of your pet is our top priority. That&apos;s why
+        our daycare includes regular health checks, a balanced schedule that
+        mixes play and rest, and a clean, secure area that&apos;s monitored at
+        all times.
       </p>
       <br />
       <p>
@@ -32,17 +33,17 @@ function Daycare() {
       </p>
       <br />
       <p>
-        At the end of each day, you’ll receive a report card detailing your
-        dog’s activities, behavior, and any notable interactions or
+        At the end of each day, you&apos;ll receive a report card detailing your
+        dog&apos;s activities, behavior, and any notable interactions or
         achievements. We believe in transparent communication to ensure you are
         informed and confident in the care we provide.
       </p>
       <br />
       <p>
-        Whether it’s just for a day or regular weekly care, our Doggy Daycare is
-        the ideal solution for busy pet owners who want the best for their dogs.
-        Contact us today to schedule a visit or to learn more about our
-        services. We look forward to meeting you and your canine companion!
+        Whether it&apos;s just for a day or regular weekly care, our Doggy
+        Daycare is the ideal solution for busy pet owners who want the best for
+        their dogs. Contact us today to schedule a visit or to learn more about
+        our services. We look forward to meeting you and your canine companion!
       </p>
     </div>
   );

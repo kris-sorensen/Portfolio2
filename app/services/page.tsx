@@ -9,9 +9,9 @@ function Services() {
       <p>
         At Happy Tails, we are dedicated to providing top-quality care for your
         beloved pets. Our comprehensive range of services ensures that all your
-        pet's needs are met under one roof, whether you're looking for a safe
-        place for your pet while you're away, grooming services, or training
-        programs.
+        pet&apos;s needs are met under one roof, whether you&apos;re looking for
+        a safe place for your pet while you&apos;re away, grooming services, or
+        training programs.
       </p>
       <br />
       <h2>
@@ -19,8 +19,8 @@ function Services() {
       </h2>
       <p>
         Our dog boarding services offer a home away from home for your dogs.
-        They'll enjoy spacious accommodations, regular exercise, and plenty of
-        playtime with our experienced staff.
+        They&apos;ll enjoy spacious accommodations, regular exercise, and plenty
+        of playtime with our experienced staff.
       </p>
       <br />
       <h2>

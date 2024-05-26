@@ -23,7 +23,7 @@ function CatBoarding() {
         We prioritize the health and safety of all our guests. The cat boarding
         area is separate from the dog areas to ensure a peaceful atmosphere. All
         enclosures are cleaned and sanitized daily, and fresh water and meals
-        are provided according to your pet's regular schedule.
+        are provided according to your pet&apos;s regular schedule.
       </p>
       <br />
       <p>In addition to basic care, we offer:</p>
@@ -50,8 +50,8 @@ function CatBoarding() {
       </p>
       <br />
       <p>
-        Book your cat's stay at Happy Tails Cat Boarding today and enjoy the
-        peace of mind knowing they are in good hands. Contact us for more
+        Book your cat&apos;s stay at Happy Tails Cat Boarding today and enjoy
+        the peace of mind knowing they are in good hands. Contact us for more
         information or to schedule a visit to our facility. We look forward to
         welcoming your cat to their home away from home!
       </p>
