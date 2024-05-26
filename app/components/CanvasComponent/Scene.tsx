@@ -2,8 +2,8 @@ import React, { Suspense } from "react";
 import * as three from "three";
 import { Plane } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import VideoShader from "./Video/VideoShader";
-import WelcomeText from "./WelcomeText";
+import VideoShader from "./Shaders/Video/VideoShaderMaterial";
+import WelcomeText from "./Shaders/WelcomeText/WelcomeText";
 
 const FullScreenPlane = () => {
   // * Make Plane full screen

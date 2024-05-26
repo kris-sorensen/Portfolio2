@@ -25,13 +25,13 @@ export default function GalleryImage(props: Props) {
     if (group.current) {
       group.current.position.z = THREE.MathUtils.damp(
         group.current.position.z,
-        Math.max(0, data.delta * 50),
+        Math.max(0, data.delta * 100),
         4,
         delta
       );
       group.current.position.z = THREE.MathUtils.damp(
         group.current.position.z,
-        Math.max(0, data.delta * 50),
+        Math.max(0, data.delta * 100),
         4,
         delta
       );
