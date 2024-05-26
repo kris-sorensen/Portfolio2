@@ -1,5 +1,4 @@
-import React, { Suspense } from "react";
-import * as three from "three";
+import React, { useEffect, useState } from "react";
 import { Plane } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import VideoShader from "./Shaders/Video/VideoShaderMaterial";
@@ -10,6 +9,7 @@ const FullScreenPlane = () => {
   const { viewport } = useThree();
   const scale = Math.max(viewport.width, viewport.height);
 
+  console.log(`render scene comp`);
   return (
     <group position={[0, 0, 0]}>
       <WelcomeText />

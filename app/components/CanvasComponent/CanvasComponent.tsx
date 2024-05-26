@@ -6,6 +6,7 @@ import { Canvas } from "@react-three/fiber";
 import Scene from "./Scene";
 
 const CanvasComponent = () => {
+  console.log(`render Canvas comp`);
   return (
     <div className="absolute top-[0px] left-0 w-full h-[calc(100vh-156px)] outline-none">
       <Canvas linear dpr={[1, 2]}>
