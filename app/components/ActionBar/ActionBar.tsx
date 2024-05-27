@@ -9,9 +9,13 @@ function ActionBar() {
         className="absolute bottom-[5%] left-1/2 transform -translate-x-1/2 bg-white bg-opacity-85 shadow-lg p-5 rounded-lg w-[650px] h-[100px] flex items-center justify-center space-x-8"
         style={{ maxWidth: "90%" }}
       >
-        <button className="bg-custom-red text-white py-3 px-8 rounded hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-bold">
+        <Link
+          href={{ pathname: "/", query: { schedule: true } }}
+          shallow
+          className="bg-custom-red text-white py-3 px-8 rounded hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-bold"
+        >
           Schedule
-        </button>
+        </Link>
         <div className="flex items-center space-x-8 text-black">
           <Link
             href="/more-info/first-time"
@@ -20,7 +24,7 @@ function ActionBar() {
             <MdPermDeviceInformation className="text-xl" color="#6861d5" />
             <div>
               <h2 className="text-sm font-medium">First Time</h2>
-              <p className="text-xs">Help</p>
+              <p className="text-xs">More Info</p>
             </div>
           </Link>
           <Link href="/location" className="flex items-center space-x-3">

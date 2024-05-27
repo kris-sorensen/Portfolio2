@@ -30,6 +30,9 @@ body {
   h1{
     @apply text-5xl mb-3 font-orange
   };
+  h3{
+    @apply text-2xl font-citrine
+  };
   /* span{
     @apply font-citrine
   };

@@ -16,6 +16,7 @@ const config: Config = {
         "custom-green": "#61d5a5",
         "custom-red": "#d56161",
         "custom-yellow": "#d5d161",
+        "custom-purple": "#6761CE",
         "custom-offWhite": "#efefef",
       },
       fontFamily: {

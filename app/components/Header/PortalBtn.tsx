@@ -1,11 +1,14 @@
 "use client";
+import {
+  PHONE_DISPLAY,
+  PHONE_NUMBER,
+} from "@/app/constants/contactInfo.constant";
+import { PORTAL_LINK } from "@/app/constants/links.constant";
 import Link from "next/link";
 import React, { useState } from "react";
 
 const PortalBtn = () => {
   const [showLinks, setShowLinks] = useState(false);
-  const phoneNumber = "8013645683"; // Convert '801-Dog-Love' to a valid numeric phone number
-  const phoneDisplay = "801-Dog-Love"; // Display version of the phone number
 
   const toggleLinks = () => {
     setShowLinks(!showLinks);
@@ -17,11 +20,11 @@ const PortalBtn = () => {
         {showLinks ? (
           <>
             {/* For calling */}
-            <Link href={`tel:${phoneNumber}`} className="mr-4">
+            <Link href={`tel:${PHONE_NUMBER}`} className="mr-4">
               Call Us
             </Link>
             {/* For sending text messages */}
-            <Link href={`sms:${phoneNumber}`}>Text Us</Link>
+            <Link href={`sms:${PHONE_NUMBER}`}>Text Us</Link>
             {/* Button to toggle back */}
             <button
               onClick={toggleLinks}
@@ -32,12 +35,12 @@ const PortalBtn = () => {
           </>
         ) : (
           <button onClick={toggleLinks}>
-            Call/Text <span className="text-sky-800">{phoneDisplay}</span>
+            Call/Text <span className="text-sky-800">{PHONE_DISPLAY}</span>
           </button>
         )}
       </span>
       <button className="bg-blue-300 hover:bg-blue-400 text-white font-bold py-3 px-5 rounded">
-        Pet Portal
+        <Link href={PORTAL_LINK}>Pet Portal</Link>
       </button>
     </div>
   );

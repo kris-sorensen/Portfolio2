@@ -56,11 +56,18 @@ const texts = [
     duration: 2,
   },
   {
-    content: "and tons of fun!",
-    position: new THREE.Vector3(0, 0.5, 0),
-    fontSize: 0.9,
+    content: "And Tons of",
+    position: new THREE.Vector3(0, 1, 0),
+    fontSize: 0.65,
     delay: 27,
-    duration: 6,
+    duration: 7,
+  },
+  {
+    content: "HAPPY TAILS!",
+    position: new THREE.Vector3(0, 0, 0),
+    fontSize: 0.9,
+    delay: 29,
+    duration: 5,
   },
 ];
 
@@ -80,14 +87,13 @@ const textStyle = {
 function WelcomeText() {
   //todo: make global state (preact signals) if want to only play once even if person returns to homepage. Or if need to time a arrow || direction animation after
   const [RenderWelcomeAnimation, setRenderWelcomeAnimation] = useState(true);
+  // * dismount Welcome animation component when animation finishes
   useEffect(() => {
     setTimeout(() => {
       setRenderWelcomeAnimation(false);
-      console.log(`timer up`);
-    }, 36000);
+      console.log(`Dismount Welcome Animation`);
+    }, 37000);
   }, []);
-
-  console.log(`render text comp`);
 
   return (
     <>

@@ -1,16 +1,35 @@
+import dynamic from "next/dynamic";
 import { Metadata } from "next";
-// import dynamic from "next/dynamic";
 import ActionBar from "./components/ActionBar/ActionBar";
 import CanvasComponent from "./components/CanvasComponent/CanvasComponent";
 import { HEADER_HEIGHT } from "./constants/style.constant";
-import EventsCalendarModal from "./components/EventsCalendarModal/EventsCalendarModal";
+// import EventsCalendarModal from "./components/EventsCalendarModal/EventsCalendarModal";
+// import ScheduleOptionsModal from "./components/ScheduleOptionsModal/ScheduleOptionsModal";
+const EventsCalendarModal = dynamic(
+  () => import("./components/EventsCalendarModal/EventsCalendarModal"),
+  {
+    // ssr: false, // * disable pre-rendering on server if needed
+    // loading: () => <Loader />,
+  }
+);
+const ScheduleOptionsModal = dynamic(
+  () => import("./components/ScheduleOptionsModal/ScheduleOptionsModal"),
+  {
+    // ssr: false, // * disable pre-rendering on server if needed
+    // loading: () => <Loader />,
+  }
+);
 
 interface Props {
-  searchParams: { eventsCalendar: string; displayMap: string };
+  searchParams: {
+    eventsCalendar: string;
+    displayMap: string;
+    schedule: string;
+  };
 }
 
 export default function Home({
-  searchParams: { eventsCalendar, displayMap },
+  searchParams: { eventsCalendar, displayMap, schedule },
 }: Props) {
   return (
     <div
@@ -20,6 +39,7 @@ export default function Home({
       <CanvasComponent />
       <ActionBar />
       {eventsCalendar === "true" && <EventsCalendarModal />}
+      {schedule === "true" && <ScheduleOptionsModal />}
     </div>
   );
 }
