@@ -32,15 +32,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en" data-theme={"winter"}>
       {/* <GoogleAnalyticsScript/> */}
       <body className={`${orange.variable} ${citrine.variable}`}>
         <Header />
-        <main className="">{children}</main>
+        <main className="">
+          {children}
+          {modal}
+        </main>
       </body>
     </html>
   );
