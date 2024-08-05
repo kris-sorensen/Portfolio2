@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Plane } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import VideoShader from "./Shaders/Video/VideoShaderMaterial";
 import WelcomeText from "./Shaders/WelcomeText/WelcomeText";
+import BasicShaderMaterial from "./Shaders/BasicShader/BasicShaderMaterial";
 
 const FullScreenPlane = () => {
   // * Make Plane full screen
@@ -14,9 +14,8 @@ const FullScreenPlane = () => {
     <group position={[0, 0, 0]}>
       <WelcomeText />
       <Plane args={[scale, scale]}>
-        <VideoShader />
+        <BasicShaderMaterial />
       </Plane>
-
       {/* Scale the plane to cover the entire viewport */}
     </group>
   );
