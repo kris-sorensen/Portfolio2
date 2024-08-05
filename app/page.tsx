@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import ActionBar from "./components/ActionBar/ActionBar";
 import CanvasComponent from "./components/CanvasComponent/CanvasComponent";
 import { HEADER_HEIGHT } from "./constants/style.constant";
+//todo: for test
 // import EventsCalendarModal from "./components/EventsCalendarModal/EventsCalendarModal";
 // import ScheduleOptionsModal from "./components/ScheduleOptionsModal/ScheduleOptionsModal";
 const EventsCalendarModal = dynamic(
