@@ -24,7 +24,7 @@ const CanvasComponent = () => {
         <OrbitControls makeDefault />
         <fog attach="fog" args={["lightpink", 60, 100]} />
         <Suspense fallback={null}>
-          <Scene position={[-4.5, -4, 0]} />
+          <Scene position={[0, -4, 0]} />
           <ambientLight intensity={0.5} />
           <Rig />
           <Environment preset="warehouse" />

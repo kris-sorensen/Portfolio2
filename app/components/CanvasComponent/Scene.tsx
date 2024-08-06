@@ -20,37 +20,50 @@ const FullScreenPlane = (props) => {
 
   console.log(`render scene comp`);
   return (
-    <group
-      ref={group}
-      {...props}
-      dispose={null}
-      onClick={() => console.log(group.current)}
-    >
-      <Reflector
-        resolution={1024}
-        receiveShadow
-        mirror={0}
-        mixBlur={1}
-        mixStrength={0.3}
-        depthScale={1}
-        minDepthThreshold={0.8}
-        maxDepthThreshold={1}
-        position={[0, 0, 8]}
-        scale={[2, 2, 1]}
-        rotation={[-Math.PI / 2, 0, Math.PI]}
-        args={[70, 70]}
+    <group>
+      <group
+        ref={group}
+        {...props}
+        dispose={null}
+        onClick={() => console.log(group.current)}
       >
-        {/* <meshPhysicalMaterial /> */}
-        {(Material, props) => (
-          <Material metalness={0.25} color="#eea6b1" roughness={1} {...props} />
-        )}
-      </Reflector>
+        <Reflector
+          resolution={1024}
+          receiveShadow
+          mirror={0}
+          mixBlur={1}
+          mixStrength={0.3}
+          depthScale={1}
+          minDepthThreshold={0.8}
+          maxDepthThreshold={1}
+          position={[0, 0, 8]}
+          scale={[2, 2, 1]}
+          rotation={[-Math.PI / 2, 0, Math.PI]}
+          args={[70, 70]}
+        >
+          {/* <meshPhysicalMaterial /> */}
+          {(Material, props) => (
+            <Material
+              metalness={0.25}
+              color="#eea6b1"
+              roughness={1}
+              {...props}
+            />
+          )}
+        </Reflector>
 
-      <mesh receiveShadow castShadow position={[0, 3, 0]} scale={[5, 5, 5]}>
-        <Box>
-          <meshStandardMaterial color="#ff33ff" />
-        </Box>
-      </mesh>
+        <mesh
+          receiveShadow
+          castShadow
+          position={[0, 1, 8]}
+          scale={[2, 2, 2]}
+          rotation={[0, Math.PI / 4, 0]}
+        >
+          <Box>
+            <meshStandardMaterial color="#ff33ff" />
+          </Box>
+        </mesh>
+      </group>
     </group>
   );
 };
