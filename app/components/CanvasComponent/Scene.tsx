@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Plane, Reflector } from "@react-three/drei";
+import { Box, Plane, Reflector } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import WelcomeText from "./Shaders/WelcomeText/WelcomeText";
 import BasicShaderMaterial from "./Shaders/BasicShader/BasicShaderMaterial";
@@ -26,8 +26,6 @@ const FullScreenPlane = (props) => {
       dispose={null}
       onClick={() => console.log(group.current)}
     >
-      {/* <Plane {...props} scale={20}> */}
-      {/* <ambientLight intensity={1} /> */}
       <Reflector
         resolution={1024}
         receiveShadow
@@ -48,8 +46,11 @@ const FullScreenPlane = (props) => {
         )}
       </Reflector>
 
-      {/* <meshBasicMaterial color="#b20e27" side={THREE.DoubleSide} /> */}
-      {/* </Plane> */}
+      <mesh receiveShadow castShadow position={[0, 3, 0]} scale={[5, 5, 5]}>
+        <Box>
+          <meshStandardMaterial color="#ff33ff" />
+        </Box>
+      </mesh>
     </group>
   );
 };
