@@ -45,7 +45,7 @@ const FullScreenPlane = (props) => {
           {(Material, props) => (
             <Material
               metalness={0.25}
-              color="#eea6b1"
+              color="#932CE6"
               roughness={1}
               {...props}
             />
@@ -60,7 +60,7 @@ const FullScreenPlane = (props) => {
           rotation={[0, Math.PI / 4, 0]}
         >
           <Box>
-            <meshStandardMaterial color="#ff33ff" />
+            <meshStandardMaterial color="#400d4a" />
           </Box>
         </mesh>
       </group>
