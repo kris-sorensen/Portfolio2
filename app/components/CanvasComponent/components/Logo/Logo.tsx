@@ -5,7 +5,7 @@ const Logo = () => {
   const text = useRef(null);
   const circleColor = "#00BFFF"; // Light blue color (can be adjusted based on the exact color from the image)
   return (
-    <group position={[0, 5, 0]} scale={[1.6, 1.6, 1.6]}>
+    <group position={[0, 3, 0]} scale={[1.6, 1.6, 1.6]}>
       <mesh>
         <Text
           ref={text}

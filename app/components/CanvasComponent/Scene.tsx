@@ -61,9 +61,9 @@ const FullScreenPlane = (props) => {
           scale={[2, 2, 2]}
           rotation={[0, Math.PI / 4, 0]}
         >
-          <Box>
+          {/* <Box>
             <meshStandardMaterial color="#d01154" />
-          </Box>
+          </Box> */}
         </mesh>
       </group>
     </group>
