@@ -5,8 +5,8 @@ const Logo = () => {
   const text = useRef(null);
   const circleColor = "#00BFFF"; // Light blue color (can be adjusted based on the exact color from the image)
   return (
-    <group position={[0, -5, 0]} scale={[1.6, 1.6, 1.6]}>
-      <mesh position={[0, 5, 0]}>
+    <group position={[0, 5, 0]} scale={[1.6, 1.6, 1.6]}>
+      <mesh>
         <Text
           ref={text}
           letterSpacing={0.005}
@@ -17,7 +17,7 @@ const Logo = () => {
           ZURCHERS
         </Text>
       </mesh>
-      <group position={[-0.3, 3.5, 0]} scale={[1, 1, 1]}>
+      <group position={[-0.3, -1.2, 0]} scale={[1, 1, 1]}>
         <group position={[-3, 0, 0]}>
           <Text
             ref={text}
