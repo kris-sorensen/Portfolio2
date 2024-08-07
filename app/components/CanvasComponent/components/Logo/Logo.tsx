@@ -1,37 +1,65 @@
 import React, { useRef } from "react";
-``;
 import { Text } from "@react-three/drei";
 
 const Logo = () => {
   const text = useRef(null);
+  const circleColor = "#00BFFF"; // Light blue color (can be adjusted based on the exact color from the image)
   return (
-    <group>
+    <group position={[0, -5, 0]} scale={[1.6, 1.6, 1.6]}>
       <mesh position={[0, 5, 0]}>
         <Text
           ref={text}
           letterSpacing={0.005}
-          fontSize={3}
+          fontSize={2.3}
           anchorX={"center"}
-          // color={!hovered ? "#ff0044" : "#ff0044"}
-          // font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
           font="./fonts/dessau-heavy-regular.woff"
         >
           ZURCHERS
         </Text>
       </mesh>
-      <mesh position={[0, 2, 0]}>
-        <Text
-          ref={text}
-          letterSpacing={0.005}
-          fontSize={0.5}
-          anchorX={"center"}
-          // color={!hovered ? "#ff0044" : "#ff0044"}
-          // font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
-          // font="./fonts/dessau-heavy-regular.woff"
-        >
-          PARTY COSTUMES WEDDING
-        </Text>
-      </mesh>
+      <group position={[-0.3, 3.5, 0]} scale={[1, 1, 1]}>
+        <group position={[-3, 0, 0]}>
+          <Text
+            ref={text}
+            letterSpacing={0.005}
+            fontSize={0.6}
+            anchorX={"center"}
+            font="./fonts/altehaasgroteskregular.woff"
+          >
+            Party
+          </Text>
+        </group>
+        <mesh position={[-1.95, 0, 0]}>
+          <circleGeometry args={[0.1, 16]} />
+          <meshBasicMaterial color={circleColor} />
+        </mesh>
+        <group position={[-0.15, 0, 0]}>
+          <Text
+            ref={text}
+            letterSpacing={0.005}
+            fontSize={0.6}
+            anchorX={"center"}
+            font="./fonts/altehaasgroteskregular.woff"
+          >
+            Costumes
+          </Text>
+        </group>
+        <mesh position={[1.65, 0, 0]}>
+          <circleGeometry args={[0.1, 16]} />
+          <meshBasicMaterial color={circleColor} />
+        </mesh>
+        <group position={[3.2, 0, 0]}>
+          <Text
+            ref={text}
+            letterSpacing={0.005}
+            fontSize={0.6}
+            anchorX={"center"}
+            font="./fonts/altehaasgroteskregular.woff"
+          >
+            Wedding
+          </Text>
+        </group>
+      </group>
     </group>
   );
 };
