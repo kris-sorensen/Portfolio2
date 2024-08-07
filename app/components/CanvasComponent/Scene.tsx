@@ -4,9 +4,10 @@ import { useThree } from "@react-three/fiber";
 import WelcomeText from "./Shaders/WelcomeText/WelcomeText";
 import BasicShaderMaterial from "./Shaders/BasicShader/BasicShaderMaterial";
 import * as THREE from "three";
+import Logo from "./components/Logo/Logo";
 
 const material = new THREE.MeshPhysicalMaterial({
-  color: new THREE.Color("#bb86a1").convertSRGBToLinear(),
+  color: new THREE.Color("#932CE6").convertSRGBToLinear(),
   roughness: 0,
   clearcoat: 1,
   clearcoatRoughness: 0,
@@ -21,6 +22,7 @@ const FullScreenPlane = (props) => {
   console.log(`render scene comp`);
   return (
     <group>
+      <Logo />
       <group
         ref={group}
         {...props}
@@ -60,7 +62,7 @@ const FullScreenPlane = (props) => {
           rotation={[0, Math.PI / 4, 0]}
         >
           <Box>
-            <meshStandardMaterial color="#400d4a" />
+            <meshStandardMaterial color="#d01154" />
           </Box>
         </mesh>
       </group>

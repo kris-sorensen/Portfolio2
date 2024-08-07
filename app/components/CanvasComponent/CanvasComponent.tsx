@@ -21,11 +21,11 @@ const CanvasComponent = () => {
         dpr={[1, 2]}
         camera={{ position: [0, 160, 160], fov: 20 }}
       >
-        <OrbitControls makeDefault />
-        <fog attach="fog" args={["#932CE6", 60, 100]} />
+        <OrbitControls makeDefault maxPolarAngle={Math.PI / 2} />
+        <fog attach="fog" args={["#111", 60, 80]} />
         <Suspense fallback={null}>
           <Scene position={[0, -4, 0]} />
-          <ambientLight intensity={0.5} />
+          {/* <ambientLight intensity={0.5} /> */}
           <Rig />
           <Environment preset="warehouse" />
         </Suspense>
