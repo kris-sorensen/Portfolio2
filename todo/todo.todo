@@ -1,5 +1,11 @@
 Balloons:
  ☐ Lighting
  ☐ Distortion (in shader) 
- 
+ ☐ Balloon filling sound
 
+
+Fill:
+  ☐ Make Mouse Fill nozzle
+  ☐ Clicking fills a balloon that follows mouse until full and then releases. Physics of moving balloon while filling should be good. 
+  ☐ stretch: physics hitting off other baloons
+  ☐ Stretch: could make balloon pop onto string and moving around Could 

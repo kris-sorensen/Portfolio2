@@ -25,7 +25,7 @@ const getRandomColor = () => {
 };
 
 const getRandomPosition = () => {
-  const x = (Math.random() - 0.5) * 20; // Random x position within a range
+  const x = (Math.random() * 1.5 - 0.75) * 20; // Random x position within a range
   const z = (Math.random() * 1.5 - 0.75) * 20; // Random z position within a range
   return [x, 1.9, z]; // Y position is constant at 1.9
 };
@@ -58,7 +58,7 @@ const Scene = (props) => {
       () => {
         addBalloon();
       },
-      Math.random() * 7000 + 1000
+      Math.random() * 3000 + 1000
     ); // Random interval between 1000ms and 4000ms
 
     return () => clearInterval(interval); // Cleanup on component unmount
