@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import * as THREE from "three";
 import Balloon from "./Balloon";
 
@@ -13,7 +13,7 @@ const getRandomColor = (): THREE.Color => {
     "#ff0000",
     "#00ff00",
     "#0000ff",
-    "#ff00ff",
+    "#ff69b4",
     "#00ffff",
     "#ffff00",
   ];
@@ -28,6 +28,21 @@ const getRandomPosition = (): [number, number, number] => {
 
 const BalloonContainer: React.FC = () => {
   const [balloons, setBalloons] = useState<BalloonProps[]>([]);
+
+  // Create a single material instance
+  const material = useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        roughness: 0.1,
+        clearcoat: 1,
+        clearcoatRoughness: 0.05,
+        reflectivity: 0.5,
+        transparent: true,
+        opacity: 0.75,
+        fog: false,
+      }),
+    []
+  );
 
   const addBalloon = () => {
     const newBalloon: BalloonProps = {
@@ -62,6 +77,7 @@ const BalloonContainer: React.FC = () => {
           key={balloon.id}
           position={balloon.position}
           color={balloon.color}
+          material={material} // Pass the material to each balloon
           onRemove={() => removeBalloon(balloon.id)}
         />
       ))}

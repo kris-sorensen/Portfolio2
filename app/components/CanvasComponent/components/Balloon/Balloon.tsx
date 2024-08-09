@@ -20,10 +20,12 @@ const Balloon = memo(
     color,
     position,
     onRemove,
+    material, // Pass material as a prop
   }: {
     color: THREE.Color;
     position: [number, number, number];
     onRemove: () => void;
+    material: THREE.MeshPhysicalMaterial; // Material type
   }) => {
     const { nodes } = useGLTF("/models/balloon-transformed.glb") as GLTFResult;
     const mesh = useRef<THREE.Mesh>(null);
@@ -83,18 +85,10 @@ const Balloon = memo(
           ref={mesh}
           geometry={nodes.Line001.geometry}
           scale={[0.001, 0.001, 0.001]}
+          material={material} // Use the passed material
         >
-          <meshPhysicalMaterial
-            color={color}
-            roughness={0.2}
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-            metalness={0.1}
-            reflectivity={1}
-            transparent={true}
-            opacity={0.9}
-            fog={false}
-          />
+          {/* Set the color dynamically */}
+          <meshPhysicalMaterial attach="material" {...material} color={color} />
         </mesh>
       </group>
     );

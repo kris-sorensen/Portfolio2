@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { Environment, Loader, OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import Scene from "./Scene";
+import DevToolsR3F from "./components/DevTools/DevToolsR3F";
 
 function Rig() {
   const [vec] = useState(() => new THREE.Vector3());
@@ -23,6 +24,7 @@ const CanvasComponent: React.FC = () => {
           <Rig />
           <Environment preset="warehouse" />
         </Suspense>
+        <DevToolsR3F />
       </Canvas>
       <Loader />
     </div>
