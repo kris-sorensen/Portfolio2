@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import * as THREE from "three";
 import { Balloon } from "./Balloon";
 
-const getRandomColor = () => {
+interface BalloonProps {
+  id: number;
+  position: [number, number, number];
+  color: THREE.Color;
+}
+
+const getRandomColor = (): THREE.Color => {
   const colors = [
     "#ff0000",
     "#00ff00",
@@ -14,42 +20,41 @@ const getRandomColor = () => {
   return new THREE.Color(colors[Math.floor(Math.random() * colors.length)]);
 };
 
-const getRandomPosition = () => {
-  const x = (Math.random() * 1.3 - 0.65) * 20; // Random x position within a range
-  const z = (Math.random() * 1.5 - 0.75) * 20; // Random z position within a range
-  return [x, 1.9, z]; // Y position is constant at 1.9
+const getRandomPosition = (): [number, number, number] => {
+  const x = (Math.random() * 1.3 - 0.65) * 20;
+  const z = (Math.random() * 1.5 - 0.75) * 20;
+  return [x, 1.9, z];
 };
 
-const BalloonContainer = () => {
-  const [balloons, setBalloons] = useState([]);
+const BalloonContainer: React.FC = () => {
+  const [balloons, setBalloons] = useState<BalloonProps[]>([]);
 
   const addBalloon = () => {
-    const newBalloon = {
-      id: Date.now(), // Unique ID
+    const newBalloon: BalloonProps = {
+      id: Date.now(),
       position: getRandomPosition(),
       color: getRandomColor(),
     };
     setBalloons((prevBalloons) => [...prevBalloons, newBalloon]);
   };
 
-  // Function to remove a balloon by ID
-  const removeBalloon = (id) => {
+  const removeBalloon = (id: number) => {
     setBalloons((prevBalloons) =>
       prevBalloons.filter((balloon) => balloon.id !== id)
     );
   };
 
   useEffect(() => {
-    // Add a balloon at a random interval between 1-4 seconds
     const interval = setInterval(
       () => {
         addBalloon();
       },
       Math.random() * 3000 + 1000
-    ); // Random interval between 1000ms and 4000ms
+    );
 
-    return () => clearInterval(interval); // Cleanup on component unmount
+    return () => clearInterval(interval);
   }, []);
+
   return (
     <group>
       {balloons.map((balloon) => (
@@ -57,7 +62,7 @@ const BalloonContainer = () => {
           key={balloon.id}
           position={balloon.position}
           color={balloon.color}
-          onRemove={() => removeBalloon(balloon.id)} // Pass the removal callback
+          onRemove={() => removeBalloon(balloon.id)}
         />
       ))}
     </group>

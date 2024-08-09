@@ -12,15 +12,10 @@ function Rig() {
   return null;
 }
 
-const CanvasComponent = () => {
-  console.log(`render Canvas comp`);
+const CanvasComponent: React.FC = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
-      <Canvas
-        // shadows
-        dpr={[1, 2]}
-        camera={{ position: [0, 160, 160], fov: 20 }}
-      >
+      <Canvas dpr={[1, 2]} camera={{ position: [0, 160, 160], fov: 20 }}>
         <OrbitControls makeDefault maxPolarAngle={Math.PI / 2} />
         <fog attach="fog" args={["#111", 20, 120]} />
         <Suspense fallback={null}>
