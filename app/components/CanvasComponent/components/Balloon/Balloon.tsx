@@ -80,7 +80,7 @@ export function Balloon(
   });
 
   return (
-    <group {...props} dispose={null}>
+    <group {...props}>
       <mesh
         scale={0.001}
         ref={mesh}
