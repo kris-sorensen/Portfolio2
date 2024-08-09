@@ -17,7 +17,7 @@ const CanvasComponent = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
       <Canvas
-        shadows
+        // shadows
         dpr={[1, 2]}
         camera={{ position: [0, 160, 160], fov: 20 }}
       >
@@ -25,8 +25,6 @@ const CanvasComponent = () => {
         <fog attach="fog" args={["#111", 20, 120]} />
         <Suspense fallback={null}>
           <Scene position={[0, -9, 0]} />
-          //-4
-          {/* <ambientLight intensity={0.5} /> */}
           <Rig />
           <Environment preset="warehouse" />
         </Suspense>

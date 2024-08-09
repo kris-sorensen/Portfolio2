@@ -23,7 +23,6 @@ const getRandomPosition = () => {
 const BalloonContainer = () => {
   const [balloons, setBalloons] = useState([]);
 
-  // Function to add a new balloon
   const addBalloon = () => {
     const newBalloon = {
       id: Date.now(), // Unique ID

@@ -1,14 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useThree } from "@react-three/fiber";
-import * as THREE from "three";
+import React, { useRef } from "react";
 import Logo from "./components/Logo/Logo";
-import { Balloon } from "./components/Balloon/Balloon";
 import Ground from "./components/Ground/Ground";
 import BalloonContainer from "./components/Balloon/BalloonContainer";
 
 const Scene = (props) => {
   const group = useRef();
-  const { viewport } = useThree();
 
   return (
     <group>
