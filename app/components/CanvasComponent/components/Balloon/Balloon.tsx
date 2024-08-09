@@ -16,7 +16,12 @@ function easeInCubicRoot(t) {
   return Math.cbrt(t); // Cube root of t
 }
 
-export function Balloon(props: JSX.IntrinsicElements["group"]) {
+export function Balloon(
+  props: JSX.IntrinsicElements["group"] & {
+    color: THREE.Color;
+    onRemove: () => void;
+  }
+) {
   const { nodes } = useGLTF("/models/balloon-transformed.glb") as GLTFResult;
   const mesh = useRef<THREE.Mesh>(null);
   const scaleFactor = useRef(0); // Initialize scale factor as a ref
@@ -26,8 +31,9 @@ export function Balloon(props: JSX.IntrinsicElements["group"]) {
   // Set an initial small scale
   const initialScale = 0.0;
   const targetScale = 0.75;
+  const resetPoint = 30;
 
-  const delay = 1; // 1-second delay
+  const delay = 0;
 
   useFrame((state, delta) => {
     if (!mesh.current) return;
@@ -65,6 +71,11 @@ export function Balloon(props: JSX.IntrinsicElements["group"]) {
     } else {
       // Start drifting upwards after the balloon has finished growing
       mesh.current.position.y += delta * 0.5; // Adjust the speed of drifting upwards
+
+      // Check if the balloon is off-screen (e.g., above y=10)
+      if (mesh.current.position.y > resetPoint) {
+        props.onRemove(); // Trigger the removal callback
+      }
     }
   });
 
@@ -77,7 +88,7 @@ export function Balloon(props: JSX.IntrinsicElements["group"]) {
         geometry={nodes.Line001.geometry}
       >
         <meshPhysicalMaterial
-          color={"#ff00ff"}
+          color={props.color} // Use the passed color
           roughness={0.2}
           clearcoat={1}
           clearcoatRoughness={0.1}

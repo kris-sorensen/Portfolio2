@@ -14,6 +14,7 @@ const Logo = () => {
         position={[-4.8, 5.65, 0]}
         url="/images/logo.png"
         scale={[aspectRatio * 3, 1 * 3]}
+        transparent
       />
       <group position={[0, 3, 0]} scale={[1.6, 1.6, 1.6]}>
         <mesh>
