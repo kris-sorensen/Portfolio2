@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as THREE from "three";
-import { Balloon } from "./Balloon";
+import Balloon from "./Balloon";
 
 interface BalloonProps {
   id: number;
