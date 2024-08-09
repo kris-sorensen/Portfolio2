@@ -2,6 +2,7 @@ Balloons:
  ☐ Lighting
  ☐ Distortion (in shader) 
  ☐ Balloon filling sound
+ ☐ Merge/instance balloons. You will have to have a set number of ballons you can reuse. Is this possible? 1 draw call for balloons?
 
 
 Fill:
