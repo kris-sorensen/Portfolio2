@@ -9,7 +9,7 @@ const Logo = () => {
   const aspectRatio = imageWidth / imageHeight;
 
   return (
-    <group>
+    <group position={[0, -1, 0]}>
       <Image
         position={[-4.8, 5.65, 0]}
         url="/images/logo.png"
@@ -24,51 +24,60 @@ const Logo = () => {
             anchorX={"center"}
             font="./fonts/dessau-heavy-regular.woff"
           >
-            <meshBasicMaterial color="#ffffff" />
+            <meshBasicMaterial color="#ffffff" fog={false} />
             ZURCHERS
           </Text>
         </mesh>
         <group position={[-0.3, -1.2, 0]} scale={[1, 1, 1]}>
           <group position={[-3, 0, 0]}>
-            <Text
-              ref={text}
-              letterSpacing={0.005}
-              fontSize={0.6}
-              anchorX={"center"}
-              font="./fonts/altehaasgroteskregular.woff"
-            >
-              Party
-            </Text>
+            <mesh>
+              <Text
+                ref={text}
+                letterSpacing={0.005}
+                fontSize={0.6}
+                anchorX={"center"}
+                font="./fonts/altehaasgroteskregular.woff"
+              >
+                <meshBasicMaterial fog={false} />
+                Party
+              </Text>
+            </mesh>
           </group>
           <mesh position={[-1.95, 0, 0]}>
             <circleGeometry args={[0.1, 16]} />
-            <meshBasicMaterial color={circleColor} />
+            <meshBasicMaterial color={circleColor} fog={false} />
           </mesh>
           <group position={[-0.15, 0, 0]}>
-            <Text
-              ref={text}
-              letterSpacing={0.005}
-              fontSize={0.6}
-              anchorX={"center"}
-              font="./fonts/altehaasgroteskregular.woff"
-            >
-              Costumes
-            </Text>
+            <mesh>
+              <Text
+                ref={text}
+                letterSpacing={0.005}
+                fontSize={0.6}
+                anchorX={"center"}
+                font="./fonts/altehaasgroteskregular.woff"
+              >
+                <meshBasicMaterial fog={false} />
+                Costumes
+              </Text>
+            </mesh>
           </group>
           <mesh position={[1.65, 0, 0]}>
             <circleGeometry args={[0.1, 16]} />
-            <meshBasicMaterial color={circleColor} />
+            <meshBasicMaterial color={circleColor} fog={false} />
           </mesh>
           <group position={[3.2, 0, 0]}>
-            <Text
-              ref={text}
-              letterSpacing={0.005}
-              fontSize={0.6}
-              anchorX={"center"}
-              font="./fonts/altehaasgroteskregular.woff"
-            >
-              Wedding
-            </Text>
+            <mesh>
+              <Text
+                ref={text}
+                letterSpacing={0.005}
+                fontSize={0.6}
+                anchorX={"center"}
+                font="./fonts/altehaasgroteskregular.woff"
+              >
+                <meshBasicMaterial fog={false} />
+                Wedding
+              </Text>
+            </mesh>
           </group>
         </group>
       </group>

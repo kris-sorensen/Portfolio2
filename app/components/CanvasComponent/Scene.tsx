@@ -1,10 +1,9 @@
 import React, { useRef } from "react";
-import { Box, Plane, Reflector } from "@react-three/drei";
+import { Reflector } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import WelcomeText from "./Shaders/WelcomeText/WelcomeText";
-import BasicShaderMaterial from "./Shaders/BasicShader/BasicShaderMaterial";
 import * as THREE from "three";
 import Logo from "./components/Logo/Logo";
+import { Balloon } from "./components/Balloon/Balloon";
 
 const material = new THREE.MeshPhysicalMaterial({
   color: new THREE.Color("#932CE6").convertSRGBToLinear(),
@@ -13,7 +12,7 @@ const material = new THREE.MeshPhysicalMaterial({
   clearcoatRoughness: 0,
 });
 
-const FullScreenPlane = (props) => {
+const Scene = (props) => {
   const group = useRef();
   // * Make Plane full screen
   const { viewport } = useThree();
@@ -23,12 +22,7 @@ const FullScreenPlane = (props) => {
   return (
     <group>
       <Logo />
-      <group
-        ref={group}
-        {...props}
-        dispose={null}
-        onClick={() => console.log(group.current)}
-      >
+      <group ref={group} {...props} dispose={null}>
         <Reflector
           resolution={1024}
           receiveShadow
@@ -41,7 +35,7 @@ const FullScreenPlane = (props) => {
           position={[0, 0, 8]}
           scale={[2, 2, 1]}
           rotation={[-Math.PI / 2, 0, Math.PI]}
-          args={[70, 70]}
+          args={[90, 90]}
         >
           {/* <meshPhysicalMaterial /> */}
           {(Material, props) => (
@@ -61,13 +55,11 @@ const FullScreenPlane = (props) => {
           scale={[2, 2, 2]}
           rotation={[0, Math.PI / 4, 0]}
         >
-          {/* <Box>
-            <meshStandardMaterial color="#d01154" />
-          </Box> */}
+          <Balloon position={[0, 1.9, 0]} />
         </mesh>
       </group>
     </group>
   );
 };
 
-export default FullScreenPlane;
+export default Scene;
