@@ -32,7 +32,7 @@ const Balloon = memo(
     const growing = useRef(true);
 
     const initialScale = 0.0;
-    const targetScale = 0.75;
+    const targetScale = 1.65;
     const resetPoint = 30;
 
     const delay = 0;
@@ -50,7 +50,16 @@ const Balloon = memo(
             initialScale +
             easeInCubicRoot(scaleFactor.current) * (targetScale - initialScale);
 
+          // Set the balloon's scale
           mesh.current.scale.set(easeFactor, easeFactor, easeFactor);
+
+          // Calculate the opacity factor using the same easeInCubicRoot equation
+          const opacityFactor = 1 - easeInCubicRoot(scaleFactor.current) * 0.25;
+
+          // Update material opacity
+          if (mesh.current.material instanceof THREE.MeshPhysicalMaterial) {
+            mesh.current.material.opacity = opacityFactor;
+          }
 
           const initialY = 1.001;
 
@@ -85,26 +94,15 @@ const Balloon = memo(
           scale={[0.001, 0.001, 0.001]}
         >
           <meshPhysicalMaterial
-            color={color} // Balloon color
-            roughness={0.1} // Smooth but not perfectly
-            clearcoat={1} // Shiny outer layer
-            clearcoatRoughness={0.05} // Slight roughness on the clearcoat
-            reflectivity={0.5} // Reflective surface
-            transparent={true} // Enable transparency
-            opacity={0.75} // Semi-transparent for that balloon feel
+            color={color}
+            roughness={0.1}
+            clearcoat={1}
+            clearcoatRoughness={0.05}
+            reflectivity={0.5}
+            transparent={true}
+            opacity={1} // Initial opacity
             fog={false}
           />
-          {/* <meshPhysicalMaterial
-            color={color}
-            roughness={0.2}
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-            metalness={0.1}
-            reflectivity={1}
-            transparent={true}
-            opacity={0.9}
-            fog={false}
-          /> */}
         </mesh>
       </group>
     );

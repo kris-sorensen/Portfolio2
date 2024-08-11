@@ -21,7 +21,7 @@ const getRandomColor = (): THREE.Color => {
 };
 
 const getRandomPosition = (): [number, number, number] => {
-  const x = (Math.random() * 1.3 - 0.65) * 20;
+  const x = (Math.random() * 1.5 - 0.75) * 20;
   const z = (Math.random() * 1.5 - 0.75) * 20;
   return [x, 1.9, z];
 };
