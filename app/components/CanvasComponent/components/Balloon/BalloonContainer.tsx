@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as THREE from "three";
 import Balloon from "./Balloon";
+import { useThree } from "@react-three/fiber";
 
 interface BalloonProps {
   id: number;
@@ -20,40 +21,59 @@ const getRandomColor = (): THREE.Color => {
   return new THREE.Color(colors[Math.floor(Math.random() * colors.length)]);
 };
 
-const getRandomPosition = (): [number, number, number] => {
-  const x = (Math.random() * 1.5 - 0.75) * 20;
-  const z = (Math.random() * 1.5 - 0.75) * 20;
-  return [x, 1.9, z];
-};
-
 const BalloonContainer: React.FC = () => {
   const [balloons, setBalloons] = useState<BalloonProps[]>([]);
+  const { camera, gl, pointer, viewport } = useThree();
+  const printMouse = () => {
+    console.log(`pointer`, pointer);
+  };
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      console.log(`event`, event);
+      console.log(`viewport`, viewport);
+      printMouse();
+      // Convert screen coordinates to normalized device coordinates
+      const pointer = new THREE.Vector3(
+        // (event.clientX / viewport.width) * 2 - 1,
+        // -(event.clientY / viewport.height) * 2 + 1,
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1,
+        0 // Use z=0 to project onto the near plane of the camera
+      );
 
-  const addBalloon = () => {
+      // Unproject the normalized coordinates to 3D space
+      pointer.unproject(camera);
+
+      // Calculate the direction from the camera to the pointer position
+      const direction = pointer.sub(camera.position).normalize();
+
+      // Calculate the distance from the camera to the plane where we want to place the object
+      const distance = -camera.position.z / direction.z;
+
+      // Calculate the final position in 3D space
+      const finalPosition = camera.position
+        .clone()
+        .add(direction.multiplyScalar(distance));
+      console.log(`finalPosition`, finalPosition);
+      // Add the balloon at the calculated position
+      addBalloon([finalPosition.x, finalPosition.y + 10, 5]);
+    };
+
+    gl.domElement.addEventListener("click", handleClick);
+
+    return () => {
+      gl.domElement.removeEventListener("click", handleClick);
+    };
+  }, [camera, gl]);
+
+  const addBalloon = (position: [number, number, number]) => {
     const newBalloon: BalloonProps = {
       id: Date.now(),
-      position: getRandomPosition(),
+      position,
       color: getRandomColor(),
     };
     setBalloons((prevBalloons) => [...prevBalloons, newBalloon]);
   };
-
-  const removeBalloon = (id: number) => {
-    setBalloons((prevBalloons) =>
-      prevBalloons.filter((balloon) => balloon.id !== id)
-    );
-  };
-
-  useEffect(() => {
-    const interval = setInterval(
-      () => {
-        addBalloon();
-      },
-      Math.random() * 3000 + 1000
-    );
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <group>
@@ -62,7 +82,11 @@ const BalloonContainer: React.FC = () => {
           key={balloon.id}
           position={balloon.position}
           color={balloon.color}
-          onRemove={() => removeBalloon(balloon.id)}
+          onRemove={() =>
+            setBalloons((prevBalloons) =>
+              prevBalloons.filter((b) => b.id !== balloon.id)
+            )
+          }
         />
       ))}
     </group>

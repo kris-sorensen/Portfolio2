@@ -1,31 +1,86 @@
 import React from "react";
-import { MeshReflectorMaterial, Plane } from "@react-three/drei";
+import { RigidBody, Physics, CuboidCollider } from "@react-three/rapier";
 import * as THREE from "three";
 
-const Ground: React.FC = () => {
+const Room: React.FC = () => {
+  const roomSize = 100; // Size of the room (100 units wide, deep, and tall)
+  const wallThickness = 2; // Thickness of the walls to prevent tunneling
+
   return (
-    <mesh
-      position={[0, 0, 8]}
-      rotation={[-Math.PI / 2, 0, Math.PI]}
-      scale={[2, 2, 1]}
-    >
-      <Plane args={[90, 90]}>
-        <MeshReflectorMaterial
-          blur={[300, 100]} // Blur reflections (width, height), 0 skips blur
-          resolution={1024} // Off-buffer resolution, lower is faster, higher is better
-          mirror={0.5} // Add the mirror prop here
-          mixBlur={1} // How much blur mixes with surface roughness (default = 1)
-          mixStrength={0.3} // Strength of the reflections
-          depthScale={1} // How much the reflection depth scales (0 = no depth, default = 0)
-          minDepthThreshold={0.8}
-          maxDepthThreshold={1}
-          color="#932CE6" // Color of the reflective surface
-          roughness={1} // Roughness of the reflective surface
-          metalness={0.25} // Metalness of the reflective surface
+    <group>
+      {/* Floor */}
+      <RigidBody type="fixed">
+        <CuboidCollider
+          args={[roomSize / 2, wallThickness / 2, roomSize / 2]}
+          position={[0, -roomSize / 2, 0]}
         />
-      </Plane>
-    </mesh>
+        <mesh position={[0, -roomSize / 2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[roomSize, roomSize]} />
+          <meshBasicMaterial color="brown" />
+        </mesh>
+      </RigidBody>
+
+      {/* Ceiling */}
+      <RigidBody type="fixed">
+        <CuboidCollider
+          args={[roomSize / 2, wallThickness / 2, roomSize / 2]}
+          position={[0, roomSize / 2, 0]}
+        />
+        <mesh position={[0, roomSize / 2, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[roomSize, roomSize]} />
+          <meshBasicMaterial color="gray" side={THREE.DoubleSide} />
+        </mesh>
+      </RigidBody>
+
+      {/* Left Wall */}
+      <RigidBody type="fixed">
+        <CuboidCollider
+          args={[wallThickness / 2, roomSize / 2, roomSize / 2]}
+          position={[-roomSize / 2, 0, 0]}
+        />
+        <mesh position={[-roomSize / 2, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
+          <planeGeometry args={[roomSize, roomSize]} />
+          <meshBasicMaterial color="green" side={THREE.DoubleSide} />
+        </mesh>
+      </RigidBody>
+
+      {/* Right Wall */}
+      <RigidBody type="fixed">
+        <CuboidCollider
+          args={[wallThickness / 2, roomSize / 2, roomSize / 2]}
+          position={[roomSize / 2, 0, 0]}
+        />
+        <mesh position={[roomSize / 2, 0, 0]} rotation={[0, -Math.PI / 2, 0]}>
+          <planeGeometry args={[roomSize, roomSize]} />
+          <meshBasicMaterial color="green" side={THREE.DoubleSide} />
+        </mesh>
+      </RigidBody>
+
+      {/* Front Wall */}
+      <RigidBody type="fixed">
+        <CuboidCollider
+          args={[roomSize / 2, roomSize / 2, wallThickness / 2]}
+          position={[0, 0, roomSize / 2]}
+        />
+        <mesh position={[0, 0, roomSize / 2]} rotation={[0, Math.PI, 0]}>
+          <planeGeometry args={[roomSize, roomSize]} />
+          <meshBasicMaterial color="blue" side={THREE.DoubleSide} />
+        </mesh>
+      </RigidBody>
+
+      {/* Back Wall */}
+      <RigidBody type="fixed">
+        <CuboidCollider
+          args={[roomSize / 2, roomSize / 2, wallThickness / 2]}
+          position={[0, 0, -roomSize / 2]}
+        />
+        <mesh position={[0, 0, -roomSize / 2]}>
+          <planeGeometry args={[roomSize, roomSize]} />
+          <meshBasicMaterial color="blue" side={THREE.DoubleSide} />
+        </mesh>
+      </RigidBody>
+    </group>
   );
 };
 
-export default Ground;
+export default Room;
