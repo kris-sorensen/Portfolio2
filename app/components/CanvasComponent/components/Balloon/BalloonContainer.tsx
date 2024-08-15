@@ -24,18 +24,11 @@ const getRandomColor = (): THREE.Color => {
 const BalloonContainer: React.FC = () => {
   const [balloons, setBalloons] = useState<BalloonProps[]>([]);
   const { camera, gl, pointer, viewport } = useThree();
-  const printMouse = () => {
-    console.log(`pointer`, pointer);
-  };
+
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-      console.log(`event`, event);
-      console.log(`viewport`, viewport);
-      printMouse();
       // Convert screen coordinates to normalized device coordinates
       const pointer = new THREE.Vector3(
-        // (event.clientX / viewport.width) * 2 - 1,
-        // -(event.clientY / viewport.height) * 2 + 1,
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1,
         0 // Use z=0 to project onto the near plane of the camera
@@ -56,7 +49,7 @@ const BalloonContainer: React.FC = () => {
         .add(direction.multiplyScalar(distance));
       console.log(`finalPosition`, finalPosition);
       // Add the balloon at the calculated position
-      addBalloon([finalPosition.x, finalPosition.y + 10, 5]);
+      addBalloon([finalPosition.x, finalPosition.y + 11.8, 0]);
     };
 
     gl.domElement.addEventListener("click", handleClick);

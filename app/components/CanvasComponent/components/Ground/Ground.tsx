@@ -5,7 +5,7 @@ import * as THREE from "three";
 const Room: React.FC = () => {
   const roomHeight = 20; // Tall room
   const roomWidth = 20; // Width of the room
-  const roomDepth = 10; // Depth (about two balloons wide)
+  const roomDepth = 8; // Depth (about two balloons wide)
   const wallThickness = 2; // Thickness of the walls
 
   return (

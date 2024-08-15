@@ -28,6 +28,7 @@ const Balloon = memo(
   }) => {
     const { nodes } = useGLTF("/models/balloon-transformed.glb") as GLTFResult;
     const mesh = useRef<THREE.Mesh>(null);
+    const rigidBodyRef = useRef<any>(null); // Ref for RigidBody to control physics properties
     const scaleFactor = useRef(0);
     const elapsedTime = useRef(0);
     const growing = useRef(true);
@@ -39,7 +40,7 @@ const Balloon = memo(
     const delay = 0;
 
     useFrame((state, delta) => {
-      // if (!mesh.current) return;
+      // if (!mesh.current || !rigidBodyRef.current) return;
       // elapsedTime.current += delta;
       // if (growing.current) {
       //   if (elapsedTime.current > delay) {
@@ -64,12 +65,19 @@ const Balloon = memo(
       //       (mesh.current.geometry.boundingBox?.min.y ?? 0);
       //     mesh.current.position.y =
       //       initialY + (easeFactor - 1) * (boundingBoxHeight / 2);
+      //     // Temporarily set the balloon to be static (not movable) during scaling
+      //     rigidBodyRef.current.setBodyType("fixed");
+      //     // If the balloon has reached full size, stop growing and restore normal physics
       //     if (scaleFactor.current >= 1) {
       //       growing.current = false;
+      //       // Set the balloon back to dynamic physics so it can float and be pushed around
+      //       rigidBodyRef.current.setBodyType("dynamic");
+      //       // Re-enable gravity
+      //       rigidBodyRef.current.setGravityScale(-0.1); // Restore helium-like gravity
       //     }
       //   }
       // } else {
-      //   // mesh.current.position.y += delta * 0.5;
+      //   // Normal physics, balloon moves as expected
       //   if (mesh.current.position.y > resetPoint) {
       //     onRemove();
       //   }
@@ -79,14 +87,12 @@ const Balloon = memo(
     return (
       <group>
         <RigidBody
+          ref={rigidBodyRef}
           colliders="hull"
           position={position}
-          // ref={bodyRef}
-          gravityScale={-0.1} // Simulating reduced gravity
+          gravityScale={-0.1}
           linearDamping={0.5} // Add resistance to slow down movement
           angularDamping={1.0} // Prevent balloon from rotating excessively
-
-          // density={0.01}
         >
           <mesh
             ref={mesh}
