@@ -79,12 +79,13 @@ const Balloon = memo(
     return (
       <group>
         <RigidBody
+          colliders="hull"
           position={position}
           // ref={bodyRef}
           gravityScale={-0.1} // Simulating reduced gravity
           linearDamping={0.5} // Add resistance to slow down movement
           angularDamping={1.0} // Prevent balloon from rotating excessively
-          colliders="ball" // Assuming the balloon has a spherical collider
+
           // density={0.01}
         >
           <mesh

@@ -12,10 +12,9 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
   return (
     <group>
       <Logo />
-      <Physics>
+      <Physics debug={false}>
         <group ref={group} {...props}>
           <Ground />
-
           <BalloonContainer />
         </group>
       </Physics>
