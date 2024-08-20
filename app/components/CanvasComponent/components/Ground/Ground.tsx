@@ -3,13 +3,13 @@ import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import * as THREE from "three";
 
 const Room: React.FC = () => {
-  const roomHeight = 20; // Tall room
-  const roomWidth = 20; // Width of the room
-  const roomDepth = 8; // Depth (about two balloons wide)
+  const roomHeight = 22.5; // Tall room
+  const roomWidth = 40; // Width of the room
+  const roomDepth = 13; // Depth (about two balloons wide)
   const wallThickness = 2; // Thickness of the walls
 
   return (
-    <group position={[0, 15, 0]}>
+    <group position={[0, 10, 0]}>
       {/* Floor */}
       <RigidBody type="fixed">
         <CuboidCollider
@@ -21,7 +21,7 @@ const Room: React.FC = () => {
           rotation={[-Math.PI / 2, 0, 0]}
         >
           <planeGeometry args={[roomWidth, roomDepth]} />
-          <meshBasicMaterial color="brown" />
+          <meshBasicMaterial color="purple" />
         </mesh>
       </RigidBody>
 
@@ -33,7 +33,7 @@ const Room: React.FC = () => {
         />
         <mesh position={[0, roomHeight / 2, 0]} rotation={[Math.PI / 2, 0, 0]}>
           <planeGeometry args={[roomWidth, roomDepth]} />
-          <meshBasicMaterial color="gray" />
+          <meshBasicMaterial color="black" />
         </mesh>
       </RigidBody>
 
@@ -45,7 +45,7 @@ const Room: React.FC = () => {
         />
         <mesh position={[-roomWidth / 2, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
           <planeGeometry args={[roomDepth, roomHeight]} />
-          <meshBasicMaterial color="green" />
+          <meshBasicMaterial color="black" />
         </mesh>
       </RigidBody>
 
@@ -57,7 +57,7 @@ const Room: React.FC = () => {
         />
         <mesh position={[roomWidth / 2, 0, 0]} rotation={[0, -Math.PI / 2, 0]}>
           <planeGeometry args={[roomDepth, roomHeight]} />
-          <meshBasicMaterial color="green" />
+          <meshBasicMaterial color="black" />
         </mesh>
       </RigidBody>
 
@@ -69,7 +69,7 @@ const Room: React.FC = () => {
         />
         <mesh position={[0, 0, roomDepth / 2]} rotation={[0, Math.PI, 0]}>
           <planeGeometry args={[roomWidth, roomHeight]} />
-          <meshBasicMaterial color="blue" side={THREE.FrontSide} />
+          <meshBasicMaterial color="black" side={THREE.FrontSide} />
         </mesh>
       </RigidBody>
 
@@ -81,7 +81,7 @@ const Room: React.FC = () => {
         />
         <mesh position={[0, 0, -roomDepth / 2]}>
           <planeGeometry args={[roomWidth, roomHeight]} />
-          <meshBasicMaterial color="blue" />
+          <meshBasicMaterial color="red" />
         </mesh>
       </RigidBody>
     </group>

@@ -29,7 +29,7 @@ const CanvasComponent: React.FC = () => {
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
       <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 20 }}>
         <OrbitControls makeDefault />
-        {/* <fog attach="fog" args={["#111", 20, 120]} /> */}
+        {/* <fog attach="fog" args={["#111", 0, 40]} /> */}
         <Suspense fallback={null}>
           <Scene position={[0, -9, 0]} />
           <Rig />

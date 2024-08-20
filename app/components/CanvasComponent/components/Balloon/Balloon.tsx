@@ -94,11 +94,7 @@ const Balloon = memo(
           linearDamping={0.5} // Add resistance to slow down movement
           angularDamping={1.0} // Prevent balloon from rotating excessively
         >
-          <mesh
-            ref={mesh}
-            geometry={nodes.Line001.geometry}
-            scale={[1.5, 1.5, 1.5]}
-          >
+          <mesh ref={mesh} geometry={nodes.Line001.geometry} scale={[2, 2, 2]}>
             <meshPhysicalMaterial
               color={color}
               roughness={0.1}
