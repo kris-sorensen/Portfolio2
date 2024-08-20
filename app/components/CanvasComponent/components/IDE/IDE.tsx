@@ -1,6 +1,8 @@
 import { Html } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
 import React, { useState, useRef, useEffect } from "react";
+import Prism from "prismjs";
+import PrismJSLoader from "../PrismJSLoader/PrismJSLoader";
+import "prismjs/themes/prism-funky.css"; // Or your chosen funky theme
 
 const fragmentShader = `
 precision mediump float;
@@ -15,44 +17,22 @@ void main() {
     vec3 finalColor = vec3(1.,1.,0.);
 
     gl_FragColor = vec4(finalColor, 1.0);
-
 }`;
 
 const IDE = () => {
   const [content, setContent] = useState(fragmentShader); // State to hold the content of the div
-  const contentEditableRef = useRef(null); // Ref to access the contentEditable div
-  const lineNumberRef = useRef(null); // Ref to access the line numbers div
-  const { gl, controls } = useThree(); // Access the Three.js renderer and controls
+  const codeRef = useRef(null); // Ref to access the code block
 
-  const handleButtonClick = () => {
-    if (contentEditableRef.current) {
-      setContent(contentEditableRef.current.innerText); // Update state with the content of the div
+  useEffect(() => {
+    // Check if codeRef is not null before applying syntax highlighting
+    if (codeRef.current) {
+      Prism.highlightElement(codeRef.current);
     }
-  };
+  }, [content]);
 
-  // Synchronize scroll between line numbers and code editor
-  const handleScroll = () => {
-    if (lineNumberRef.current && contentEditableRef.current) {
-      lineNumberRef.current.scrollTop = contentEditableRef.current.scrollTop;
-    }
+  const handleInput = () => {
+    setContent(codeRef.current.innerText); // Update the content with the edited text
   };
-
-  // Disable scene zoom when scrolling inside the editor
-  const handleMouseEnter = () => {
-    if (controls) {
-      controls.enableZoom = false;
-    }
-  };
-
-  // Re-enable scene zoom when mouse leaves the editor
-  const handleMouseLeave = () => {
-    if (controls) {
-      controls.enableZoom = true;
-    }
-  };
-
-  // Splitting the code into lines for numbering
-  const codeLines = content.split("\n");
 
   return (
     <group position={[-8, 4, -2]}>
@@ -61,48 +41,29 @@ const IDE = () => {
         transform
         style={{ pointerEvents: "auto" }} // Enable pointer events for the HTML wrapper
       >
+        <PrismJSLoader />
         <div
           style={{
             display: "flex",
-            background: "#282c34",
+            background: "#000000",
             borderRadius: "8px",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            fontFamily: "monospace",
+            fontFamily: "'Fira Code', monospace",
             fontSize: "1rem",
             overflow: "hidden",
+            color: "#fff", // General text color
             height: "20rem", // Fixed height for the editor container
+            width: "40rem", // Fixed width for the editor container
           }}
         >
-          {/* Line Numbers */}
-          <div
-            ref={lineNumberRef}
-            style={{
-              background: "#333842",
-              color: "#848DA0",
-              padding: "1rem",
-              textAlign: "right",
-              userSelect: "none",
-              lineHeight: "1.5rem",
-              paddingRight: "1rem",
-              height: "100%",
-              overflow: "hidden", // No independent scrolling for line numbers
-            }}
-          >
-            {codeLines.map((_, i) => (
-              <div key={i}>{i + 1}</div>
-            ))}
-          </div>
-
           {/* Code Editor */}
-          <div
-            ref={contentEditableRef}
+          <pre
+            ref={codeRef}
             contentEditable
-            onScroll={handleScroll} // Sync scrolling
-            onMouseEnter={handleMouseEnter} // Disable zoom
-            onMouseLeave={handleMouseLeave} // Re-enable zoom
+            onInput={handleInput} // Update content on input
+            className="language-glsl"
             style={{
               padding: "1rem",
-              color: "#abb2bf",
               whiteSpace: "pre-wrap", // Enables word wrapping
               width: "100%",
               background: "transparent",
@@ -112,11 +73,11 @@ const IDE = () => {
               height: "100%", // Ensure the height matches the outer container
             }}
           >
-            {content}
-          </div>
+            <code className="language-glsl">{content}</code>
+          </pre>
         </div>
         <button
-          onClick={handleButtonClick}
+          onClick={() => Prism.highlightAll()}
           style={{
             marginTop: "1rem",
             padding: "0.5rem",
@@ -124,7 +85,7 @@ const IDE = () => {
             background: "#61dafb",
             border: "none",
             borderRadius: "4px",
-            fontFamily: "monospace",
+            fontFamily: "'Fira Code', monospace",
             color: "#282c34",
           }}
         >
