@@ -22,17 +22,83 @@ void main() {
 const IDE = () => {
   const [content, setContent] = useState(fragmentShader); // State to hold the content of the div
   const codeRef = useRef(null); // Ref to access the code block
+  const lineNumberRef = useRef(null); // Ref to access the line numbers div
+  const caretPosition = useRef(null); // To store caret position
 
   useEffect(() => {
-    // Check if codeRef is not null before applying syntax highlighting
+    // Highlight the code when content changes
     if (codeRef.current) {
       Prism.highlightElement(codeRef.current);
     }
   }, [content]);
 
-  const handleInput = () => {
-    setContent(codeRef.current.innerText); // Update the content with the edited text
+  const saveCaretPosition = () => {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      caretPosition.current = selection.getRangeAt(0);
+    }
   };
+
+  const restoreCaretPosition = () => {
+    const selection = window.getSelection();
+    if (caretPosition.current) {
+      selection.removeAllRanges();
+      selection.addRange(caretPosition.current);
+    }
+  };
+
+  const saveContent = () => {
+    Prism.highlightAll();
+    // Additional save logic can go here if needed
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent default Enter behavior
+      saveCaretPosition(); // Save the current caret position
+
+      // Insert a new line at the caret position
+      const selection = window.getSelection();
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      const newLine = document.createTextNode("\n");
+      range.insertNode(newLine);
+
+      // Move the cursor after the new line
+      range.setStartAfter(newLine);
+      range.setEndAfter(newLine);
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      // Update the content state
+      setContent(codeRef.current.innerText);
+
+      saveContent(); // Call saveContent
+    }
+  };
+
+  useEffect(() => {
+    // Restore caret position after content update
+    restoreCaretPosition();
+  }, [content]);
+
+  useEffect(() => {
+    // Add keydown listener to the document
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const handleScroll = () => {
+    if (lineNumberRef.current && codeRef.current) {
+      lineNumberRef.current.scrollTop = codeRef.current.scrollTop;
+    }
+  };
+
+  // Splitting the code into lines for numbering
+  const codeLines = content.split("\n");
 
   return (
     <group position={[-8, 4, -2]}>
@@ -56,15 +122,35 @@ const IDE = () => {
             width: "40rem", // Fixed width for the editor container
           }}
         >
+          {/* Line Numbers */}
+          <div
+            ref={lineNumberRef}
+            style={{
+              background: "#333842",
+              color: "#848DA0",
+              padding: "1rem",
+              textAlign: "right",
+              userSelect: "none",
+              lineHeight: "1.5rem",
+              paddingRight: "1rem",
+              height: "100%",
+              overflow: "hidden", // No independent scrolling for line numbers
+            }}
+          >
+            {codeLines.map((_, i) => (
+              <div key={i}>{i + 1}</div>
+            ))}
+          </div>
+
           {/* Code Editor */}
           <pre
             ref={codeRef}
             contentEditable
-            onInput={handleInput} // Update content on input
+            onScroll={handleScroll} // Sync scrolling between editor and line numbers
             className="language-glsl"
             style={{
               padding: "1rem",
-              whiteSpace: "pre-wrap", // Enables word wrapping
+              whiteSpace: "pre", // Disable word wrapping for proper line numbering
               width: "100%",
               background: "transparent",
               lineHeight: "1.5rem",
@@ -77,7 +163,7 @@ const IDE = () => {
           </pre>
         </div>
         <button
-          onClick={() => Prism.highlightAll()}
+          onClick={saveContent}
           style={{
             marginTop: "1rem",
             padding: "0.5rem",

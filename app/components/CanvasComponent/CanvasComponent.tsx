@@ -6,6 +6,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import Scene from "./Scene";
 import DevToolsR3F from "./components/DevTools/DevToolsR3F";
 import PrismJSLoader from "./components/PrismJSLoader/PrismJSLoader";
+import CodeEditor from "./components/IDE/CodeEditor";
 
 function Rig() {
   const [vec] = useState(() => new THREE.Vector3());
@@ -28,7 +29,7 @@ function Rig() {
 const CanvasComponent: React.FC = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
-      {/* <PrismJSLoader /> */}
+      {/* <CodeEditor /> */}
       <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 20 }}>
         <OrbitControls makeDefault />
         {/* <fog attach="fog" args={["#111", 0, 40]} /> */}
