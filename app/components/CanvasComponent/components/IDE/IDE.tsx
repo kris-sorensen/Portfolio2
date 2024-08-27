@@ -1,13 +1,13 @@
 import { Center, Html } from "@react-three/drei";
 import React, { useRef, useState, useEffect } from "react";
-import CodeMirror from "@uiw/react-codemirror";
+import CodeMirror, { EditorView } from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
 
 const extensions = [javascript({ jsx: true })];
 
 // Function to create a new shader template with dynamic name
-const createDefaultShader = (index) => `
+const createDefaultShader = (index: number): string => `
 // NAME: {Shader ${index + 1}}
 precision mediump float;
 
@@ -23,27 +23,34 @@ void main() {
     gl_FragColor = vec4(finalColor, 1.0);
 }`;
 
-const extractShaderName = (shader, index) => {
+// Function to extract the shader name from the content or generate a default name
+const extractShaderName = (shader: string, index: number): string => {
   const nameMatch = shader.match(/\/\/\s*NAME:\s*{([^}]*)}/);
   return nameMatch && nameMatch[1].trim() !== ""
     ? nameMatch[1]
     : `Shader ${index + 1}`; // Generate default name like Shader 1, Shader 2, etc.
 };
 
-const IDE = () => {
-  const editorRef = useRef(null);
-  const [index, setIndex] = useState(0);
-  const [savedShaders, setSavedShaders] = useState([createDefaultShader(0)]);
-  const [editorContent, setEditorContent] = useState(savedShaders[0]);
-  const [shaderNames, setShaderNames] = useState([
-    extractShaderName(savedShaders[0], 0),
-  ]);
+const IDE: React.FC = () => {
+  const editorRef = useRef<EditorView | null>(null);
+  const [index, setIndex] = useState<number>(0);
+  const [savedShaders, setSavedShaders] = useState<string[]>(() => {
+    const storedShaders = JSON.parse(
+      localStorage.getItem("savedShaders") || "[]"
+    );
+    return storedShaders.length > 0 ? storedShaders : [createDefaultShader(0)];
+  });
+  const [editorContent, setEditorContent] = useState<string>(savedShaders[0]);
+  const [shaderNames, setShaderNames] = useState<string[]>(() =>
+    savedShaders.map((shader, idx) => extractShaderName(shader, idx))
+  );
 
   // Undo/Redo stacks
-  const [undoStack, setUndoStack] = useState([]);
-  const [redoStack, setRedoStack] = useState([]);
+  const [undoStack, setUndoStack] = useState<string[]>([]);
+  const [redoStack, setRedoStack] = useState<string[]>([]);
 
-  const saveContent = () => {
+  // Save content and persist to local storage
+  const saveContent = (): void => {
     // Push current content to undo stack before saving
     setUndoStack([...undoStack, editorContent]);
     setRedoStack([]); // Clear redo stack on new change
@@ -57,10 +64,13 @@ const IDE = () => {
     updatedNames[index] = newShaderName; // Update the name at the current index
     setShaderNames(updatedNames);
 
+    // Persist to local storage
+    localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
+
     console.log("Content saved:", editorContent);
   };
 
-  const handleNew = () => {
+  const handleNew = (): void => {
     const newShader = createDefaultShader(savedShaders.length);
     const updatedShaders = [...savedShaders, newShader];
     setSavedShaders(updatedShaders);
@@ -69,9 +79,12 @@ const IDE = () => {
     setShaderNames([...shaderNames, newShaderName]);
 
     setIndex(updatedShaders.length - 1); // Set index to the new shader
+
+    // Persist to local storage
+    localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
   };
 
-  const handleDelete = () => {
+  const handleDelete = (): void => {
     if (savedShaders.length > 1) {
       const updatedShaders = savedShaders.filter((_, idx) => idx !== index);
       const updatedNames = shaderNames.filter((_, idx) => idx !== index);
@@ -84,32 +97,39 @@ const IDE = () => {
       setIndex(newIndex);
 
       setEditorContent(updatedShaders[newIndex]);
+
+      // Persist to local storage
+      localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
     } else {
       alert("You need to have at least one shader.");
     }
   };
 
-  const handleShaderSelect = (e) => {
+  const handleShaderSelect = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
     setIndex(parseInt(e.target.value)); // Navigate to the selected shader by updating the index
   };
 
-  const handleEditorChange = (value) => {
+  const handleEditorChange = (value: string): void => {
     setEditorContent(value); // Update state with the latest editor content
   };
 
-  const undoChange = () => {
+  const undoChange = (): void => {
     if (undoStack.length > 0) {
       const lastState = undoStack.pop();
       setRedoStack([...redoStack, editorContent]); // Push current state to redo stack
-      setEditorContent(lastState); // Revert to the last state
+      if (lastState) setEditorContent(lastState); // Revert to the last state
+      setUndoStack([...undoStack]);
     }
   };
 
-  const redoChange = () => {
+  const redoChange = (): void => {
     if (redoStack.length > 0) {
       const nextState = redoStack.pop();
       setUndoStack([...undoStack, editorContent]); // Push current state to undo stack
-      setEditorContent(nextState); // Reapply the next state
+      if (nextState) setEditorContent(nextState); // Reapply the next state
+      setRedoStack([...redoStack]);
     }
   };
 
