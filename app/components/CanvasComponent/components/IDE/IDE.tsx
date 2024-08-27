@@ -1,4 +1,4 @@
-import { Html } from "@react-three/drei";
+import { Center, Html } from "@react-three/drei";
 import React, { useRef, useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
@@ -31,12 +31,12 @@ const IDE = () => {
   };
 
   const saveContent = () => {
-    console.log(`content`, content);
+    console.log(`content`, content.current);
     console.log(`save`);
   };
 
   return (
-    <group position={[-8, 4, -2]}>
+    <group position={[0, 0, 2]}>
       <Html
         occlude="blending"
         transform

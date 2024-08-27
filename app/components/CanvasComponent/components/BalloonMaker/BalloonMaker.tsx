@@ -11,7 +11,11 @@ interface BalloonData {
   vertexShader: string;
 }
 
-const BalloonMaker: React.FC = () => {
+interface BalloonMakerProps {
+  position: [number, number, number];
+}
+
+const BalloonMaker: React.FC<BalloonMakerProps> = (props) => {
   const [balloonDataArray, setBalloonDataArray] = useState<BalloonData[]>([]);
   const balloonCounter = useRef(1);
 
@@ -48,11 +52,11 @@ const BalloonMaker: React.FC = () => {
 
       {/* Add Balloon Button as a 3D Mesh */}
       <mesh
-        position={[0, 0, 0]} // Place the mesh below the balloons
+        {...props}
         onClick={addBalloon} // Register click event for adding a balloon
       >
         <boxGeometry args={[2, 2, 2]} />
-        <meshBasicMaterial color="blue" />
+        <meshBasicMaterial color="red" fog={false} />
       </mesh>
     </>
   );
