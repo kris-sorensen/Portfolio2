@@ -1,6 +1,12 @@
 import React from "react";
 import Balloon from "../Balloon2/Balloon2";
 
+interface BalloonData {
+  id: number;
+  fragmentShader: string;
+  vertexShader: string;
+}
+
 interface BalloonMakerProps {
   position: [number, number, number];
   balloonDataArray: BalloonData[];
@@ -19,7 +25,7 @@ const BalloonMaker: React.FC<BalloonMakerProps> = ({
           key={balloon.id}
           fragmentShader={balloon.fragmentShader}
           vertexShader={balloon.vertexShader}
-          position={[0, 0, 0]}
+          position={position} // using the passed `position` prop
           onRemove={() => onRemove(balloon.id)}
         />
       ))}

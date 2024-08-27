@@ -6,14 +6,23 @@ import IDE from "./components/IDE/IDE";
 import * as THREE from "three";
 import { retrieveVertexShader } from "@/app/data/currentShader";
 
+// Define the interface for BalloonData
+interface BalloonData {
+  id: number;
+  fragmentShader: string;
+  vertexShader: string;
+}
+
 const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
   const group = useRef<THREE.Group>(null);
-  const [balloonDataArray, setBalloonDataArray] = useState([]);
+
+  // Initialize the state with a generic type <BalloonData[]>
+  const [balloonDataArray, setBalloonDataArray] = useState<BalloonData[]>([]);
   const balloonCounter = useRef(1);
 
-  const addBalloon = (fragmentShader) => {
+  const addBalloon = (fragmentShader: string) => {
     const vertexShader = retrieveVertexShader(); // use existing logic for vertex shader
-    const newBalloon = {
+    const newBalloon: BalloonData = {
       id: balloonCounter.current,
       fragmentShader,
       vertexShader,
