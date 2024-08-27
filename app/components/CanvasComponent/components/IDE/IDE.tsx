@@ -17,7 +17,7 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
   const [editorContent, setEditorContent] = useState<string>(savedShaders[0]);
 
   const shaderNames = savedShaders.map((shader, idx) =>
-    extractShaderName(shader, idx)
+    extractShaderName(shader)
   );
 
   const saveContent = useCallback(() => {
