@@ -1,4 +1,9 @@
-import { Center, Html } from "@react-three/drei";
+// todo:: If code errors out when applying to balloon or saving
+// todo: undo redo saves every line change?
+// todo: fix undo redo. It should undo to default setting if none is saved?
+//todo: pass in time to fragment shader and other possibly needed stuff. From fragment shader?
+
+import { Html } from "@react-three/drei";
 import React, { useRef, useState, useEffect } from "react";
 import CodeMirror, { EditorView } from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
@@ -31,7 +36,9 @@ const extractShaderName = (shader: string, index: number): string => {
     : `Shader ${index + 1}`; // Generate default name like Shader 1, Shader 2, etc.
 };
 
-const IDE: React.FC = () => {
+const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
+  addBalloon,
+}) => {
   const editorRef = useRef<EditorView | null>(null);
   const [index, setIndex] = useState<number>(0);
   const [savedShaders, setSavedShaders] = useState<string[]>(() => {
@@ -131,6 +138,10 @@ const IDE: React.FC = () => {
       if (nextState) setEditorContent(nextState); // Reapply the next state
       setRedoStack([...redoStack]);
     }
+  };
+
+  const createBalloon = () => {
+    addBalloon(editorContent); // Pass the current fragment shader content when creating a balloon
   };
 
   useEffect(() => {
@@ -243,7 +254,7 @@ const IDE: React.FC = () => {
             Delete
           </button>
           <button
-            onClick={saveContent}
+            onClick={createBalloon}
             style={{
               marginRight: ".5rem",
               padding: "0.5rem",
