@@ -23,7 +23,6 @@ void main() {
     gl_FragColor = vec4(finalColor, 1.0);
 }`;
 
-// Function to extract the shader name from the content or generate a default name
 const extractShaderName = (shader, index) => {
   const nameMatch = shader.match(/\/\/\s*NAME:\s*{([^}]*)}/);
   return nameMatch && nameMatch[1].trim() !== ""
@@ -40,7 +39,15 @@ const IDE = () => {
     extractShaderName(savedShaders[0], 0),
   ]);
 
+  // Undo/Redo stacks
+  const [undoStack, setUndoStack] = useState([]);
+  const [redoStack, setRedoStack] = useState([]);
+
   const saveContent = () => {
+    // Push current content to undo stack before saving
+    setUndoStack([...undoStack, editorContent]);
+    setRedoStack([]); // Clear redo stack on new change
+
     const updatedShaders = [...savedShaders];
     updatedShaders[index] = editorContent; // Save the content in savedShaders array
     setSavedShaders(updatedShaders);
@@ -49,9 +56,6 @@ const IDE = () => {
     const updatedNames = [...shaderNames];
     updatedNames[index] = newShaderName; // Update the name at the current index
     setShaderNames(updatedNames);
-
-    // Save shaders to local storage
-    localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
 
     console.log("Content saved:", editorContent);
   };
@@ -65,9 +69,6 @@ const IDE = () => {
     setShaderNames([...shaderNames, newShaderName]);
 
     setIndex(updatedShaders.length - 1); // Set index to the new shader
-
-    // Save shaders to local storage
-    localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
   };
 
   const handleDelete = () => {
@@ -83,9 +84,6 @@ const IDE = () => {
       setIndex(newIndex);
 
       setEditorContent(updatedShaders[newIndex]);
-
-      // Save shaders to local storage
-      localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
     } else {
       alert("You need to have at least one shader.");
     }
@@ -99,20 +97,22 @@ const IDE = () => {
     setEditorContent(value); // Update state with the latest editor content
   };
 
-  // Load shaders from local storage when the component mounts
-  useEffect(() => {
-    const storedShaders = JSON.parse(localStorage.getItem("savedShaders"));
-    if (storedShaders && storedShaders.length > 0) {
-      setSavedShaders(storedShaders);
-      setShaderNames(
-        storedShaders.map((shader, idx) => extractShaderName(shader, idx))
-      );
-      setIndex(storedShaders.length - 1); // Set to the last shader
-      setEditorContent(storedShaders[storedShaders.length - 1]); // Show the last shader on load
+  const undoChange = () => {
+    if (undoStack.length > 0) {
+      const lastState = undoStack.pop();
+      setRedoStack([...redoStack, editorContent]); // Push current state to redo stack
+      setEditorContent(lastState); // Revert to the last state
     }
-  }, []);
+  };
 
-  // Update the editor content when the index changes
+  const redoChange = () => {
+    if (redoStack.length > 0) {
+      const nextState = redoStack.pop();
+      setUndoStack([...undoStack, editorContent]); // Push current state to undo stack
+      setEditorContent(nextState); // Reapply the next state
+    }
+  };
+
   useEffect(() => {
     setEditorContent(savedShaders[index]);
   }, [index, savedShaders]);
@@ -161,6 +161,36 @@ const IDE = () => {
             }}
           >
             Save
+          </button>
+          <button
+            onClick={undoChange}
+            style={{
+              marginRight: ".5rem",
+              padding: "0.5rem",
+              cursor: "pointer",
+              background: "#ffcc00",
+              border: "none",
+              borderRadius: "4px",
+              fontFamily: "'Fira Code', monospace",
+              color: "#222",
+            }}
+          >
+            Undo
+          </button>
+          <button
+            onClick={redoChange}
+            style={{
+              marginRight: ".5rem",
+              padding: "0.5rem",
+              cursor: "pointer",
+              background: "#66ccff",
+              border: "none",
+              borderRadius: "4px",
+              fontFamily: "'Fira Code', monospace",
+              color: "#222",
+            }}
+          >
+            Redo
           </button>
           <button
             onClick={handleNew}
