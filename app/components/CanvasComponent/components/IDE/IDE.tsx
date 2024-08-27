@@ -1,3 +1,11 @@
+// todo:: If code errors out when applying to balloon or saving
+// todo: undo redo saves every line change?
+// todo: fix undo redo. It should undo to default setting if none is saved?
+// todo: pass in time to fragment shader and other possibly needed stuff. From fragment shader?
+// todo: add vertex shader
+// todo: uniform area where you can select what uniforms to add ?
+// todo: area where you can select pre-made shader effects code? lazy load
+
 import { Html } from "@react-three/drei";
 import React, { useState, useEffect, useCallback } from "react";
 import CodeEditor from "./components/CodeEditor/CodeEditor";
