@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import Logo from "./components/Logo/Logo";
-import Room from "./components/Room/Room";
+// import Room from "./components/Room/Room";
 import BalloonContainer from "./components/Balloon/BalloonContainer";
 import * as THREE from "three";
 import { Physics } from "@react-three/rapier";
@@ -17,7 +17,7 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
         <group ref={group} {...props}>
           {/* <Room /> */}
           <BalloonMaker position={[0, -7, 0]} />
-          {/* <IDE /> */}
+          <IDE />
           {/* <BalloonContainer /> */}
         </group>
       </Physics>

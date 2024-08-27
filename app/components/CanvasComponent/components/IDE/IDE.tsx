@@ -65,6 +65,22 @@ const IDE = () => {
           onClick={saveContent}
           style={{
             marginTop: "1rem",
+            marginRight: ".5rem",
+            padding: "0.5rem",
+            cursor: "pointer",
+            background: "#fb61c0",
+            border: "none",
+            borderRadius: "4px",
+            fontFamily: "'Fira Code', monospace",
+            color: "#282c34",
+          }}
+        >
+          Save
+        </button>
+        <button
+          onClick={saveContent}
+          style={{
+            marginTop: "1rem",
             padding: "0.5rem",
             cursor: "pointer",
             background: "#61dafb",
@@ -74,7 +90,40 @@ const IDE = () => {
             color: "#282c34",
           }}
         >
-          Save Content
+          Update
+        </button>
+
+        <button
+          onClick={saveContent}
+          style={{
+            marginTop: "1rem",
+            marginLeft: ".5rem",
+            padding: "0.5rem",
+            cursor: "pointer",
+            background: "#61fbb8",
+            border: "none",
+            borderRadius: "4px",
+            fontFamily: "'Fira Code', monospace",
+            color: "#282c34",
+          }}
+        >
+          Balloon
+        </button>
+        <button
+          onClick={saveContent}
+          style={{
+            marginTop: "1rem",
+            marginLeft: ".5rem",
+            padding: "0.5rem",
+            cursor: "pointer",
+            background: "#fb6163",
+            border: "none",
+            borderRadius: "4px",
+            fontFamily: "'Fira Code', monospace",
+            color: "#282c34",
+          }}
+        >
+          New
         </button>
       </Html>
     </group>
