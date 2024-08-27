@@ -21,6 +21,14 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
   );
 
   const saveContent = useCallback(() => {
+    const shaderName = extractShaderName(editorContent);
+
+    // Check if the shader name is still default or empty
+    if (!shaderName || shaderName.startsWith("Shader ")) {
+      alert("Please select a unique name for your shader before saving.");
+      return;
+    }
+
     const updatedShaders = [...savedShaders];
     updatedShaders[index] = editorContent;
     setSavedShaders(updatedShaders);

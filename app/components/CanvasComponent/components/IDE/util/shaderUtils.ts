@@ -1,5 +1,5 @@
 export const createDefaultShader = (index: number): string => `
-// NAME: {Shader ${index + 1}}
+// NAME: Shader ${index + 1}
 precision mediump float;
 
 varying vec3 vPosition;
@@ -12,9 +12,7 @@ void main() {
     gl_FragColor = vec4(finalColor, 1.0);
 }`;
 
-export const extractShaderName = (shader: string, index: number): string => {
-  const nameMatch = shader.match(/\/\/\s*NAME:\s*{([^}]*)}/);
-  return nameMatch && nameMatch[1].trim() !== ""
-    ? nameMatch[1]
-    : `Shader ${index + 1}`;
+export const extractShaderName = (shader: string, ind: number): string => {
+  const nameMatch = shader.match(/\/\/\s*NAME:\s*(.+)/);
+  return nameMatch && nameMatch[1].trim() !== "" ? nameMatch[1].trim() : "";
 };
