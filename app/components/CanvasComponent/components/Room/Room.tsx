@@ -39,7 +39,7 @@ const Room: React.FC = () => {
         position={[0, -roomHeight / 2, 0]}
         rotation={[-Math.PI / 2, 0, Math.PI / 4]}
       >
-        <ringGeometry args={[0.4, 1.32, 4, 1]} />
+        <ringGeometry args={[0.49, 1.32, 36, 1]} />
         <meshStandardMaterial color="white" />
       </mesh>
       {meshRef.current && (
@@ -54,16 +54,16 @@ const Room: React.FC = () => {
       )}
       <mesh
         ref={domeRef}
-        position={[0, -roomHeight / 2 + 0.2, 0]}
+        position={[0, -roomHeight / 2 - 0.15, 0]}
         rotation={[Math.PI, 0, 0]}
       >
-        <cylinderGeometry args={[0.4, 0.15, 0.4, 24, 1, true]} />
-        <meshStandardMaterial color="red" side={THREE.DoubleSide} />
+        <cylinderGeometry args={[0.95, 0.24, 1, 64, 1, true]} />
+        <meshStandardMaterial color="white" side={THREE.DoubleSide} />
       </mesh>
       {domeRef.current && (
         <TrimeshCollider
+          position={[0, -roomHeight / 2 - 0.15, 0]}
           rotation={[Math.PI, 0, 0]}
-          position={[0, -roomHeight / 2 + 0.2, 0]}
           args={[
             domeRef.current.geometry.attributes.position.array, // vertices
             domeRef.current.geometry.index.array, // indices

@@ -41,11 +41,11 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
   return (
     <group>
       {/* <Logo /> */}
-      <Physics debug={true}>
+      <Physics debug={false}>
         <Room />
         <group ref={group} {...props}>
           <BalloonMaker
-            position={[0, -3, 0]}
+            position={[0, -1.2, 0]}
             balloonDataArray={balloonDataArray}
             onRemove={removeBalloon}
           />

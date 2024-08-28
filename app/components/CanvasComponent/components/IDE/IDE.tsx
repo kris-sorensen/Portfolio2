@@ -11,6 +11,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import CodeEditor from "./components/CodeEditor/CodeEditor";
 import IDEControls from "./components/IDEControls/IDEControls";
 import { createDefaultShader, extractShaderName } from "./util/shaderUtils";
+import { useThree } from "@react-three/fiber";
 
 const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
   addBalloon,
@@ -23,6 +24,8 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
     return storedShaders.length > 0 ? storedShaders : [createDefaultShader(0)];
   });
   const [editorContent, setEditorContent] = useState<string>(savedShaders[0]);
+
+  const { viewport } = useThree();
 
   const shaderNames = savedShaders.map((shader, idx) =>
     extractShaderName(shader)
@@ -83,8 +86,8 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
   }, [index, savedShaders]);
 
   return (
-    <group position={[-1.5, -1.5, 0]}>
-      <Html style={{ pointerEvents: "auto" }}>
+    <group position={[0, 0.1, -viewport.width / 2 + 0.01]}>
+      <Html style={{ pointerEvents: "auto" }} transform distanceFactor={1}>
         <div
           style={{
             display: "flex",
