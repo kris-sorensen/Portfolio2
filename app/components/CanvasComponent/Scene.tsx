@@ -40,8 +40,8 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
 
   return (
     <group>
-      <Logo />
-      <Physics debug={true}>
+      {/* <Logo /> */}
+      <Physics debug={false}>
         <Room />
         <group ref={group} {...props}>
           <BalloonMaker
