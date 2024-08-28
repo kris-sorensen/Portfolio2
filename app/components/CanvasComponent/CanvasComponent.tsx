@@ -44,7 +44,7 @@ const Lights = () => {
       <pointLight
         ref={pointLightRef}
         position={[0, 0, 0]}
-        distance={8.5}
+        distance={17}
         intensity={6}
         decay={0.01}
       />
@@ -56,7 +56,7 @@ const Lights = () => {
 const CanvasComponent: React.FC = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 50 }}>
+      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 1], fov: 70 }}>
         <OrbitControls makeDefault enableZoom={true} />
         {/* <fog attach="fog" args={["#111", 20, 40]} /> */}
         <Suspense fallback={null}>
