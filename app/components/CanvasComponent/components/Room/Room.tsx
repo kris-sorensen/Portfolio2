@@ -6,8 +6,8 @@ import * as THREE from "three";
 const Room: React.FC = () => {
   const { viewport } = useThree(); // Get the viewport size
   const [roomDimensions, setRoomDimensions] = useState({
-    roomWidth: 1,
-    roomHeight: 1,
+    roomWidth: viewport.width,
+    roomHeight: viewport.height,
   });
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Room: React.FC = () => {
     });
   }, [viewport]); // Update when the viewport changes
 
-  const roomDepth = 13; // Depth (about two balloons wide)
+  const roomDepth = 15; // Depth (about two balloons wide)
   const wallThickness = 2; // Thickness of the walls
   const { roomWidth, roomHeight } = roomDimensions;
 
