@@ -90,7 +90,7 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
       <Html
         transform
         distanceFactor={1}
-        style={{ userSelect: "none" }}
+        style={{ overflow: "scroll" }}
         occlude="blending"
       >
         {/* <div

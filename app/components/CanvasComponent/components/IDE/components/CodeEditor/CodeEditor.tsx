@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { dracula } from "@uiw/codemirror-theme-dracula";
+import { useThree } from "@react-three/fiber";
 
 const extensions = [javascript({ jsx: true })];
 
@@ -22,12 +23,12 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
       onChange={onChange}
       theme={dracula}
       extensions={extensions}
-      // height={"100%"}
-      // minHeight=
-      // maxHeight =
-      // width={"100%"}
+      height={`${window.innerHeight / 3}px`}
+      // minHeight="20rem"
+      // maxHeight={`${window.innerHeight / 3}px`}
+      width={`${window.innerWidth / 2}px`}
       // minWidth =
-      // maxWidth =
+      // maxWidth={`${window.innerWidth / 2}px`}
     />
   );
 };
