@@ -87,35 +87,32 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
 
   return (
     <group position={[0, 0.1, -viewport.width / 2 + 0.01]}>
-      <Html
-        transform
-        distanceFactor={1}
-        style={{ overflow: "scroll" }}
-        occlude="blending"
-      >
-        {/* <div
+      <Html transform distanceFactor={1} occlude="blending">
+        <div
           style={{
-            display: "flex",
-            background: "#010101",
-            borderRadius: "8px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            fontFamily: "'Fira Code', monospace",
-            // overflow: "hidden",
-            // height: "20rem",
-            // width: "80rem",
+            overflow: "scroll",
           }}
-        > */}
-        <CodeEditor value={editorContent} onChange={handleEditorChange} />
-        {/* </div> */}
-        <IDEControls
-          saveContent={saveContent}
-          handleNew={handleNew}
-          handleDelete={handleDelete}
-          createBalloon={createBalloon}
-          shaderNames={shaderNames}
-          handleShaderSelect={handleShaderSelect}
-          index={index}
-        />
+        >
+          <div>
+            <div
+              style={{
+                width: `${700}px`,
+                height: `${300}px`,
+              }}
+            >
+              <CodeEditor value={editorContent} onChange={handleEditorChange} />
+            </div>
+            <IDEControls
+              saveContent={saveContent}
+              handleNew={handleNew}
+              handleDelete={handleDelete}
+              createBalloon={createBalloon}
+              shaderNames={shaderNames}
+              handleShaderSelect={handleShaderSelect}
+              index={index}
+            />
+          </div>
+        </div>
       </Html>
     </group>
   );
