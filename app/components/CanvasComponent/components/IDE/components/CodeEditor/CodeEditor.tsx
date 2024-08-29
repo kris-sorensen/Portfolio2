@@ -17,6 +17,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
     <CodeMirror
       ref={editorRef}
       value={value}
+      indentWithTab
+      autoFocus={false}
       onChange={onChange}
       height="100%"
       theme={dracula}

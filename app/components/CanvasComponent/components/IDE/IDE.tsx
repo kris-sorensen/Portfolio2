@@ -87,7 +87,14 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
 
   return (
     <group position={[0, 0.1, -viewport.width / 2 + 0.01]}>
-      <Html style={{ pointerEvents: "auto" }} transform distanceFactor={1}>
+      <Html
+        transform
+        distanceFactor={1}
+        style={{ userSelect: "none" }}
+        castShadow
+        receiveShadow
+        occlude="blending"
+      >
         <div
           style={{
             display: "flex",

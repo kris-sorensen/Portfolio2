@@ -56,7 +56,7 @@ const Lights = () => {
 const CanvasComponent: React.FC = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 1], fov: 70 }}>
+      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0.9], fov: 70 }}>
         <OrbitControls makeDefault enableZoom={true} />
         {/* <fog attach="fog" args={["#111", 20, 40]} /> */}
         <Suspense fallback={null}>
