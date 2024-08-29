@@ -50,8 +50,8 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
             onRemove={removeBalloon}
           />
         </group>
-        <IDE addBalloon={addBalloon} />
       </Physics>
+      <IDE addBalloon={addBalloon} />
     </group>
   );
 };

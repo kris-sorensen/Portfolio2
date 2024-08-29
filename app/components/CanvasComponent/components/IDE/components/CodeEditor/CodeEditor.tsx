@@ -18,11 +18,16 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
       ref={editorRef}
       value={value}
       indentWithTab
-      autoFocus={false}
+      autoFocus={true}
       onChange={onChange}
-      height="100%"
       theme={dracula}
       extensions={extensions}
+      // height={"100%"}
+      // minHeight=
+      // maxHeight =
+      // width={"100%"}
+      // minWidth =
+      // maxWidth =
     />
   );
 };

@@ -43,12 +43,15 @@ precision mediump float;
   }`;
 
 export const vertexShader = `
- varying vec3 vPosition;
+varying vec3 vPosition; // Passes the position to the fragment shader;
+varying vec3 vNormal;   // Passes the normal to the fragment shader;
 
-  void main() {
+void main() {
     vPosition = position; // Pass the vertex position to the fragment shader;
+    vNormal = normalize(normalMatrix * normal); // Transform normal to eye space and pass it;
+
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }`;
+}`;
 
 export const initialVertexShader = `
   varying vec2 vUv;

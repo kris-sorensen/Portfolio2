@@ -91,23 +91,22 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
         transform
         distanceFactor={1}
         style={{ userSelect: "none" }}
-        castShadow
-        receiveShadow
         occlude="blending"
       >
-        <div
+        {/* <div
           style={{
             display: "flex",
             background: "#010101",
             borderRadius: "8px",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
             fontFamily: "'Fira Code', monospace",
-            overflow: "hidden",
-            height: "20rem",
+            // overflow: "hidden",
+            // height: "20rem",
+            // width: "80rem",
           }}
-        >
-          <CodeEditor value={editorContent} onChange={handleEditorChange} />
-        </div>
+        > */}
+        <CodeEditor value={editorContent} onChange={handleEditorChange} />
+        {/* </div> */}
         <IDEControls
           saveContent={saveContent}
           handleNew={handleNew}

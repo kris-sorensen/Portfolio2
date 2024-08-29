@@ -23,18 +23,18 @@ function Rig() {
   });
   return null;
 }
-
+// todo: lighting on walls should be a shader.
 const Lights = () => {
   const pointLightRef = useRef();
-  const { scene } = useThree();
+  const { scene, viewport } = useThree();
 
   useEffect(() => {
     if (pointLightRef.current) {
-      // const helper = new THREE.PointLightHelper(pointLightRef.current, 5); // The second argument controls the size of the helper
-      // scene.add(helper);
-      // return () => {
-      //   scene.remove(helper); // Clean up the helper when the component unmounts
-      // };
+      const helper = new THREE.PointLightHelper(pointLightRef.current, 5); // The second argument controls the size of the helper
+      scene.add(helper);
+      return () => {
+        scene.remove(helper); // Clean up the helper when the component unmounts
+      };
     }
   }, [scene]);
 
@@ -44,11 +44,11 @@ const Lights = () => {
       <pointLight
         ref={pointLightRef}
         position={[0, 0, 0]}
-        distance={17}
+        distance={viewport.width}
         intensity={6}
-        decay={0.01}
+        decay={0.02}
       />
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.75} />
     </>
   );
 };
