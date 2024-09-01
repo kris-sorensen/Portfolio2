@@ -1,0 +1,35 @@
+Frame:
+  ☐ Create full screen plane
+  ☐ Create shader
+  ☐ Cut out middle in shader (alpha).
+  ☐ Create gradient
+  ☐ animate?
+
+Shader:
+  ☐ Create shape - 1/2 sphere? party ballon shape? bigger balloon? is inside shader flat or curved like ballon? sphere w/ flat shader easiest for now. 
+  ☐ Add decal
+  ☐ add meshPhysical Material 
+  ☐ make look like glass or ballon plastic clear.
+  ☐ Light 
+  ☐ Add Shader disk. can be a
+
+Menu:
+  ☐ Add css buttons
+  ☐ Add Shader in front of lens that if full screen. Does it need to parralax or no?
+  ☐ Animate shader on and off
+  ☐ Animate Css Btns from black to white when going to shader overlay
+  ☐ move camera back? or forward?
+
+Overlay:
+  ☐ Install code editor in css. code editor should look like words rest on overlay
+  ☐ List of shaders starting with most recent and a scroolable fading list that is infinite for how many shaders they have saved? 
+  ☐ Create default/new shader. code
+  ☐ pass in time and other variables. can be commented out. 
+  ☐ add aditional defaults? 
+
+Add more info page:
+  ☐ page will have how to contact me. My github, email, linkedin. 
+
+
+Animate:
+  ☐ parralax effect
