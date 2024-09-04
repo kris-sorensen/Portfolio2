@@ -6,6 +6,7 @@ import IDE from "./components/IDE/IDE";
 import * as THREE from "three";
 import { retrieveVertexShader } from "@/app/data/currentShader";
 import Room from "./components/Room/Room";
+import Frame from "./components/IDE/components/Frame/Frame";
 
 // Define the interface for BalloonData
 interface BalloonData {
@@ -42,16 +43,18 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
     <group>
       {/* <Logo /> */}
       <Physics debug={false}>
-        <Room />
-        <group ref={group} {...props}>
+        <Frame />
+
+        {/* <Room /> */}
+        {/* <group ref={group} {...props}>
           <BalloonMaker
             position={[0, -1.2, 0]}
             balloonDataArray={balloonDataArray}
             onRemove={removeBalloon}
           />
-        </group>
+        </group> */}
       </Physics>
-      <IDE addBalloon={addBalloon} />
+      {/* <IDE addBalloon={addBalloon} /> */}
     </group>
   );
 };

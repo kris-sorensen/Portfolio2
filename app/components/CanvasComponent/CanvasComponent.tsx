@@ -1,69 +1,34 @@
 "use client";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense } from "react";
 import * as THREE from "three";
-import { Environment, Loader, OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Loader, OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import Scene from "./Scene";
 import DevToolsR3F from "./components/DevTools/DevToolsR3F";
-
-function Rig() {
-  const [vec] = useState(() => new THREE.Vector3());
-  const { camera, pointer } = useThree();
-  const rigActive = useRef(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      rigActive.current = false;
-    }, 2000);
-  }, []);
-
-  useFrame(() => {
-    // if (!rigActive.current) return;
-    // camera.position.lerp(vec.set(pointer.x * 3, pointer.y * 1.5, 60), 0.0465);
-  });
-  return null;
-}
-// todo: lighting on walls should be a shader.
-const Lights = () => {
-  const pointLightRef = useRef();
-  const { scene, viewport } = useThree();
-
-  useEffect(() => {
-    if (pointLightRef.current) {
-      const helper = new THREE.PointLightHelper(pointLightRef.current, 5); // The second argument controls the size of the helper
-      scene.add(helper);
-      return () => {
-        scene.remove(helper); // Clean up the helper when the component unmounts
-      };
-    }
-  }, [scene]);
-
-  return (
-    <>
-      {/* <directionalLight position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]} /> */}
-      <pointLight
-        ref={pointLightRef}
-        position={[0, 0, 0]}
-        distance={viewport.width}
-        intensity={6}
-        decay={0.02}
-      />
-      <ambientLight intensity={0.75} />
-    </>
-  );
-};
+import Camera from "./components/Camera/Camera";
+import Lights from "./components/Camera/components/Lights/Lights";
 
 const CanvasComponent: React.FC = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0.9], fov: 70 }}>
+      <Canvas
+        dpr={[1, 2]}
+        camera={{
+          position: [0, 0, 0.5],
+          zoom: 60, // Adjust this value to control the zoom level
+          near: 0.0,
+          far: 5,
+        }}
+        orthographic
+        shadows={true}
+      >
+        <Camera />
         <OrbitControls makeDefault enableZoom={true} />
-        {/* <fog attach="fog" args={["#111", 20, 40]} /> */}
+        {/* <fog attach="fog" args={["#080707", 20, 40]} /> */}
+        <color attach="background" args={["black"]} />
         <Suspense fallback={null}>
-          <Scene />
-          <Rig />
           <Lights />
-          {/* <Environment preset="warehouse" background /> */}
+          <Scene />
         </Suspense>
         <DevToolsR3F />
       </Canvas>

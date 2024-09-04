@@ -30,8 +30,8 @@ varying vec3 vNormal; // The normal at the fragment
 // Predefined light variables
 const vec3 lightPosition = vec3(2.0, 2.0, 2.0); // Adjusted position of the point light
 const vec3 lightColor = vec3(1.0, 1.0, 1.0); // Color of the point light
-const float lightIntensity = 6.0; // Intensity of the point light
-const vec3 ambientColor = vec3(0.5, 0.5, 0.5); // Ambient light color
+const float lightIntensity = 3.0; // Intensity of the point light
+const vec3 ambientColor = vec3(0., 0., 0.); // Ambient light color
 const float ambientIntensity = 0.5; // Ambient light intensity
 
 void main() {

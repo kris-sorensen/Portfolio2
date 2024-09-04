@@ -76,14 +76,26 @@ const Balloon = memo(
             geometry={nodes.Line001.geometry}
             scale={[0.1, 0.1, 0.1]}
           >
-            <shaderMaterial
+            <meshPhysicalMaterial
+              color={"#00f2de"}
+              roughness={0.1}
+              clearcoat={1}
+              clearcoatRoughness={0.05}
+              reflectivity={0.5}
+              transparent={true}
+              opacity={1}
+              fog={false}
+              metalness={0.25}
+            />
+            {/* <shaderMaterial
               ref={material}
               attach="material"
               // uniforms={uniforms}
               vertexShader={vertexShader}
               fragmentShader={fragmentShader}
               transparent
-            />
+              side={THREE.DoubleSide} //todo: can turn off if balloon and bottom of ballon are separate
+            /> */}
           </mesh>
         </RigidBody>
       </group>

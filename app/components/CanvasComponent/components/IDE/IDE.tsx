@@ -6,7 +6,7 @@
 // todo: uniform area where you can select what uniforms to add ?
 // todo: area where you can select pre-made shader effects code? lazy load
 
-import { Html } from "@react-three/drei";
+import { Html, Lightformer } from "@react-three/drei";
 import React, { useState, useEffect, useCallback } from "react";
 import CodeEditor from "./components/CodeEditor/CodeEditor";
 import IDEControls from "./components/IDEControls/IDEControls";
@@ -86,7 +86,19 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
   }, [index, savedShaders]);
 
   return (
-    <group position={[0, 0.1, -viewport.width / 2 + 0.01]}>
+    <group
+      position={[0, 0, (-viewport.width * 2) / 2 + 0.02]}
+      scale={[1, 0.8, 1]}
+    >
+      {/* RectAreaLight positioned behind the IDE */}
+      <Lightformer
+        position={[0, 0, -0.01]}
+        form="rect" // circle | ring | rect (optional, default = rect)
+        intensity={1} // power level (optional = 1)
+        color="white" // (optional = white)
+        scale={[3.75, 1.65, 1]} // Scale it any way you prefer (optional = [1, 1])
+        target={[0, 0, 0]} // Target position (optional = undefined)
+      />
       <Html transform distanceFactor={1} occlude="blending">
         <div
           style={{
@@ -96,8 +108,8 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
           <div>
             <div
               style={{
-                width: `${700}px`,
-                height: `${300}px`,
+                width: `${1400}px`,
+                height: `${500}px`,
               }}
             >
               <CodeEditor value={editorContent} onChange={handleEditorChange} />

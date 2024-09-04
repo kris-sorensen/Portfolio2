@@ -20,7 +20,7 @@ const IDEControls: React.FC<IDEControlsProps> = ({
   index,
 }) => {
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
+    <div style={{ display: "flex", alignItems: "center", background: "black" }}>
       <button onClick={saveContent} style={buttonStyle}>
         Save
       </button>

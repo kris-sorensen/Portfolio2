@@ -6,12 +6,31 @@ import {
 } from "@react-three/rapier";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import ConeTopShader from "./components/ConeTopShader/ConeTopShader";
+import {
+  wallGlow,
+  vertexShader,
+} from "@/app/Shaders/BasicShader/BasicShader.shader";
+
+const WallMaterial = () => {
+  return (
+    <shaderMaterial
+      // ref={material}
+      attach="material"
+      // uniforms={uniforms}
+      vertexShader={vertexShader}
+      fragmentShader={wallGlow}
+      transparent
+      side={THREE.DoubleSide} //todo: can turn off if balloon and bottom of ballon are separate
+    />
+  );
+};
 
 const Room: React.FC = () => {
   const { viewport } = useThree(); // Get the viewport size
   const [roomDimensions, setRoomDimensions] = useState({
-    roomWidth: viewport.width * 1,
-    roomHeight: viewport.height * 1,
+    roomWidth: viewport.width * 2,
+    roomHeight: viewport.height * 1.25,
   });
   const meshRef = useRef(null);
   const domeRef = useRef(null);
@@ -20,26 +39,35 @@ const Room: React.FC = () => {
     //todo: if first run return to avoid rerender
     // Set room dimensions once viewport is initialized
     setRoomDimensions({
-      roomWidth: viewport.width,
-      roomHeight: viewport.height,
+      roomWidth: viewport.width * 2,
+      roomHeight: viewport.height * 1.25,
     });
   }, [viewport]); // Update when the viewport changes
 
-  const roomDepth = viewport.width; // Depth (about two balloons wide)
+  const roomDepth = viewport.width * 2; // Depth (about two balloons wide)
   const wallThickness = 0.1; // Thickness of the walls
   const { roomWidth, roomHeight } = roomDimensions;
 
   return (
-    <group>
-      {/* Floor */}
+    <group rotation={[-Math.PI / 2, 0, 0]}>
+      {/* Visual Floor */}
+      <mesh
+        position={[0, -roomHeight / 2 + 0.01, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+      >
+        <planeGeometry args={[roomWidth, roomDepth]} />
+        <WallMaterial />
+      </mesh>
+      {/* Physics Floor */}
       <mesh
         ref={meshRef}
         position={[0, -roomHeight / 2, 0]}
         rotation={[-Math.PI / 2, 0, Math.PI / 4]}
       >
-        <ringGeometry args={[0.49, viewport.width, 36, 1]} />
-        <meshStandardMaterial color="white" />
+        <ringGeometry args={[0.49, viewport.width * 2, 36, 1]} />
+        <meshBasicMaterial color="black" />
       </mesh>
+
       {meshRef.current && (
         <TrimeshCollider
           rotation={[Math.PI / 2, 0, Math.PI / 4]}
@@ -50,13 +78,15 @@ const Room: React.FC = () => {
           ]}
         />
       )}
+      {/* Cone */}
       <mesh
         ref={domeRef}
         position={[0, -roomHeight / 2 - 0.15, 0]}
         rotation={[Math.PI, 0, 0]}
       >
         <cylinderGeometry args={[0.95, 0.24, 1, 64, 1, true]} />
-        <meshStandardMaterial color="white" side={THREE.DoubleSide} />
+        {/* <WallMaterial /> */}
+        <meshStandardMaterial color="red" side={THREE.DoubleSide} />
       </mesh>
       {domeRef.current && (
         <TrimeshCollider
@@ -68,7 +98,11 @@ const Room: React.FC = () => {
           ]}
         />
       )}
-
+      {/* Cone Top (Shader) */}
+      <ConeTopShader
+        position={[0, -roomHeight / 2 + 0.35, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+      />
       {/* Ceiling */}
       <CuboidCollider
         position={[0, roomHeight / 2, 0]}
@@ -76,7 +110,7 @@ const Room: React.FC = () => {
       />
       <mesh position={[0, roomHeight / 2, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <planeGeometry args={[roomWidth, roomDepth]} />
-        <meshStandardMaterial color="white" />
+        <WallMaterial />
       </mesh>
 
       {/* Left Wall */}
@@ -86,7 +120,7 @@ const Room: React.FC = () => {
       />
       <mesh position={[-roomWidth / 2, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
         <planeGeometry args={[roomDepth, roomHeight]} />
-        <meshStandardMaterial color="white" />
+        <WallMaterial />
       </mesh>
 
       {/* Right Wall */}
@@ -96,7 +130,7 @@ const Room: React.FC = () => {
       />
       <mesh position={[roomWidth / 2, 0, 0]} rotation={[0, -Math.PI / 2, 0]}>
         <planeGeometry args={[roomDepth, roomHeight]} />
-        <meshStandardMaterial color="white" />
+        <WallMaterial />
       </mesh>
 
       {/* Front Wall */}
@@ -106,7 +140,7 @@ const Room: React.FC = () => {
       />
       <mesh position={[0, 0, roomDepth / 2]} rotation={[0, Math.PI, 0]}>
         <planeGeometry args={[roomWidth, roomHeight]} />
-        <meshStandardMaterial color="white" />
+        <WallMaterial />
       </mesh>
 
       {/* Back Wall */}
@@ -116,7 +150,7 @@ const Room: React.FC = () => {
       />
       <mesh position={[0, 0, -roomDepth / 2]}>
         <planeGeometry args={[roomWidth, roomHeight]} />
-        <meshStandardMaterial color="white" />
+        <WallMaterial />
       </mesh>
     </group>
   );
