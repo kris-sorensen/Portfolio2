@@ -6,7 +6,7 @@ const Camera = () => {
   return (
     <>
       <CameraSettings />
-      {/* <Rig /> */}
+      <Rig />
     </>
   );
 };
