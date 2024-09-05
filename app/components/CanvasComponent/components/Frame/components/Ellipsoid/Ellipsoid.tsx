@@ -2,7 +2,7 @@ import React, { useRef, useMemo, useCallback } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useControls, folder } from "leva";
 import * as THREE from "three";
-import { Mesh, Shader, MeshPhysicalMaterial } from "three";
+import { Mesh, ShaderMaterial } from "three";
 
 // Define the uniforms object type
 interface Uniforms {
@@ -14,7 +14,7 @@ const uniforms: Uniforms = {
 };
 
 // Shader modification functions
-const onBeforeCompile = (shader: Shader) => {
+const onBeforeCompile = (shader: ShaderMaterial) => {
   shader.uniforms.time = uniforms.time;
 
   // Vertex shader modification
@@ -80,7 +80,7 @@ const onBeforeCompile = (shader: Shader) => {
   );
 };
 
-const onBeforeCompileDepth = (shader: Shader) => {
+const onBeforeCompileDepth = (shader: ShaderMaterial) => {
   shader.uniforms.time = uniforms.time;
   shader.vertexShader = shader.vertexShader.replace(
     "#include <common>",
@@ -132,7 +132,7 @@ const Ellipsoid: React.FC<EllipsoidProps> = ({
           clearcoatRoughness: { value: 0, min: 0, max: 1, step: 0.001 },
           transparent: { value: true },
           wireframe: { value: false },
-          fog: { value: false },
+          fog: { value: true },
           sheenRoughness: { value: 0.15, min: 0, max: 1, step: 0.001 },
           thickness: { value: 7.78, min: 0, max: 10, step: 0.001 },
           ior: { value: 2.05, min: 0, max: 2.33, step: 0.001 },

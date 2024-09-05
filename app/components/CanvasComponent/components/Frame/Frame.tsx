@@ -9,10 +9,13 @@ const Frame = () => {
   const { viewport } = useThree();
   return (
     <>
-      <mesh>
+      {/* <mesh>
         <Plane args={[viewport.width, viewport.height]}>
           <FrameMaterial />
         </Plane>
+      </mesh> */}
+      <mesh position={[0, 0, -0.01]}>
+        <Ellipsoid a={0.4} b={0.4} c={0.1} />
       </mesh>
       {/* Add a white plane behind the ellipsoid to receive shadows */}
       {/* <mesh
@@ -37,9 +40,6 @@ const Frame = () => {
           />
         </Sphere>
       </mesh> */}
-      <mesh position={[0, 0, -0.01]}>
-        <Ellipsoid a={0.4} b={0.4} c={0.1} />
-      </mesh>
     </>
   );
 };

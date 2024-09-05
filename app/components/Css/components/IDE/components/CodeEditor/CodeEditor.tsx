@@ -13,13 +13,13 @@ const customTheme = EditorView.theme(
   {
     "&": {
       color: neonPink, // Default text color (neon blue)
-      backgroundColor: "#000000", // Pure black background
+      backgroundColor: "none", // Pure black background
     },
     ".cm-content": {
       caretColor: neonPink, // Cursor color (neon pink)
     },
     ".cm-gutters": {
-      backgroundColor: "#000000", // Line numbers background (black)
+      backgroundColor: "none", // Line numbers background (black)
       color: "#ffffff", // Line numbers color (white)
       border: "none", // No border for the gutters
     },
@@ -27,17 +27,17 @@ const customTheme = EditorView.theme(
       color: "#ffffff", // White line numbers
     },
     ".cm-activeLine": {
-      backgroundColor: "#151515", // Slightly darker black for the active line
+      backgroundColor: "none", // Slightly darker black for the active line
     },
     ".cm-selectionBackground": {
       backgroundColor: neonGreen, // Neon pink selection background
     },
     ".cm-cursor": {
-      borderLeft: `2px solid ${neonYellow}`, // Neon pink cursor
+      borderLeft: `0px solid ${neonYellow}`, // Neon pink cursor
     },
     ".cm-matchingBracket": {
       backgroundColor: neonBlue, // Neon blue for matching brackets
-      outline: `1px solid ${neonPurple}`, // Neon pink outline for matching brackets
+      outline: `0px solid ${neonPurple}`, // Neon pink outline for matching brackets
     },
     ".cm-gutterElement": {
       padding: "0 4px",
@@ -66,7 +66,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
       theme={customTheme} // Apply your custom theme here
       extensions={extensions}
       width={`100%`}
-      height={`500px`}
+      height={`100%`}
     />
   );
 };

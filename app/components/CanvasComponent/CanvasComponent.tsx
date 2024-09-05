@@ -7,6 +7,7 @@ import Scene from "./Scene";
 import DevToolsR3F from "./components/DevTools/DevToolsR3F";
 import Camera from "./components/Camera/Camera";
 import Lights from "./components/Camera/components/Lights/Lights";
+import { Leva } from "leva";
 
 const CanvasComponent: React.FC = () => {
   return (
@@ -22,15 +23,16 @@ const CanvasComponent: React.FC = () => {
         orthographic
         shadows={true}
       >
+        <Leva hidden />
         <Camera />
         <OrbitControls makeDefault enableZoom={true} />
-        {/* <fog attach="fog" args={["#080707", 20, 40]} /> */}
+        <fog attach="fog" args={["#ff0000", 0, 40]} />
         <color attach="background" args={["black"]} />
         <Suspense fallback={null}>
           <Lights />
           <Scene />
         </Suspense>
-        <DevToolsR3F />
+        {/* <DevToolsR3F /> */}
       </Canvas>
       <Loader />
     </div>

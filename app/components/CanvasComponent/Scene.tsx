@@ -2,11 +2,12 @@ import React, { useRef, useState } from "react";
 import Logo from "./components/Logo/Logo";
 import { Physics } from "@react-three/rapier";
 import BalloonMaker from "./components/BalloonMaker/BalloonMaker";
-import IDE from "./components/IDE/IDE";
+import IDE from "../Css/components/IDE/IDE";
 import * as THREE from "three";
 import { retrieveVertexShader } from "@/app/data/currentShader";
 import Room from "./components/Room/Room";
-import Frame from "./components/IDE/components/Frame/Frame";
+import Frame from "./components/Frame/Frame";
+import Overlay from "./components/Frame/components/ScreenOverlay/ScreenOverlay";
 
 // Define the interface for BalloonData
 interface BalloonData {
@@ -44,6 +45,7 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       {/* <Logo /> */}
       <Physics debug={false}>
         <Frame />
+        {/* <Overlay /> */}
 
         {/* <Room /> */}
         {/* <group ref={group} {...props}>

@@ -1,9 +1,11 @@
 import { Metadata } from "next";
 import CanvasComponent from "./components/CanvasComponent/CanvasComponent";
+import Css from "./components/Css/Css";
 
 export default function Home() {
   return (
     <div className="min-h-screen relative" style={{}}>
+      <Css />
       <CanvasComponent />
     </div>
   );

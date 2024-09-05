@@ -84,7 +84,7 @@ const Balloon = memo(
               reflectivity={0.5}
               transparent={true}
               opacity={1}
-              fog={false}
+              // fog={false}
               metalness={0.25}
             />
             {/* <shaderMaterial

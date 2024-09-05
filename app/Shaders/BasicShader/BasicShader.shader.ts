@@ -69,19 +69,27 @@ export const AnimatedFrameFragment = `
 
     
     // Define the colors
-    vec3 black = vec3(0.0);
+    vec3 black = vec3(.4);
     vec3 white = vec3(1.);
     vec3 softDawnLight = vec3(0.984, 0.910, 0.796);
     vec3 sunsetGlow = vec3(0.925, 0.392, 0.263);
     vec3 sunKissedSand = vec3(0.973, 0.843, 0.678);
-;
+    vec3 darkerPeriwinkle = vec3(0.348, 0.386, 0.596);
+
+    vec3 periwinkle = vec3(0.435, 0.482, 0.745);
+    vec3 lightLavender = vec3(0.863, 0.843, 0.929);
+    // vec3 aquaMint = vec3(0.0, 0.949, 0.871);
+    // vec3 hotPink = vec3(1.0, 0.424, 0.710);
+
+
 
     // Create a radial gradient using the distance
     float gradient = smoothstep(0.85, 1.3, dist);
     float innerGradient = smoothstep(0.45, .7, dist);
 
     // Interpolate between black and neonBlue
-    vec3 col = mix(mix(softDawnLight,sunKissedSand, innerGradient), sunsetGlow, gradient);
+    vec3 col = mix(mix(lightLavender,periwinkle, innerGradient), darkerPeriwinkle, gradient);
+    // vec3 col = mix(lightLavender,periwinkle, innerGradient);
 
     float alpha = 1.;
     alpha = smoothstep(.525, .526, dist);
