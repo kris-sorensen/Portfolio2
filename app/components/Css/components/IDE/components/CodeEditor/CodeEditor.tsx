@@ -66,7 +66,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange }) => {
       theme={customTheme} // Apply your custom theme here
       extensions={extensions}
       width={`100%`}
-      height={`100%`}
+      height={`40rem`}
+      maxHeight="40rem"
     />
   );
 };

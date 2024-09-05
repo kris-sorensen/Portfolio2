@@ -3,25 +3,30 @@ import CodeEditor from "./components/CodeEditor/CodeEditor";
 import IDEControls from "./components/IDEControls/IDEControls";
 import { createDefaultShader, extractShaderName } from "./util/shaderUtils";
 
-const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
+interface IDEProps {
+  addBalloon: (fragmentShader: string) => void;
+  toggleVisibility: () => void;
+  isVisible: boolean;
+}
+
+const IDE: React.FC<IDEProps> = ({
   addBalloon,
+  toggleVisibility,
+  isVisible,
 }) => {
   const [index, setIndex] = useState<number>(0);
   const [savedShaders, setSavedShaders] = useState<string[]>([
     createDefaultShader(0),
   ]);
   const [editorContent, setEditorContent] = useState<string>(savedShaders[0]);
-  const [isVisible, setVisible] = useState(true); // State to control the visibility of everything
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedShaders = JSON.parse(
-        localStorage.getItem("savedShaders") || "[]"
-      );
-      if (storedShaders.length > 0) {
-        setSavedShaders(storedShaders);
-        setEditorContent(storedShaders[0]);
-      }
+    const storedShaders = JSON.parse(
+      localStorage.getItem("savedShaders") || "[]"
+    );
+    if (storedShaders.length > 0) {
+      setSavedShaders(storedShaders);
+      setEditorContent(storedShaders[0]);
     }
   }, []);
 
@@ -31,18 +36,14 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
 
   const saveContent = useCallback(() => {
     const shaderName = extractShaderName(editorContent);
-
     if (!shaderName || shaderName.startsWith("Shader ")) {
       alert("Please select a unique name for your shader before saving.");
       return;
     }
-
     const updatedShaders = [...savedShaders];
     updatedShaders[index] = editorContent;
     setSavedShaders(updatedShaders);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
-    }
+    localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
   }, [index, editorContent, savedShaders]);
 
   const handleNew = useCallback(() => {
@@ -50,9 +51,7 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
     const updatedShaders = [...savedShaders, newShader];
     setSavedShaders(updatedShaders);
     setIndex(updatedShaders.length - 1);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
-    }
+    localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
   }, [savedShaders]);
 
   const handleDelete = useCallback(() => {
@@ -63,9 +62,7 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
         index >= updatedShaders.length ? updatedShaders.length - 1 : index;
       setIndex(newIndex);
       setEditorContent(updatedShaders[newIndex]);
-      if (typeof window !== "undefined") {
-        localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
-      }
+      localStorage.setItem("savedShaders", JSON.stringify(updatedShaders));
     }
   }, [index, savedShaders]);
 
@@ -84,14 +81,6 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
     addBalloon(editorContent);
   }, [addBalloon, editorContent]);
 
-  const toggleVisibility = useCallback(() => {
-    setVisible((prev) => !prev);
-  }, []);
-
-  useEffect(() => {
-    setEditorContent(savedShaders[index]);
-  }, [index, savedShaders]);
-
   return (
     <div
       style={{
@@ -101,39 +90,32 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
         width: "100vw",
         justifyContent: "center",
         alignItems: "center",
-        background: isVisible
-          ? "linear-gradient(to right, #000000, #434343)" // Gradient background
-          : "none", // No background when hidden
-        transition: "background 0.5s ease", // Smooth transition for background
-        position: "relative", // For positioning the close button
+        background: "rgba(0, 0, 0, 0.993)",
+        transition: "background 0.5s ease",
+        position: "fixed", // Ensure it stays fixed in the viewport
+        top: 0,
+        left: 0,
+        zIndex: 9, // High z-index to make sure it's on top of other content
       }}
     >
-      {/* X Button to hide everything */}
       <button
         onClick={toggleVisibility}
         style={{
           position: "absolute",
-          top: "1rem",
-          right: "1rem",
+          top: "8rem",
+          right: "8rem",
           padding: "0.5rem 1rem",
           background: "red",
           color: "white",
           border: "none",
           cursor: "pointer",
-          zIndex: 10, // Keep the button above everything
+          zIndex: 9, // Ensure the button is on top of everything else
         }}
       >
         X
       </button>
 
-      {/* Container for the editor and controls */}
-      <div
-        style={{
-          display: isVisible ? "block" : "none", // Hide everything when not visible
-          width: "100%",
-          maxWidth: "800px", // Maximum width of the container
-        }}
-      >
+      <div style={{ width: "100%", maxWidth: "800px" }}>
         <div
           style={{
             width: "100%",
@@ -144,22 +126,15 @@ const IDE: React.FC<{ addBalloon: (fragmentShader: string) => void }> = ({
         >
           <CodeEditor value={editorContent} onChange={handleEditorChange} />
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <IDEControls
-            saveContent={saveContent}
-            handleNew={handleNew}
-            handleDelete={handleDelete}
-            createBalloon={createBalloon}
-            shaderNames={shaderNames}
-            handleShaderSelect={handleShaderSelect}
-            index={index}
-          />
-        </div>
+        <IDEControls
+          saveContent={saveContent}
+          handleNew={handleNew}
+          handleDelete={handleDelete}
+          createBalloon={createBalloon}
+          shaderNames={shaderNames}
+          handleShaderSelect={handleShaderSelect}
+          index={index}
+        />
       </div>
     </div>
   );

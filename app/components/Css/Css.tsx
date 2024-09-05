@@ -1,17 +1,30 @@
 "use client";
-import React, { Suspense } from "react";
+import React, { useState } from "react";
 import IDE from "./components/IDE/IDE";
 import Menu from "./components/Menu/Menu";
 
-const Css = () => {
+const Css: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    setIsVisible((prev) => !prev);
+  };
+
+  const addBalloon = () => {
+    console.log("Balloon added");
+  };
+
   return (
     <>
-      <Menu />
-      <Suspense fallback={null}>
-        <div style={{ position: "absolute", zIndex: 10 }}>
-          {/* <IDE addBalloon={() => console.log("ballon add")} /> */}
-        </div>
-      </Suspense>
+      <Menu addBalloon={addBalloon} toggleVisibility={toggleVisibility} />
+      <Logo />
+      <div style={{ position: "absolute", zIndex: 10 }}>
+        <IDE
+          addBalloon={addBalloon}
+          toggleVisibility={toggleVisibility}
+          isVisible={isVisible}
+        />
+      </div>
     </>
   );
 };

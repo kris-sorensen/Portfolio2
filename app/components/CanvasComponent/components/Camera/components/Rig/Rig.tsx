@@ -14,14 +14,14 @@ function Rig() {
   }, []);
 
   useFrame(() => {
+    // * Parallax effect
+    camera.position.lerp(vec.set(-pointer.x * 3, -pointer.y * 1.5, 1), 0.0465);
+    if (!rigActive.current) return;
+    // * Initial Camera Movement
     if (camera.isOrthographicCamera) {
-      camera.zoom = THREE.MathUtils.lerp(camera.zoom, 18, 0.0465);
+      camera.zoom = THREE.MathUtils.lerp(camera.zoom, 10, 0.0465);
       camera.updateProjectionMatrix();
     }
-
-    // * Parallax effect
-    // if (!rigActive.current) return;
-    // camera.position.lerp(vec.set(pointer.x * 3, pointer.y * 1.5, 60), 0.0465);
   });
   return null;
 }

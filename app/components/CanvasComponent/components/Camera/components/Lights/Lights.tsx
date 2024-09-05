@@ -23,6 +23,11 @@ const Lights = () => {
         intensity={5}
         castShadow
       />
+      <directionalLight
+        position={[0, 0, -5]}
+        rotation={[0, 0, Math.PI / 2]}
+        intensity={2}
+      />
       {/* <pointLight
         ref={pointLightRef}
         position={[0, 0, 2]}
