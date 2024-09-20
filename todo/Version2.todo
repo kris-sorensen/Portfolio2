@@ -1,0 +1,18 @@
+
+NEED TO DO:
+
+
+
+
+  ☐ Make title and name in 3D so god rays go through them
+  ☐ Make first batch launch in a pattern
+    ☐ different colors/pattrens
+    ☐ set position when calling addBalloon
+  ☐ Make background shader?
+    ☐ Spider man dots?
+  ☐ Better fonts. Space. clownish, party fonts, chalk
+  ☐ Design work page
+  ☐ Design about page
+  ☐ add lerp to moons movements? smooth
+  ☐ Click to place moon. have either a mouse follower saying it or just in chalk on the screen. click to pick up and it should lerp to position. cooly
+  ☐ moon texture

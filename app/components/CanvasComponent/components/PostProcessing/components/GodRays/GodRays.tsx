@@ -2,16 +2,19 @@ import React, { useRef, useState } from "react";
 import { GodRays } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { useGodRaysControls } from "./hooks/useGodRayControls";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { EffectComposer } from "@react-three/postprocessing";
 
 export interface GodRayProps {
   Hotspot?: number;
 }
 const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
+  const { camera, pointer } = useThree();
+  const [vec] = useState(() => new THREE.Vector3());
   const [isInitialRender, setIsInitialRender] = useState(true);
   const sunRef = useRef(null);
   const initialized = useRef(true);
+  const rigActive = useRef(false);
 
   const {
     sunPosition,
@@ -39,6 +42,17 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
     sunPosition.y,
     sunPosition.z
   );
+
+  useFrame(() => {
+    if (!sunRef.current) return;
+    if (!rigActive.current) {
+      // * Parallax effect
+      sunRef.current.position.lerp(
+        vec.set(-pointer.x * 2, -pointer.y * 1, sunRef.current.position.z),
+        0.565
+      );
+    }
+  });
 
   return (
     <>

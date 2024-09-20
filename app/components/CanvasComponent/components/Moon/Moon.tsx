@@ -40,7 +40,7 @@ const Moon = () => {
         mesh.current.position.x = 0;
         return;
       }
-      mesh.current.position.x += 0.0008; // Adjust speed here for slower or faster rotation
+      mesh.current.position.x += 0.0009; // Adjust speed here for slower or faster rotation
     }
   });
 

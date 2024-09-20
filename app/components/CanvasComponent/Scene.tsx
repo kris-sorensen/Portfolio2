@@ -20,6 +20,7 @@ interface BalloonData {
 
 const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
   const group = useRef<THREE.Group>(null);
+  const balloonCount = useRef(0);
 
   // Initialize the state with a generic type <BalloonData[]>
   const [balloonDataArray, setBalloonDataArray] = useState<BalloonData[]>([]);
@@ -42,20 +43,24 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
     );
   };
   useEffect(() => {
-    const makeBalloons = setInterval(() => {
-      addBalloon("");
-    }, 3000);
-
-    return () => {
-      clearInterval(makeBalloons); // Clear the interval when the component unmounts
-    };
+    const timeoutId = setTimeout(() => {
+      const makeBalloons = setInterval(() => {
+        if (balloonCount.current === 140) {
+          clearInterval(makeBalloons); // Clear interval when balloonCount reaches 7
+          return;
+        }
+        addBalloon("");
+        balloonCount.current += 1;
+      }, 4000);
+    }, 2000);
   }, []);
 
   return (
     <group>
       {/* <Logo /> */}
-      <Moon />
+
       <Physics debug={false}>
+        <Moon />
         {/* <Frame /> */}
         {/* <Overlay /> */}
 

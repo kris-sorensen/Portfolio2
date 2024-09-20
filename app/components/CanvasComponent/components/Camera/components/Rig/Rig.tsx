@@ -13,22 +13,31 @@ function Rig() {
   const [vec] = useState(() => new THREE.Vector3());
   const { camera, pointer } = useThree();
   const rigActive = useRef(true);
+  const initialAnimationDone = useRef(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      initialAnimationDone.current = false;
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
       rigActive.current = false;
-    }, 2000);
+    }, 5000);
   }, []);
 
   useFrame(() => {
-    // * Parallax effect
-    camera.position.lerp(vec.set(-pointer.x * 3, -pointer.y * 1.5, 1), 0.965);
-
-    if (!rigActive.current) return;
-    // * Initial Camera Movement
-    if (camera.isOrthographicCamera) {
-      camera.zoom = THREE.MathUtils.lerp(camera.zoom, 10, 0.0465);
-      camera.updateProjectionMatrix();
+    // if (!rigActive.current) {
+    //   // * Parallax effect
+    //   camera.position.lerp(vec.set(-pointer.x * 3, -pointer.y * 1.5, 1), 0.565);
+    // }
+    if (!initialAnimationDone.current) {
+      // * Initial Camera Movement
+      if (camera.isOrthographicCamera) {
+        camera.zoom = THREE.MathUtils.lerp(camera.zoom, 10, 0.0465);
+        camera.updateProjectionMatrix();
+      }
     }
   });
   return null;

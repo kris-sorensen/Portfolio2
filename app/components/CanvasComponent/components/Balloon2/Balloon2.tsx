@@ -68,7 +68,7 @@ const Balloon = memo(
           colliders="hull"
           position={position}
           gravityScale={-0.1}
-          linearDamping={0.5} // Add resistance to slow down movement
+          linearDamping={1} // Add resistance to slow down movement
           angularDamping={1.0} // Prevent balloon from rotating excessively
         >
           <mesh
@@ -77,7 +77,8 @@ const Balloon = memo(
             scale={[0.1, 0.1, 0.1]}
           >
             <meshPhysicalMaterial
-              color={"#00f2de"}
+              // color={"#00f2de"}
+              color={"#ff6cb5"}
               roughness={0.1}
               clearcoat={1}
               clearcoatRoughness={0.05}
@@ -86,6 +87,7 @@ const Balloon = memo(
               opacity={1}
               // fog={false}
               metalness={0.25}
+              side={THREE.DoubleSide}
             />
             {/* <shaderMaterial
               ref={material}
