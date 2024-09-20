@@ -18,7 +18,7 @@ const Css: React.FC = () => {
 
   return (
     <>
-      <Title />
+      {/* <Title /> */}
       {/* <Menu addBalloon={addBalloon} toggleVisibility={toggleVisibility} /> */}
       {/* <Logo /> */}
       {/* <div style={{ position: "absolute", zIndex: 10 }}>

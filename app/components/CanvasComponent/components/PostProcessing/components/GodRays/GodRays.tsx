@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GodRays } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { useGodRaysControls } from "./hooks/useGodRayControls";
@@ -14,7 +14,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
   const [isInitialRender, setIsInitialRender] = useState(true);
   const sunRef = useRef(null);
   const initialized = useRef(true);
-  const rigActive = useRef(false);
+  const parallaxActive = useRef(false);
 
   const {
     sunPosition,
@@ -43,12 +43,22 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
     sunPosition.z
   );
 
+  useEffect(() => {
+    setTimeout(() => {
+      parallaxActive.current = true;
+    }, 16000);
+  }, []);
+
   useFrame(() => {
     if (!sunRef.current) return;
-    if (!rigActive.current) {
-      // * Parallax effect
+    // * Initial Animation
+    const currentY = sunRef.current.position.y;
+    if (currentY > 0) sunRef.current.position.y -= 0.0009;
+
+    // * Parallax effect
+    if (parallaxActive.current) {
       sunRef.current.position.lerp(
-        vec.set(-pointer.x * 2, -pointer.y * 1, sunRef.current.position.z),
+        vec.set(-pointer.x * 1, -pointer.y * 0.5, sunRef.current.position.z),
         0.565
       );
     }

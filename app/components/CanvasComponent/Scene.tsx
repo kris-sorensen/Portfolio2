@@ -57,7 +57,7 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
 
   return (
     <group>
-      {/* <Logo /> */}
+      <Logo />
 
       <Physics debug={false}>
         <Moon />
