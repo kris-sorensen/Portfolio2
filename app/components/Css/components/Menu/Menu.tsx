@@ -16,7 +16,7 @@ const Menu: React.FC<MenuProps> = ({ addBalloon, toggleVisibility }) => {
         Custom
       </button>
       <button className="corner-button top-right">About Me</button>
-      <button className="corner-button bottom-right">Projects</button>
+      <button className="corner-button bottom-right">Work</button>
     </div>
   );
 };

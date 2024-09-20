@@ -6,12 +6,14 @@ import { Canvas } from "@react-three/fiber";
 import Scene from "./Scene";
 import DevToolsR3F from "./components/DevTools/DevToolsR3F";
 import Camera from "./components/Camera/Camera";
-import Lights from "./components/Camera/components/Lights/Lights";
+import Lights from "./components/Lights/Lights";
 import { Leva } from "leva";
+import PostProcessing from "./components/PostProcessing/PostProcessing";
 
 const CanvasComponent: React.FC = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
+      <Leva collapsed />
       <Canvas
         dpr={[1, 2]}
         camera={{
@@ -23,12 +25,12 @@ const CanvasComponent: React.FC = () => {
         orthographic
         shadows={true}
       >
-        <Leva hidden />
         <Camera />
         <OrbitControls makeDefault enableZoom={true} />
         <fog attach="fog" args={["#ff0000", 0, 40]} />
         <color attach="background" args={["black"]} />
         <Suspense fallback={null}>
+          <PostProcessing />
           <Lights />
           <Scene />
         </Suspense>

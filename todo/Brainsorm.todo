@@ -26,9 +26,19 @@ Overlay:
   ☐ Create default/new shader. code
   ☐ pass in time and other variables. can be commented out. 
   ☐ add aditional defaults? 
+  ☐ exit button
+  ☐ mix-ins? stretch
 
 Add more info page:
   ☐ page will have how to contact me. My github, email, linkedin. 
+  ☐ About me
+  
+Mouse Hitter:
+  ☐ Add physics to sphere that foolows mouse so it will move ballons
+  ☐ change mouse out for a spot light? (infused) ball that will illuminate stuff and move balloons
+  ☐ make the spot light have phsyics as if on a string? when moved around?
+
+
 
 
 Animate:

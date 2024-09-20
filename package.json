@@ -13,6 +13,7 @@
     "@codemirror/lang-javascript": "^6.2.2",
     "@react-three/drei": "^9.109.2",
     "@react-three/fiber": "^8.16.8",
+    "@react-three/postprocessing": "^2.16.2",
     "@react-three/rapier": "^1.4.0",
     "@team-plain/typescript-sdk": "^4.7.0",
     "@uiw/codemirror-theme-dracula": "^4.23.0",

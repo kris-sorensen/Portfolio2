@@ -1,3 +1,4 @@
+import { Environment } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useRef } from "react";
 
@@ -18,16 +19,18 @@ const Lights = () => {
   return (
     <>
       <directionalLight
-        position={[5, -5, 15]}
+        position={[0, 5, 300]}
         rotation={[0, 0, Math.PI / 2]}
-        intensity={5}
+        intensity={4}
         castShadow
       />
+      {/* 
       <directionalLight
-        position={[0, 0, -5]}
+        position={[0, 0, -15]}
         rotation={[0, 0, Math.PI / 2]}
-        intensity={2}
-      />
+        intensity={3}
+        // target={[0, 0, 0]}
+      /> */}
       {/* <pointLight
         ref={pointLightRef}
         position={[0, 0, 2]}
@@ -45,7 +48,7 @@ const Lights = () => {
         decay={5}
       /> */}
       {/* <ambientLight intensity={1} /> */}
-      {/* <Environment preset="warehouse" background /> */}
+      {/* <Environment preset="warehouse" /> */}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "./components/Logo/Logo";
 import { Physics } from "@react-three/rapier";
 import BalloonMaker from "./components/BalloonMaker/BalloonMaker";
@@ -8,6 +8,8 @@ import { retrieveVertexShader } from "@/app/data/currentShader";
 import Room from "./components/Room/Room";
 import Frame from "./components/Frame/Frame";
 import Overlay from "./components/Frame/components/ScreenOverlay/ScreenOverlay";
+import { Circle } from "@react-three/drei";
+import Moon from "./components/Moon/Moon";
 
 // Define the interface for BalloonData
 interface BalloonData {
@@ -39,22 +41,32 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       prevArray.filter((balloon) => balloon.id !== id)
     );
   };
+  useEffect(() => {
+    const makeBalloons = setInterval(() => {
+      addBalloon("");
+    }, 3000);
+
+    return () => {
+      clearInterval(makeBalloons); // Clear the interval when the component unmounts
+    };
+  }, []);
 
   return (
     <group>
       {/* <Logo /> */}
+      <Moon />
       <Physics debug={false}>
-        <Frame />
+        {/* <Frame /> */}
         {/* <Overlay /> */}
 
         {/* <Room /> */}
-        {/* <group ref={group} {...props}>
+        <group ref={group} {...props}>
           <BalloonMaker
             position={[0, -1.2, 0]}
             balloonDataArray={balloonDataArray}
             onRemove={removeBalloon}
           />
-        </group> */}
+        </group>
       </Physics>
       {/* <IDE addBalloon={addBalloon} /> */}
     </group>
