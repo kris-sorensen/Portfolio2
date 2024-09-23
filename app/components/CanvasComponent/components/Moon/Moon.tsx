@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Mesh } from "three";
 import * as THREE from "three";
+import { page } from "@/app/constants/settings.const";
 
 const easeOutQuad = (t: number) => 1 - Math.pow(1 - t, 2);
 
@@ -45,7 +46,7 @@ const Moon = () => {
   // });
 
   return (
-    <mesh ref={mesh} position={[0, 0, 0]}>
+    <mesh visible={page === 3} ref={mesh} position={[0, 0, 0]}>
       <Circle ref={circleRef} args={[0.39, 64, 64]}>
         <meshBasicMaterial color="#000000" />
       </Circle>

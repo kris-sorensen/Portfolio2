@@ -19,10 +19,10 @@ const Lights = () => {
   return (
     <>
       <directionalLight
-        position={[0, 5, 300]}
+        position={[5, 5, 30]}
         rotation={[0, 0, Math.PI / 2]}
-        intensity={4}
-        castShadow
+        intensity={3}
+        // castShadow
       />
       {/* 
       <directionalLight

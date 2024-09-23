@@ -22,7 +22,7 @@ const Logo = () => {
           >
             {/* <meshBasicMaterial color="#fc8be9" fog={false} /> */}
             <TitleShaderMaterial color="#fc8be9" />
-            BALLOON FACTORY
+            KRISTOPHER
           </Text>
         </mesh>
         <group position={[0, -0.14, 0]} scale={[1, 1, 1]}>
@@ -35,7 +35,7 @@ const Logo = () => {
               font="./fonts/altehaasgroteskregular.woff"
             >
               <meshBasicMaterial fog={false} color={"white"} />
-              KRISTOPHER SORENSEN
+              CREATIVE DEVELOPER
             </Text>
           </mesh>
         </group>

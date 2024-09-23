@@ -9,6 +9,7 @@ import Camera from "./components/Camera/Camera";
 import Lights from "./components/Lights/Lights";
 import { Leva } from "leva";
 import PostProcessing from "./components/PostProcessing/PostProcessing";
+import { page } from "@/app/constants/settings.const";
 
 const CanvasComponent: React.FC = () => {
   return (
@@ -23,18 +24,22 @@ const CanvasComponent: React.FC = () => {
           far: 10,
         }}
         orthographic
-        shadows={true}
+        // linear
+        // shadows={true}
       >
         <Camera />
         <OrbitControls makeDefault enableZoom={true} />
         <fog attach="fog" args={["#ff0000", 0, 40]} />
-        <color attach="background" args={["black"]} />
+        <color
+          attach="background"
+          args={[page === 2 ? "#349ef5" : "black"]} //#0bdbf9
+        />
         <Suspense fallback={null}>
           <PostProcessing />
           <Lights />
           <Scene />
         </Suspense>
-        {/* <DevToolsR3F /> */}
+        <DevToolsR3F />
       </Canvas>
       <Loader />
     </div>

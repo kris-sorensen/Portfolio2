@@ -9,21 +9,21 @@ varying vec3 vNormal;
 
 void main() {
   vec3 col = uColor;
-  // vec3 normal = normalize(vNormal); // renormalize normal
-  // vec3 viewDirection = normalize(vPosition - cameraPosition); 
+  vec3 normal = normalize(vNormal); // renormalize normal
+  vec3 viewDirection = normalize(vPosition - cameraPosition); 
 
 
   // Light
-    // vec3 light = vec3(0.);
+    vec3 light = vec3(0.);
     
-    // light += directionalLight( 
-    //     vec3(1.), // color
-    //     1., // intensity
-    //     normal - vec3(.1,0.,0.), // normal
-    //     vec3(-0.2,0.,5.), // position of light
-    //     viewDirection, // view direction
-    //     20. // Specular Power
-    // );
+    light += directionalLight( 
+        vec3(1.), // color
+        1., // intensity
+        normal, // normal
+        vec3(-0.2,0.,5.), // position of light
+        viewDirection, // view direction
+        20. // Specular Power
+    );
 
     // col *= light;
 

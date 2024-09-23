@@ -21,11 +21,13 @@ const Balloon = memo(
     vertexShader,
     position = [0, 0, 0],
     onRemove,
+    color,
   }: {
     fragmentShader: string;
     vertexShader: string;
     position: [number, number, number];
     onRemove: () => void;
+    color: string;
   }) => {
     const { nodes } = useGLTF("/models/balloon-transformed.glb") as GLTFResult;
     const clockRef = useRef(0);
@@ -77,8 +79,9 @@ const Balloon = memo(
             scale={[0.1, 0.1, 0.1]}
           >
             <meshPhysicalMaterial
+              color={color}
               // color={"#00f2de"}
-              color={"#ff6cb5"}
+              // color={"#ff6cb5"}
               roughness={0.1}
               clearcoat={1}
               clearcoatRoughness={0.05}
