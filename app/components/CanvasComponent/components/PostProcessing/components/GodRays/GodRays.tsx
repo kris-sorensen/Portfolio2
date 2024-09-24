@@ -80,12 +80,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
 
   return (
     <>
-      <mesh
-        visible={Hotspot < 2}
-        renderOrder={4}
-        ref={sunRef}
-        position={positionVector}
-      >
+      <mesh visible={Hotspot < 2} ref={sunRef} position={positionVector}>
         <sphereGeometry args={[sphereRadius, 36, 36]} />
         <meshBasicMaterial
           // {...textureProps}
@@ -94,7 +89,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
           opacity={sunOpacity}
         />
       </mesh>
-      {sunRef.current && !isInitialRender && Hotspot < 2 && (
+      {sunRef.current && !isInitialRender && (
         <EffectComposer multisampling={4}>
           <GodRays
             sun={sunRef.current}

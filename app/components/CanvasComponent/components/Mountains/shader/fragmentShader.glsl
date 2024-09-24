@@ -1,5 +1,63 @@
+#define round(x, f) (floor((x)/(f) + 0.5) * (f))
 uniform vec2 resolution;
+uniform vec3 uColor;
+uniform float time;
 in vec2 vUv;
+
+float random(float p){
+    return fract(52.043*sin(p*205.429));
+}
+float random2(float p){
+    return random(p)*2.0-1.0;
+}
+
+
+
+
+vec3 stars(vec2 uv){
+    vec2 r = round(uv, 0.1);
+    
+    float rand = r.x*2.32 + r.y;
+    
+    uv -= r;
+    uv.x += 0.05 * random2(rand);
+    uv.y += 0.05 * random2(rand+0.541);
+    
+    float blink = random(rand+0.5) < 0.1 ? 0.8 + 0.2 * sin(35.0*time+random(rand+1.5)) : 0.0;
+    float dark = random(rand+52.0) < 0.5 ? 1.0 : 0.3;
+    
+    return vec3(dark * max(0.0, 0.8 + blink - resolution.y * length(uv)));
+}
+
+vec3 meteor(vec2 uv, float gtime, float delay)
+{
+    float seed = round(gtime, delay);
+    
+    float startTime = (delay - 1.5) * random(seed);
+    float time = max(0.0, min(1.0, gtime-seed - startTime));
+    
+    vec2 start = vec2(
+        random2(seed),
+        0.7 + 0.3 * random(seed+0.1)
+    );
+    
+    vec2 end = start * 0.5;
+    
+    uv = uv - mix(start, end, time);
+    
+    end = normalize(end - start);
+    uv = uv * mat2(end.x, end.y, -end.y, end.x);
+    uv.x *= 0.1;
+    
+    float alpha = 16.0 * pow(time, 2.0) * pow(time - 1.0, 2.0);
+    return vec3(max(0.0, alpha - resolution.y * length(uv)));
+}
+
+vec3 meteorstorm(vec2 uv){
+    return meteor(uv, time, 9.5837) + meteor(uv, time + 15.3, 15.459) + meteor(uv, time + 125.0, 31.2);
+}
+
+
 
 // Function to generate the mountain shape
 float mountainShape(float x, float peak1Offset, float peak1Slope, float peak1Decent, float peak2Offset, float peak2Slope, float peak2Decent) {
@@ -38,11 +96,32 @@ void main() {
                                    y,      // peak2Slope
                                    3.5);   // peak2Decent
 
+    // float stars = vec3(1.);
+    float quantity = 50.;
+
+    // vec2 guv = (fragCoord.xy - vec2(resolution.x*0.5, 0.0)) / resolution.y;
+
+   
+    vec3 col =
+        stars(coords) + meteorstorm(coords);
+
+    col = sqrt(col);
+    // fragColor = vec4(sqrt(col), 1.0);
+
+
+
     // Modify alpha based on the mountain shape
+
     alpha *= mountain;
+    // alpha += col;
 
     // Output color with adjusted alpha
-    vec3 color = vec3(0.0, 0.2, 1.0); // base color
+    vec3 color = uColor; // base color
+    vec3 snowCaps = vec3(1.);
+    // Snow Caps
+    color += col;
+    color = mix(color, snowCaps, step((sin(x * 22.)*.1) + 1.3, y));
+
     gl_FragColor = vec4(color, alpha);
 }
 

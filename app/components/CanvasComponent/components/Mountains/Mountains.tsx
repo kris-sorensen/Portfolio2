@@ -30,7 +30,7 @@ const Star = () => {
     <>
       <mesh visible={true}>
         <Plane ref={mountainRef} args={[3, 2, 2, 2]}>
-          <MountainMaterial />
+          <MountainMaterial color={new THREE.Vector3(0, 0.2, 1)} />
         </Plane>
       </mesh>
     </>
