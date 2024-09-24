@@ -12,6 +12,7 @@ TODO:
   ☐ Add a Work Button
   ☐ Render Projects after animation is done. 
   ☐ Add usf expand animation to it. Scroll to change projects when big?
+  ☐ give mountains and letters a gell glossy look
   ☐ Bug fixes
     ☐ Layering issue with mountains and godrays. ( make into 2 triangles if needed, or add godrays to shader. Will have to add text and texture if go this route)
     ☐ smooth out lines in shaders

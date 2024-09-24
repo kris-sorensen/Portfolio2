@@ -20,7 +20,7 @@ const Logo = () => {
             anchorX={"center"}
             font="./fonts/dessau-heavy-regular.woff"
           >
-            <TitleShaderMaterial color="#47f36c" />
+            <TitleShaderMaterial color="#fc8be9" />
             RISTOPHER
           </Text>
         </mesh>
@@ -32,7 +32,7 @@ const Logo = () => {
             anchorX={"center"}
             font="./fonts/dessau-heavy-regular.woff"
           >
-            <TitleShaderMaterial color="#47f36c" />K
+            <TitleShaderMaterial color="#fc8be9" />K
           </Text>
         </mesh>
         <group position={[0, -0.0, 0]}>
@@ -44,7 +44,7 @@ const Logo = () => {
               anchorX={"center"}
               font="./fonts/dessau-heavy-regular.woff"
             >
-              <TitleShaderMaterial color="#fc8be9" />
+              <TitleShaderMaterial color="#47f36c" />
               ORENSEN
             </Text>
           </mesh>
@@ -56,7 +56,7 @@ const Logo = () => {
               anchorX={"center"}
               font="./fonts/dessau-heavy-regular.woff"
             >
-              <TitleShaderMaterial color="#fc8be9" />S
+              <TitleShaderMaterial color="#47f36c" />S
             </Text>
           </mesh>
         </group>
