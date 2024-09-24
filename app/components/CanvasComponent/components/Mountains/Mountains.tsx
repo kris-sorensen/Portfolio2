@@ -29,7 +29,7 @@ const Star = () => {
   return (
     <>
       <mesh visible={true}>
-        <Plane ref={mountainRef} args={[3, 2]}>
+        <Plane ref={mountainRef} args={[3, 2, 2, 2]}>
           <MountainMaterial />
         </Plane>
       </mesh>

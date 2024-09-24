@@ -38,7 +38,8 @@ const MountainMaterial: React.FC<ShaderProps> = () => {
       fragmentShader={fragmentShader}
       uniforms={uniforms}
       transparent
-      blending={THREE.NoBlending}
+      // blending={THREE.NormalBlending}
+      // depthWrite={false}
     />
   );
 };
