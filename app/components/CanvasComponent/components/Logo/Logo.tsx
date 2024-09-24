@@ -20,17 +20,52 @@ const Logo = () => {
             anchorX={"center"}
             font="./fonts/dessau-heavy-regular.woff"
           >
-            {/* <meshBasicMaterial color="#fc8be9" fog={false} /> */}
-            <TitleShaderMaterial color="#fc8be9" />
-            KRISTOPHER
+            <TitleShaderMaterial color="#47f36c" />
+            RISTOPHER
           </Text>
         </mesh>
-        <group position={[0, -0.14, 0]} scale={[1, 1, 1]}>
+        <mesh position={[-0.5895, 0.01, 0]}>
+          <Text
+            ref={text}
+            letterSpacing={0.0005}
+            fontSize={0.35}
+            anchorX={"center"}
+            font="./fonts/dessau-heavy-regular.woff"
+          >
+            <TitleShaderMaterial color="#47f36c" />K
+          </Text>
+        </mesh>
+        <group position={[0, -0.0, 0]}>
+          <mesh position={[0, -0.155, 0]}>
+            <Text
+              ref={text}
+              letterSpacing={0.01}
+              fontSize={0.2}
+              anchorX={"center"}
+              font="./fonts/dessau-heavy-regular.woff"
+            >
+              <TitleShaderMaterial color="#fc8be9" />
+              ORENSEN
+            </Text>
+          </mesh>
+          <mesh position={[-0.5, -0.185, 0.01]}>
+            <Text
+              ref={text}
+              letterSpacing={0.01}
+              fontSize={0.3}
+              anchorX={"center"}
+              font="./fonts/dessau-heavy-regular.woff"
+            >
+              <TitleShaderMaterial color="#fc8be9" />S
+            </Text>
+          </mesh>
+        </group>
+        <group position={[-0.015, -0.27, 0]} scale={[1, 1, 1]}>
           <mesh>
             <Text
               ref={text}
-              letterSpacing={0.005}
-              fontSize={0.05}
+              letterSpacing={0.3}
+              fontSize={0.048}
               anchorX={"center"}
               font="./fonts/altehaasgroteskregular.woff"
             >

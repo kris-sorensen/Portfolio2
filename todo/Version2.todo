@@ -1,3 +1,30 @@
+#2 Notes:
+
+TODO: 
+  ☐ make sun/moon go in reverse and also transition from moon to sun and sun to moon. sun should come up from oposite direction (really just moon goes behind mountains. Moves to bottom left off screen and turns different color and then rises)
+  ☐ Try snappy fast animation for sun and moon rise and sets.
+  ☐ Fade stars to off w/ uProgress uniform. Stretch add popping animation?
+  ☐ Mountains mix to green based on uProgress. maybe add shapping function to it like pow() or easing function;
+  ☐ in shader add delay to some animations to animate in order?
+  ☐ Fade Logo away
+  ☐ switch path in url
+  ☐ Create global state for page #
+  ☐ Add a Work Button
+  ☐ Render Projects after animation is done. 
+  ☐ Add usf expand animation to it. Scroll to change projects when big?
+  ☐ Bug fixes
+    ☐ Layering issue with mountains and godrays. ( make into 2 triangles if needed, or add godrays to shader. Will have to add text and texture if go this route)
+    ☐ smooth out lines in shaders
+  ☐ Add About Page
+  ☐ Create About button
+  ☐ Create eclipse animation
+  ☐ add glow and shadow behind mountains. making look 3d. like a pop up book. Could add shadow to sun too?
+
+
+
+#1 Notes:
+  
+  
 
 NEED TO DO:
 
@@ -16,3 +43,34 @@ NEED TO DO:
   ☐ add lerp to moons movements? smooth
   ☐ Click to place moon. have either a mouse follower saying it or just in chalk on the screen. click to pick up and it should lerp to position. cooly
   ☐ moon texture
+
+
+
+
+
+
+
+  IDEAS:
+    Home => work
+    - Scroll (one scroll) - should like day turing to night just unrealistically fun
+    - clouds? fade away
+    - black to blue background
+    - stars pop away
+    - sun turns from blue to yellow? or moon accends off screen and sun comes up.
+    - Projects come on screen and can be clicked on to expand
+
+
+    Work => About
+    - Eclipse Happens
+
+    About
+
+    
+
+Notes:
+
+  Need to give it depth through uv maps, or just shading. 
+
+
+
+   

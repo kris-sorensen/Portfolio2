@@ -20,7 +20,7 @@ vec3 starMaker(vec2 uv){
     float blink = random(rand + 0.5) < 0.1 ? 0.8 + 0.2 * sin(35.0 * time + random(rand + 1.5)) : 0.0;
     float dark = random(rand + 52.0) < 0.5 ? 1.0 : 0.3;
     
-    float starSizeFactor = 2.0;
+    float starSizeFactor = 2.5;
     return vec3(dark * max(0.0, 0.8 + blink - resolution.y * length(uv) / starSizeFactor));
 }
 

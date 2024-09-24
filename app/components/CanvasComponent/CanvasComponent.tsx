@@ -28,7 +28,7 @@ const CanvasComponent: React.FC = () => {
         // shadows={true}
       >
         <Camera />
-        {/* <OrbitControls makeDefault enableZoom={false} /> */}
+        <OrbitControls makeDefault enableZoom={false} />
         {/* <fog attach="fog" args={["#b3b3b38d", 0.5, -2]} /> */}
         <color
           attach="background"
