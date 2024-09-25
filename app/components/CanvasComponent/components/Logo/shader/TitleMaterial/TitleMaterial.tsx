@@ -24,9 +24,6 @@ const TitleShaderMaterial: React.FC<ShaderProps> = ({ color }) => {
   useFrame(() => {
     if (!materialRef.current) return;
 
-    // Update color uniform
-    // materialRef.current.uniforms.uColor.value.set(color);
-
     // Update uProgress uniform using getAnimProgress()
     materialRef.current.uniforms.uProgress.value = getAnimProgress();
   });
