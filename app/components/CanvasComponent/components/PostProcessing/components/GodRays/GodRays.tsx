@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { EffectComposer } from "@react-three/postprocessing";
 import { useGodRaysControls } from "./hooks/useGodRayControls";
+import SunMoonMaterial from "./shader/SunMoonMaterial";
 
 export interface GodRayProps {
   Hotspot?: number;
@@ -13,10 +14,11 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
   const { camera, pointer } = useThree();
   const [vec] = useState(() => new THREE.Vector3());
   const [isInitialRender, setIsInitialRender] = useState(true);
-  const sunRef = useRef(null);
+  const sunRef = useRef<THREE.Mesh | null>(null);
+  const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null); // Ref for the custom shader material
   const initialized = useRef(true);
-  const parallaxStarted = useRef(false); // Track if parallax has started
-  const parallaxReady = useRef(false); // Track if parallax can start after initial animation
+  const parallaxStarted = useRef(false);
+  const parallaxReady = useRef(false);
 
   const {
     sunPosition,
@@ -45,18 +47,17 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
     sunPosition.z
   );
 
-  // Enable parallax only after the first mouse move after the animation
+  // Effect to handle parallax and animations
   useEffect(() => {
     const handleMouseMove = () => {
       if (!parallaxStarted.current && parallaxReady.current) {
-        parallaxStarted.current = true; // Enable parallax after the first mouse movement
-        window.removeEventListener("mousemove", handleMouseMove); // Remove the listener after the first movement
+        parallaxStarted.current = true;
+        window.removeEventListener("mousemove", handleMouseMove);
       }
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove); // Clean up the event listener
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -107,7 +108,11 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
     <>
       <mesh visible={Hotspot < 2} ref={sunRef} position={positionVector}>
         <sphereGeometry args={[sphereRadius, 36, 36]} />
-        <meshBasicMaterial color={sunColor} transparent opacity={sunOpacity} />
+        {/* <meshBasicMaterial color={sunColor} transparent opacity={sunOpacity} /> */}
+        <SunMoonMaterial
+          materialRef={shaderMaterialRef}
+          sunOpacity={sunOpacity}
+        />
       </mesh>
       {sunRef.current && !isInitialRender && (
         <EffectComposer multisampling={4}>
