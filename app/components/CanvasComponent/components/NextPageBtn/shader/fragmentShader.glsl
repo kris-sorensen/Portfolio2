@@ -9,4 +9,6 @@ void main() {
 
     // Output final color and alpha
     gl_FragColor = vec4(color, alpha);
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
 }

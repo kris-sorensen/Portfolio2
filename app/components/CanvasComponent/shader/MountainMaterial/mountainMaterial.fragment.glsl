@@ -1,6 +1,6 @@
 uniform vec2 resolution;
-uniform vec3 uColor;
 uniform float time;
+uniform float uProgress;
 in vec2 vUv;
 
 #include <mountainShape> 
@@ -19,14 +19,21 @@ void main() {
     float alpha = 1.0;
 
     // Mountain color
-    color = uColor;
-
+    vec3 nightColor = vec3(0., 0.2, 1.);
+    vec3 dayColor = vec3(0., 1., .2);
+    color = nightColor;
+    // Transition from color on each page
+    color = mix(color, dayColor, uProgress);
     // Snow caps
     vec3 snowCaps = vec3(1.0);
     color = mix(color, snowCaps, step((sin(x * 22.0) * 0.1) + 1.3, y));
+    
+    
 
     // Final alpha 
     alpha = mountainAlpha;
     // Output final color and alpha
     gl_FragColor = vec4(color, alpha);
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
 }

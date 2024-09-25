@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { Text, Image } from "@react-three/drei";
-import TitleShaderMaterial from "./shader/TitleShaderMaterial/TitleShaderMaterial";
+import TitleShaderMaterial from "./shader/TitleMaterial/TitleMaterial";
 
-const Logo = () => {
+const Logo: React.FC = () => {
   const text = useRef(null);
   const circleColor = "#56B1C5"; // Light blue color (can be adjusted based on the exact color from the image)
   const imageWidth = 501;
@@ -35,7 +35,7 @@ const Logo = () => {
             <TitleShaderMaterial color="#fc8be9" />K
           </Text>
         </mesh>
-        <group position={[0, -0.0, 0]}>
+        <group position={[0, 0.0, 0]}>
           <mesh position={[0, -0.155, 0]}>
             <Text
               ref={text}

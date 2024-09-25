@@ -1,26 +1,25 @@
 import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import vertexShader from "./vertexShader.glsl";
-import fragmentShader from "./fragmentShader.glsl";
-import { useThree } from "@react-three/fiber";
+import vertexShader from "./mountainMaterial.vertex.glsl";
+import fragmentShader from "./mountainMaterial.fragment.glsl";
 import mountainShapeChunk from "../includes/mountainShape.glsl";
+import { PageProps } from "../../types/SceneTypes";
+import { getAnimProgress } from "@/app/anim/animManager";
 
 THREE.ShaderChunk.mountainShape = mountainShapeChunk;
 
-interface ShaderProps {
-  color: THREE.Vector3;
-}
-const MountainMaterial: React.FC<ShaderProps> = ({ color }) => {
+const MountainMaterial: React.FC<PageProps> = () => {
   const mat = useRef(null);
 
-  const { gl } = useThree();
   useFrame((state, delta) => {
     if (!mat.current) return;
-    // @ts-ignore
+    // Update time uniform
     const elapsedTime = mat.current.uniforms.time.value;
-    // @ts-ignore
     mat.current.uniforms.time.value = elapsedTime + delta;
+
+    // Keep the call to getAnimProgress
+    mat.current.uniforms.uProgress.value = getAnimProgress();
   });
 
   const uniforms = useMemo(
@@ -31,7 +30,9 @@ const MountainMaterial: React.FC<ShaderProps> = ({ color }) => {
       resolution: {
         value: new THREE.Vector2(window.innerWidth, window.innerHeight),
       },
-      uColor: { value: color },
+      uProgress: {
+        value: 0,
+      },
     }),
     []
   );
@@ -42,10 +43,9 @@ const MountainMaterial: React.FC<ShaderProps> = ({ color }) => {
       vertexShader={vertexShader}
       fragmentShader={fragmentShader}
       uniforms={uniforms}
-      transparent={true} // Ensure the material supports transparency
-      depthWrite={false} // Allow solid parts to write to the depth buffer
-      depthTest={true} // Keep depth testing to block rays with solid parts
-      // Render mountain before God Rays
+      transparent={true}
+      depthWrite={false}
+      depthTest={true}
     />
   );
 };

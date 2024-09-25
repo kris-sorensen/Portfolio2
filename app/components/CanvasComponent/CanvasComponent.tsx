@@ -9,11 +9,8 @@ import Camera from "./components/Camera/Camera";
 import Lights from "./components/Lights/Lights";
 import { Leva } from "leva";
 import PostProcessing from "./components/PostProcessing/PostProcessing";
-import useStore from "@/app/store/useStore";
 
 const CanvasComponent: React.FC = () => {
-  const Page = useStore((state) => state.Page);
-
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
       <Leva collapsed />

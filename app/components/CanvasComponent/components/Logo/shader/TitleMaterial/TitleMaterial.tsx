@@ -1,8 +1,8 @@
 import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
 // import { useFrame } from "@react-three/fiber";
-import vertexShader from "./vertexShader.glsl";
-import fragmentShader from "./fragmentShader.glsl";
+import vertexShader from "./titleMaterial.vertex.glsl";
+import fragmentShader from "./titleMaterial.fragment.glsl";
 import directionalLightChunk from "./includes/directionalLight.glsl"; // Import your custom chunk
 
 // Register the custom shader chunk in THREE.ShaderChunk
