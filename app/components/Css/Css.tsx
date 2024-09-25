@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import IDE from "./components/IDE/IDE";
-import Menu from "./components/Menu/Menu";
-import Logo from "./components/Logo/Logo";
-import Title from "./components/Title/Title";
+// import IDE from "./components/IDE/IDE";
+// import Menu from "./components/Menu/Menu";
+// import Logo from "./components/Logo/Logo";
+// import Title from "./components/Title/Title";
+import NextPageBtn from "./components/NextPageBtn/NextPageBtn";
 
 const Css: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -18,6 +19,7 @@ const Css: React.FC = () => {
 
   return (
     <>
+      <NextPageBtn />
       {/* <Title /> */}
       {/* <Menu addBalloon={addBalloon} toggleVisibility={toggleVisibility} /> */}
       {/* <Logo /> */}

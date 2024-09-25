@@ -9,13 +9,16 @@ import Camera from "./components/Camera/Camera";
 import Lights from "./components/Lights/Lights";
 import { Leva } from "leva";
 import PostProcessing from "./components/PostProcessing/PostProcessing";
-import { page } from "@/app/constants/settings.const";
+import useStore from "@/app/store/useStore";
 
 const CanvasComponent: React.FC = () => {
+  const Page = useStore((state) => state.Page);
+
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none">
       <Leva collapsed />
       <Canvas
+        onClick={() => console.log("canvas click")}
         dpr={[1, 2]}
         camera={{
           position: [0, 0, 0.5],
@@ -27,13 +30,13 @@ const CanvasComponent: React.FC = () => {
         // linear
         // shadows={true}
       >
+        {/* <fog attach="fog" args={["#b3b3b38d", 0.5, -2]} /> */}
         <Camera />
         <OrbitControls makeDefault enableZoom={false} />
-        {/* <fog attach="fog" args={["#b3b3b38d", 0.5, -2]} /> */}
-        <color
+        {/* <color
           attach="background"
-          args={[page === 2 ? "#349ef5" : "black"]} //#0bdbf9
-        />
+          args={[Page === 2 ? "#349ef5" : "black"]} //#0bdbf9
+        /> */}
         <Suspense fallback={null}>
           <PostProcessing />
           <Lights />

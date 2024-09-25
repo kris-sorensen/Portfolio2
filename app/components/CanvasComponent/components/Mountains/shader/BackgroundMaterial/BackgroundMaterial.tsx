@@ -4,14 +4,12 @@ import { useFrame } from "@react-three/fiber";
 import vertexShader from "./vertexShader.glsl";
 import fragmentShader from "./fragmentShader.glsl";
 import { useThree } from "@react-three/fiber";
-import mountainShapeChunk from "./includes/mountainShape.glsl";
-import starMakerChunk from "./includes/starMaker.glsl";
-import randomChunk from "./includes/util/random.glsl";
-import random2Chunk from "./includes/util/random2.glsl";
-import meteorChunk from "./includes/meteor.glsl";
-import meteorstormChunk from "./includes/meteorstorm.glsl";
+import starMakerChunk from "../includes/starMaker.glsl";
+import randomChunk from "../includes/util/random.glsl";
+import random2Chunk from "../includes/util/random2.glsl";
+import meteorChunk from "../includes/meteor.glsl";
+import meteorstormChunk from "../includes/meteorstorm.glsl";
 
-THREE.ShaderChunk.mountainShape = mountainShapeChunk;
 THREE.ShaderChunk.starMaker = starMakerChunk;
 THREE.ShaderChunk.random = randomChunk;
 THREE.ShaderChunk.random2 = random2Chunk;
@@ -21,7 +19,7 @@ THREE.ShaderChunk.meteorstorm = meteorstormChunk;
 interface ShaderProps {
   color: THREE.Vector3;
 }
-const MountainMaterial: React.FC<ShaderProps> = ({ color }) => {
+const BackgroundMaterial: React.FC<ShaderProps> = ({ color }) => {
   const mat = useRef(null);
 
   const { gl } = useThree();
@@ -60,4 +58,4 @@ const MountainMaterial: React.FC<ShaderProps> = ({ color }) => {
   );
 };
 
-export default React.memo(MountainMaterial);
+export default React.memo(BackgroundMaterial);
