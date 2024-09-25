@@ -1,13 +1,10 @@
 import React, { useRef } from "react";
-import { Text, Image } from "@react-three/drei";
+import { Text } from "@react-three/drei";
 import TitleShaderMaterial from "./shader/TitleMaterial/TitleMaterial";
+import * as THREE from "three";
 
 const Logo: React.FC = () => {
-  const text = useRef(null);
-  const circleColor = "#56B1C5"; // Light blue color (can be adjusted based on the exact color from the image)
-  const imageWidth = 501;
-  const imageHeight = 282;
-  const aspectRatio = imageWidth / imageHeight;
+  const text = useRef<THREE.Mesh | null>(null);
 
   return (
     <group position={[0, 0.62, 0.1]}>
@@ -20,6 +17,7 @@ const Logo: React.FC = () => {
             anchorX={"center"}
             font="./fonts/dessau-heavy-regular.woff"
           >
+            {/* Use the same material instance */}
             <TitleShaderMaterial color="#fc8be9" />
             RISTOPHER
           </Text>
@@ -32,6 +30,7 @@ const Logo: React.FC = () => {
             anchorX={"center"}
             font="./fonts/dessau-heavy-regular.woff"
           >
+            {/* Use the same material instance */}
             <TitleShaderMaterial color="#fc8be9" />K
           </Text>
         </mesh>
@@ -69,7 +68,8 @@ const Logo: React.FC = () => {
               anchorX={"center"}
               font="./fonts/altehaasgroteskregular.woff"
             >
-              <meshBasicMaterial fog={false} color={"white"} />
+              {/* Use the same material instance for CREATIVE DEVELOPER */}
+              <TitleShaderMaterial color="white" />
               CREATIVE DEVELOPER
             </Text>
           </mesh>

@@ -3,7 +3,6 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import vertexShader from "./backgroundMaterial.vertex.glsl";
 import fragmentShader from "./backgroundMaterial.fragment.glsl";
-import { useThree } from "@react-three/fiber";
 import starMakerChunk from "../includes/starMaker.glsl";
 import randomChunk from "../includes/util/random.glsl";
 import random2Chunk from "../includes/util/random2.glsl";
@@ -18,9 +17,8 @@ THREE.ShaderChunk.meteor = meteorChunk;
 THREE.ShaderChunk.meteorstorm = meteorstormChunk;
 
 const BackgroundMaterial: React.FC = () => {
-  const mat = useRef(null);
+  const mat = useRef<THREE.ShaderMaterial | null>(null);
 
-  const { gl } = useThree();
   useFrame((state, delta) => {
     if (!mat.current) return;
 
@@ -50,10 +48,9 @@ const BackgroundMaterial: React.FC = () => {
       vertexShader={vertexShader}
       fragmentShader={fragmentShader}
       uniforms={uniforms}
-      transparent={true} // Ensure the material supports transparency
-      depthWrite={false} // Allow solid parts to write to the depth buffer
-      depthTest={true} // Keep depth testing to block rays with solid parts
-      // Render mountain before God Rays
+      transparent={true}
+      depthWrite={false}
+      depthTest={true}
     />
   );
 };
