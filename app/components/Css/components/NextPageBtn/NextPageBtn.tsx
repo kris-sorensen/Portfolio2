@@ -2,10 +2,11 @@ import React from "react";
 import useStore from "@/app/store/useStore";
 
 const NextPageBtn = () => {
-  const nextPage = useStore((state) => state.nextPage);
+  const setPage = useStore((state) => state.setPage);
+  const Page = useStore((state) => state.Page);
 
   const handleClick = () => {
-    nextPage();
+    setPage(Page === 2 ? 1 : 2);
   };
 
   return (
