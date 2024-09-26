@@ -6,6 +6,15 @@ import { EffectComposer } from "@react-three/postprocessing";
 import { useGodRaysControls } from "./hooks/useGodRayControls";
 import SunMoonMaterial from "./shader/SunMoonMaterial";
 
+// Define the arc's radius and center
+const arcRadius = 1.45; // Radius of the arc
+const centerX = 0; // X center of the arc
+const centerY = -0.5; // Y center of the arc (adjust to shift vertically)
+
+// Parametric equation for an arc moving from bottom right to top left
+const startAngle = 0.0; // Starting angle (0 radians -> bottom-right)
+const endAngle = Math.PI * 0.75; // Ending angle (π radians -> top-left)
+const totalDuration = 10.0; // Duration in seconds
 export interface GodRayProps {
   Hotspot?: number;
 }
@@ -65,7 +74,6 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
     if (!sunRef.current) return;
 
     // * Initial Animation - Move sun in an arc from bottom right to top left
-    const totalDuration = 10.0; // Duration in seconds
     const elapsedTime = state.clock.getElapsedTime(); // Get elapsed time
 
     if (elapsedTime <= totalDuration) {
@@ -74,15 +82,6 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ Hotspot = 1 }) => {
 
       // Use an easing function, like easeInOut, to smooth the arc animation
       const easedProgress = Math.sin(progress * Math.PI * 0.5); // Ease in/out
-
-      // Define the arc's radius and center
-      const arcRadius = 1.45; // Radius of the arc
-      const centerX = 0; // X center of the arc
-      const centerY = -0.5; // Y center of the arc (adjust to shift vertically)
-
-      // Parametric equation for an arc moving from bottom right to top left
-      const startAngle = 0.0; // Starting angle (0 radians -> bottom-right)
-      const endAngle = Math.PI * 0.75; // Ending angle (π radians -> top-left)
 
       // Calculate the current angle based on progress
       const currentAngle = startAngle + (endAngle - startAngle) * easedProgress;
