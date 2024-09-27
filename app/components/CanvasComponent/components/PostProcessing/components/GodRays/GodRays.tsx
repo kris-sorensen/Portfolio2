@@ -11,11 +11,31 @@ const arcRadius = 1.45; // Radius of the arc
 const centerY = -0.5; // Y center of the arc
 const totalDuration = 10.0; // Duration in seconds
 
+// Define the page 2 properties directly
+const page2GodRaysProps = {
+  samples: 45,
+  density: 0.8,
+  decay: 0.9,
+  weight: 0.6,
+  exposure: 1,
+  clampMax: 1.0,
+  blur: 1,
+  sunOpacity: 0.2,
+};
+
 export interface GodRayProps {
   currentPage: number;
 }
 
 const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
+  // Prevents bug where god rays don't activate on initial render
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  // State to control when to apply page 2 props
+  const [applyPage2Props, setApplyPage2Props] = useState(false);
+  const page2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const initialized = useRef(true);
+
   const { pointer } = useThree();
   const sunRef = useRef<THREE.Mesh | null>(null);
   const godRaysRef = useRef(null);
@@ -24,17 +44,11 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
   const animationPhase = useRef<
     "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
   >("initial");
-  const [isInitialRender, setIsInitialRender] = useState(true);
-  const initialized = useRef(true);
 
   const phaseStartTime = useRef(0);
   const prevPage = useRef(currentPage);
   const parallaxStarted = useRef(false);
   const parallaxReady = useRef(false);
-
-  // State to control when to apply page 2 props
-  const [applyPage2Props, setApplyPage2Props] = useState(false);
-  const page2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get GodRays properties from the control hook
   const {
@@ -48,18 +62,6 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
     clampMax,
     blur,
   } = useGodRaysControls(currentPage);
-
-  // Define the page 2 properties directly
-  const page2GodRaysProps = {
-    samples: 45,
-    density: 0.8,
-    decay: 0.9,
-    weight: 0.6,
-    exposure: 1,
-    clampMax: 1.0,
-    blur: 1,
-    sunOpacity: 0.2,
-  };
 
   // * Update GodRay Props Boolean when switching from Moon to Sun or back
   useEffect(() => {
@@ -135,14 +137,22 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
     const easedProgress = Math.sin(progress * Math.PI * 0.5); // Ease in/out
     let currentAngle = 0;
 
+    // Define separate parameters for left and right arcs
+    const leftArcRadius = 1.75; // Radius for the left arc
+    const rightArcRadius = 1.45; // Radius for the right arc
+    const rightArcCenterY = -0.5; // Y center for the right arc
+
+    // Make the left arc 7% lower
+    const leftArcCenterY = -1.0 - leftArcRadius * 0.07; // Lower the left arc by 5% of its radius
+
     switch (animationPhase.current) {
       case "initial":
         // **Initial Animation:** Bottom right to top left
         if (progress < 1) {
           currentAngle = Math.PI * 0.75 * easedProgress;
-          sunRef.current.position.x = arcRadius * Math.cos(currentAngle);
+          sunRef.current.position.x = rightArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
-            centerY + arcRadius * Math.sin(currentAngle);
+            rightArcCenterY + rightArcRadius * Math.sin(currentAngle);
         } else {
           animationPhase.current = "idle";
           parallaxReady.current = true;
@@ -153,13 +163,13 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
         // **Reverse Initial Animation:** Move sun back to starting position
         if (progress < 1) {
           currentAngle = Math.PI * 0.75 * (1 - easedProgress);
-          sunRef.current.position.x = arcRadius * Math.cos(currentAngle);
+          sunRef.current.position.x = rightArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
-            centerY + arcRadius * Math.sin(currentAngle);
+            rightArcCenterY + rightArcRadius * Math.sin(currentAngle);
         } else {
           sunRef.current.position.set(
-            -arcRadius,
-            centerY,
+            -leftArcRadius,
+            leftArcCenterY,
             sunRef.current.position.z
           );
           animationPhase.current = "newArc";
@@ -170,10 +180,10 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
       case "newArc":
         // **New Arc Animation:** Bottom left to top right
         if (progress < 1) {
-          currentAngle = Math.PI - Math.PI * 0.75 * easedProgress;
-          sunRef.current.position.x = arcRadius * Math.cos(currentAngle);
+          currentAngle = Math.PI - Math.PI * 0.7 * easedProgress;
+          sunRef.current.position.x = leftArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
-            centerY + arcRadius * Math.sin(currentAngle);
+            leftArcCenterY + leftArcRadius * Math.sin(currentAngle);
         } else {
           animationPhase.current = "idle";
           parallaxReady.current = true;
@@ -183,14 +193,14 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
       case "reverseNewArc":
         // **Reverse New Arc Animation:** Move sun back to starting position
         if (progress < 1) {
-          currentAngle = Math.PI - Math.PI * 0.75 * (1 - easedProgress);
-          sunRef.current.position.x = arcRadius * Math.cos(currentAngle);
+          currentAngle = Math.PI - Math.PI * 0.7 * (1 - easedProgress);
+          sunRef.current.position.x = leftArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
-            centerY + arcRadius * Math.sin(currentAngle);
+            leftArcCenterY + leftArcRadius * Math.sin(currentAngle);
         } else {
           sunRef.current.position.set(
-            arcRadius,
-            centerY,
+            rightArcRadius,
+            rightArcCenterY,
             sunRef.current.position.z
           );
           animationPhase.current = "initial";

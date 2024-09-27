@@ -18,7 +18,7 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       <Logo />
       {/* <NextPageBtn /> */}
       {/* <Moon /> */}
-      <WorkSlides />
+      {/* <WorkSlides /> */}
       <mesh visible={true} position={[0, 0, 1.8]}>
         <Plane args={[3, 2, 2, 2]}>
           <MountainMaterial />
