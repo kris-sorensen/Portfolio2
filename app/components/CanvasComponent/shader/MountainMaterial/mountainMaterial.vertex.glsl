@@ -1,16 +1,13 @@
-uniform float time;
-uniform float uSize;
-out vec2 vUv; 
+varying vec2 vUv; 
 
 void main(){
-  vec3 newPosition = position;
-
-  // Final Position
-  vec4 modelPosition = modelMatrix * vec4(newPosition, 1.);
+  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+      
+  //Final
   vec4 viewPosition = viewMatrix * modelPosition;
-  gl_Position = projectionMatrix * viewPosition;
+  vec4 projectedPosition = projectionMatrix * viewPosition;
+  gl_Position = projectedPosition;
 
-
-  // Varyings
+  // Props
   vUv = uv;
 }

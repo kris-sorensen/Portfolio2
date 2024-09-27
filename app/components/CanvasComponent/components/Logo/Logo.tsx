@@ -7,7 +7,7 @@ const Logo: React.FC = () => {
   const text = useRef<THREE.Mesh | null>(null);
 
   return (
-    <group position={[0, 0.62, 0.1]}>
+    <group position={[0, 0.62, 4]}>
       <group position={[0, 0, 0]}>
         <mesh>
           <Text

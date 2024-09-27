@@ -5,32 +5,39 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { EffectComposer } from "@react-three/postprocessing";
 import { useGodRaysControls } from "./hooks/useGodRayControls";
 import SunMoonMaterial from "./shader/SunMoonMaterial";
+import { sunMoonPropChangeDelay } from "@/app/anim/animManager";
 
 const arcRadius = 1.45; // Radius of the arc
 const centerY = -0.5; // Y center of the arc
 const totalDuration = 10.0; // Duration in seconds
 
 export interface GodRayProps {
-  Hotspot?: number;
-  currentPage: number; // Accept the current page as a prop
+  currentPage: number;
 }
 
-const GodRaysComponent: React.FC<GodRayProps> = ({
-  Hotspot = 1,
-  currentPage,
-}) => {
+const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
   const { pointer } = useThree();
   const sunRef = useRef<THREE.Mesh | null>(null);
+  const godRaysRef = useRef(null);
   const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
 
   const [animationPhase, setAnimationPhase] = useState<
     "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
   >("initial");
+
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  const initialized = useRef(true);
+
   const phaseStartTime = useRef(0);
   const prevPage = useRef(currentPage);
   const parallaxStarted = useRef(false);
   const parallaxReady = useRef(false);
 
+  // State to control when to apply page 2 props
+  const [applyPage2Props, setApplyPage2Props] = useState(false);
+  const page2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Get GodRays properties from the control hook
   const {
     sunOpacity,
     sphereRadius,
@@ -41,7 +48,40 @@ const GodRaysComponent: React.FC<GodRayProps> = ({
     exposure,
     clampMax,
     blur,
-  } = useGodRaysControls();
+  } = useGodRaysControls(currentPage);
+
+  // Define the page 2 properties directly
+  const page2GodRaysProps = {
+    samples: 45,
+    density: 0.8,
+    decay: 0.9,
+    weight: 0.6,
+    exposure: 1,
+    clampMax: 1.0,
+    blur: 1,
+    sunOpacity: 0.2,
+  };
+
+  useEffect(() => {
+    if (currentPage === 2) {
+      // Set timeout to apply page 2 props after 6 seconds
+      page2TimeoutRef.current = setTimeout(() => {
+        setApplyPage2Props(true);
+      }, sunMoonPropChangeDelay);
+    } else {
+      page2TimeoutRef.current = setTimeout(() => {
+        setApplyPage2Props(false);
+      }, sunMoonPropChangeDelay);
+      // If not on page 2, reset applyPage2Props
+    }
+
+    return () => {
+      // Clean up timeout on unmount or when currentPage changes
+      if (page2TimeoutRef.current) {
+        clearTimeout(page2TimeoutRef.current);
+      }
+    };
+  }, [currentPage]);
 
   useEffect(() => {
     const handleMouseMove = () => {
@@ -58,6 +98,11 @@ const GodRaysComponent: React.FC<GodRayProps> = ({
 
   useFrame((state, delta) => {
     if (!sunRef.current) return;
+    // * Bug workaround. Without this, the sun isn't illuminated at first
+    if (initialized.current) {
+      initialized.current = false;
+      setIsInitialRender(false);
+    }
 
     // Detect page changes
     if (currentPage !== prevPage.current) {
@@ -174,24 +219,27 @@ const GodRaysComponent: React.FC<GodRayProps> = ({
 
   return (
     <>
-      <mesh visible={Hotspot < 2} ref={sunRef} position={[0, 0, 0]}>
+      <mesh visible={true} ref={sunRef} position={[0, 0, 0]}>
         <sphereGeometry args={[sphereRadius, 36, 36]} />
         <SunMoonMaterial
           materialRef={shaderMaterialRef}
-          sunOpacity={sunOpacity}
+          sunOpacity={0.4}
+          applyPage2Props={applyPage2Props}
         />
       </mesh>
-      {sunRef.current && (
+      {sunRef.current && !isInitialRender && (
         <EffectComposer multisampling={4}>
           <GodRays
+            ref={godRaysRef}
             sun={sunRef.current}
-            samples={samples}
-            density={density}
-            decay={decay}
-            weight={weight}
-            exposure={exposure}
-            clampMax={clampMax}
-            blur={blur}
+            // Use page 2 properties after 6 seconds if on page 2
+            samples={applyPage2Props ? page2GodRaysProps.samples : samples}
+            density={applyPage2Props ? page2GodRaysProps.density : density}
+            decay={applyPage2Props ? page2GodRaysProps.decay : decay}
+            weight={applyPage2Props ? page2GodRaysProps.weight : weight}
+            exposure={applyPage2Props ? page2GodRaysProps.exposure : exposure}
+            clampMax={applyPage2Props ? page2GodRaysProps.clampMax : clampMax}
+            blur={applyPage2Props ? page2GodRaysProps.blur : blur}
           />
         </EffectComposer>
       )}

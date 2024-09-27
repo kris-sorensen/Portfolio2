@@ -18,10 +18,10 @@ const CanvasComponent: React.FC = () => {
         onClick={() => console.log("canvas click")}
         dpr={[1, 2]}
         camera={{
-          position: [0, 0, 0.5],
+          position: [0, 0, 5],
           zoom: 60, // Adjust this value to control the zoom level
-          near: -10,
-          far: 10,
+          near: 0.1, // Use positive near and far values
+          far: 100,
         }}
         orthographic
         // linear
@@ -29,7 +29,7 @@ const CanvasComponent: React.FC = () => {
       >
         {/* <fog attach="fog" args={["#b3b3b38d", 0.5, -2]} /> */}
         <Camera />
-        <OrbitControls makeDefault enableZoom={false} />
+        <OrbitControls makeDefault enableZoom={true} />
         {/* <color
           attach="background"
           args={[Page === 2 ? "#349ef5" : "black"]} //#0bdbf9

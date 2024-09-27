@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import vertexShader from "./sunMoon.vertex.glsl";
@@ -8,11 +8,13 @@ import { getAnimProgress } from "@/app/anim/animManager";
 interface SunMoonMaterialProps {
   sunOpacity: number;
   materialRef: React.MutableRefObject<THREE.ShaderMaterial | null>;
+  applyPage2Props: boolean;
 }
 
 const SunMoonMaterial: React.FC<SunMoonMaterialProps> = ({
   sunOpacity,
   materialRef,
+  applyPage2Props,
 }) => {
   useFrame(() => {
     if (!materialRef.current) return;
@@ -34,10 +36,12 @@ const SunMoonMaterial: React.FC<SunMoonMaterialProps> = ({
     materialRef.current.uniforms.opacity.value = sunOpacity;
 
     // Switch colors instantly based on the adjusted progress value
-    if (progress === 1) {
+    if (applyPage2Props) {
       materialRef.current.uniforms.uColor.value.set("#fde216"); // Yellow color
-    } else if (progress === 0) {
+      materialRef.current.uniforms.opacity.value = 0.2; // Yellow color
+    } else if (!applyPage2Props) {
       materialRef.current.uniforms.uColor.value.set("#349ef5"); // Blue color
+      materialRef.current.uniforms.opacity.value = 0.5; // Blue color
     }
   });
 
