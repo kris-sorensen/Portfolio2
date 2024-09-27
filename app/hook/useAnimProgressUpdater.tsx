@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { speedMap, updateAnimProgress } from "@/app/anim/animManager";
+import { delayMap, speedMap, updateAnimProgress } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
 const useAnimProgress = () => {
@@ -11,13 +11,6 @@ const useAnimProgress = () => {
 
   const prevPageRef = useRef(Page);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Define delay for each page in milliseconds
-  const delayMap = {
-    1: 6000, // No delay for Page 1
-    2: 6000, // 6 seconds delay for Page 2
-    3: 3000, // 3 seconds delay for Page 3
-  };
 
   const updateTargetProgress = () => {
     if (prevPageRef.current !== Page) {

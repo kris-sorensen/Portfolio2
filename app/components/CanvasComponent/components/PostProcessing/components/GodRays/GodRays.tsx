@@ -21,10 +21,9 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
   const godRaysRef = useRef(null);
   const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
 
-  const [animationPhase, setAnimationPhase] = useState<
+  const animationPhase = useRef<
     "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
   >("initial");
-
   const [isInitialRender, setIsInitialRender] = useState(true);
   const initialized = useRef(true);
 
@@ -62,6 +61,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
     sunOpacity: 0.2,
   };
 
+  // * Update GodRay Props Boolean when switching from Moon to Sun or back
   useEffect(() => {
     if (currentPage === 2) {
       // Set timeout to apply page 2 props after 6 seconds
@@ -72,7 +72,6 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
       page2TimeoutRef.current = setTimeout(() => {
         setApplyPage2Props(false);
       }, sunMoonPropChangeDelay);
-      // If not on page 2, reset applyPage2Props
     }
 
     return () => {
@@ -83,6 +82,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
     };
   }, [currentPage]);
 
+  // * Only start Parallax effect after mouse movement
   useEffect(() => {
     const handleMouseMove = () => {
       if (!parallaxStarted.current && parallaxReady.current) {
@@ -98,6 +98,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
 
   useFrame((state, delta) => {
     if (!sunRef.current) return;
+
     // * Bug workaround. Without this, the sun isn't illuminated at first
     if (initialized.current) {
       initialized.current = false;
@@ -106,23 +107,22 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
 
     // Detect page changes
     if (currentPage !== prevPage.current) {
-      // Page has changed
       if (currentPage === 2) {
         // Transition from Page 1 to 2
         if (
-          animationPhase !== "reverseInitial" &&
-          animationPhase !== "newArc"
+          animationPhase.current !== "reverseInitial" &&
+          animationPhase.current !== "newArc"
         ) {
-          setAnimationPhase("reverseInitial");
+          animationPhase.current = "reverseInitial";
           phaseStartTime.current = state.clock.getElapsedTime();
         }
       } else if (currentPage === 1) {
         // Transition from Page 2 to 1
         if (
-          animationPhase !== "reverseNewArc" &&
-          animationPhase !== "initial"
+          animationPhase.current !== "reverseNewArc" &&
+          animationPhase.current !== "initial"
         ) {
-          setAnimationPhase("reverseNewArc");
+          animationPhase.current = "reverseNewArc";
           phaseStartTime.current = state.clock.getElapsedTime();
         }
       }
@@ -135,7 +135,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
     const easedProgress = Math.sin(progress * Math.PI * 0.5); // Ease in/out
     let currentAngle = 0;
 
-    switch (animationPhase) {
+    switch (animationPhase.current) {
       case "initial":
         // **Initial Animation:** Bottom right to top left
         if (progress < 1) {
@@ -144,7 +144,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
           sunRef.current.position.y =
             centerY + arcRadius * Math.sin(currentAngle);
         } else {
-          setAnimationPhase("idle");
+          animationPhase.current = "idle";
           parallaxReady.current = true;
         }
         break;
@@ -157,13 +157,12 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
           sunRef.current.position.y =
             centerY + arcRadius * Math.sin(currentAngle);
         } else {
-          // Jump to bottom left corner and start new arc
           sunRef.current.position.set(
             -arcRadius,
             centerY,
             sunRef.current.position.z
           );
-          setAnimationPhase("newArc");
+          animationPhase.current = "newArc";
           phaseStartTime.current = state.clock.getElapsedTime();
         }
         break;
@@ -176,7 +175,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
           sunRef.current.position.y =
             centerY + arcRadius * Math.sin(currentAngle);
         } else {
-          setAnimationPhase("idle");
+          animationPhase.current = "idle";
           parallaxReady.current = true;
         }
         break;
@@ -189,13 +188,12 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
           sunRef.current.position.y =
             centerY + arcRadius * Math.sin(currentAngle);
         } else {
-          // Jump to bottom right corner and start initial animation
           sunRef.current.position.set(
             arcRadius,
             centerY,
             sunRef.current.position.z
           );
-          setAnimationPhase("initial");
+          animationPhase.current = "initial";
           phaseStartTime.current = state.clock.getElapsedTime();
         }
         break;
@@ -232,7 +230,6 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
           <GodRays
             ref={godRaysRef}
             sun={sunRef.current}
-            // Use page 2 properties after 6 seconds if on page 2
             samples={applyPage2Props ? page2GodRaysProps.samples : samples}
             density={applyPage2Props ? page2GodRaysProps.density : density}
             decay={applyPage2Props ? page2GodRaysProps.decay : decay}

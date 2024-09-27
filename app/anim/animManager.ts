@@ -7,6 +7,13 @@ export const speedMap = {
   3: 1 / 10,
 };
 
+// Define delay for each page in milliseconds
+export const delayMap = {
+  1: 6000, // 6 second delay for Page 1
+  2: 10000, // 10 seconds delay for Page 2
+  3: 3000, // 3 seconds delay for Page 3
+};
+
 // Function to update animProgress
 export const updateAnimProgress = (
   targetProgress: number,
