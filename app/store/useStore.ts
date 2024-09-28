@@ -5,6 +5,9 @@ interface StoreState {
   setPage(page: number): void;
   nextPage(): void;
   prevPage(): void;
+
+  Page2PropsActive: boolean;
+  setPage2PropsActive(value: boolean): void;
 }
 
 const useStore = create<StoreState>((set, get) => ({
@@ -26,6 +29,11 @@ const useStore = create<StoreState>((set, get) => ({
       return { Page: newPage };
     });
   },
+
+  // In middle of page transition Animation the properties of god rays and other components change like vis
+  Page2PropsActive: false,
+  setPage2PropsActive: (value: boolean) =>
+    set(() => ({ Page2PropsActive: value })),
 }));
 
 export default useStore;

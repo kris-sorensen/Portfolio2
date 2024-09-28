@@ -19,8 +19,8 @@ const CanvasComponent: React.FC = () => {
         dpr={[1, 2]}
         camera={{
           position: [0, 0, 5],
-          zoom: 60, // Adjust this value to control the zoom level
-          near: 0.1, // Use positive near and far values
+          zoom: 60,
+          near: 0.1,
           far: 100,
         }}
         orthographic

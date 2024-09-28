@@ -7,7 +7,7 @@ const useAnimProgress = () => {
   console.log(`useAnimProgress hook`);
   const targetProgress = useRef(0);
   const transitionSpeed = useRef(0.1);
-  const Page = useStore((state) => state.Page); // Use global store to get Page
+  const Page = useStore((state) => state.Page);
 
   const prevPageRef = useRef(Page);
   const timerRef = useRef<NodeJS.Timeout | null>(null);

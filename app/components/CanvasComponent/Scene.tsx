@@ -9,6 +9,7 @@ import MountainMaterial from "./shader/MountainMaterial/MountainMaterial";
 import BackgroundMaterial from "./shader/BackgroundMaterial/BackgroundMaterial";
 import useAnimProgressUpdater from "@/app/hook/useAnimProgressUpdater";
 import WorkSlides from "./components/WorkSlides/WorkSlides";
+import Mountain from "./components/Mountain/Mountain";
 
 const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
   useAnimProgressUpdater();
@@ -19,11 +20,12 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       {/* <NextPageBtn /> */}
       {/* <Moon /> */}
       {/* <WorkSlides /> */}
-      <mesh visible={true} position={[0, 0, 1.8]}>
+      <Mountain />
+      {/* <mesh visible={true} position={[0, 0, 1.8]}>
         <Plane args={[3, 2, 2, 2]}>
           <MountainMaterial />
         </Plane>
-      </mesh>
+      </mesh> */}
       <mesh visible={true} position={[0, 0, -2]}>
         <Plane args={[3, 2, 2, 2]}>
           <BackgroundMaterial />

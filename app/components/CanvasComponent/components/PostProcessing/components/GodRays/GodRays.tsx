@@ -6,6 +6,7 @@ import { EffectComposer } from "@react-three/postprocessing";
 import { useGodRaysControls } from "./hooks/useGodRayControls";
 import SunMoonMaterial from "./shader/SunMoonMaterial";
 import { sunMoonPropChangeDelay } from "@/app/anim/animManager";
+import useStore from "@/app/store/useStore";
 
 const arcRadius = 1.45; // Radius of the arc
 const centerY = -0.5; // Y center of the arc
@@ -180,7 +181,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
       case "newArc":
         // **New Arc Animation:** Bottom left to top right
         if (progress < 1) {
-          currentAngle = Math.PI - Math.PI * 0.7 * easedProgress;
+          currentAngle = Math.PI - Math.PI * 0.68 * easedProgress;
           sunRef.current.position.x = leftArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
             leftArcCenterY + leftArcRadius * Math.sin(currentAngle);
@@ -193,7 +194,7 @@ const GodRaysComponent: React.FC<GodRayProps> = ({ currentPage }) => {
       case "reverseNewArc":
         // **Reverse New Arc Animation:** Move sun back to starting position
         if (progress < 1) {
-          currentAngle = Math.PI - Math.PI * 0.7 * (1 - easedProgress);
+          currentAngle = Math.PI - Math.PI * 0.68 * (1 - easedProgress);
           sunRef.current.position.x = leftArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
             leftArcCenterY + leftArcRadius * Math.sin(currentAngle);
