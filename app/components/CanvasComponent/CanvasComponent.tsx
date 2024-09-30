@@ -9,6 +9,7 @@ import Camera from "./components/Camera/Camera";
 import Lights from "./components/Lights/Lights";
 import { Leva } from "leva";
 import PostProcessing from "./components/PostProcessing/PostProcessing";
+import SunMoon from "./components/PostProcessing/components/SunMoon/SunMoon";
 
 const CanvasComponent: React.FC = () => {
   return (
@@ -18,10 +19,10 @@ const CanvasComponent: React.FC = () => {
         onClick={() => console.log("canvas click")}
         dpr={[1, 2]}
         camera={{
-          position: [0, 0, 5],
-          zoom: 60,
-          near: 0.1,
-          far: 100,
+          position: [0, 0, 100],
+          zoom: 1,
+          near: -100,
+          far: 1000,
         }}
         orthographic
         // linear
@@ -35,7 +36,7 @@ const CanvasComponent: React.FC = () => {
           args={[Page === 2 ? "#349ef5" : "black"]} //#0bdbf9
         /> */}
         <Suspense fallback={null}>
-          <PostProcessing />
+          {/* <PostProcessing /> */}
           <Lights />
           <Scene />
         </Suspense>

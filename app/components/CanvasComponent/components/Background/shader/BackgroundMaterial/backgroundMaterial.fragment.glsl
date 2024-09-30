@@ -17,9 +17,12 @@ float easeInOutCubic(float t) {
 }
 
 void main() {
+    // Calculate aspect ratio
+    float aspectRatio = resolution.x / resolution.y;
+
+    // Adjust coordinates for aspect ratio
     vec2 coords = (gl_FragCoord.xy / resolution) - vec2(0.5);
-    float x = gl_FragCoord.x / resolution.x * 2.0 - 1.0;
-    float y = gl_FragCoord.y / resolution.y * 2.0 - 1.0;
+    coords.x *= aspectRatio;
 
     // Star field and meteor
     vec3 stars = starMaker(coords) + meteorstorm(coords);
@@ -45,3 +48,4 @@ void main() {
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
 }
+

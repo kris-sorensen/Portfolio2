@@ -2,6 +2,7 @@
 uniform float time;
 uniform vec3 uColor;
 uniform float uProgress;
+uniform float uActivePage;
 
 void main() {
   vec3 col = uColor;

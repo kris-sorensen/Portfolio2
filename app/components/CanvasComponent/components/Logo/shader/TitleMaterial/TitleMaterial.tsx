@@ -7,9 +7,10 @@ import { getAnimProgress } from "@/app/anim/animManager";
 
 interface ShaderProps {
   color: string;
+  activePage: number;
 }
 
-const TitleShaderMaterial: React.FC<ShaderProps> = ({ color }) => {
+const TitleShaderMaterial: React.FC<ShaderProps> = ({ color, activePage }) => {
   const materialRef = useRef<THREE.ShaderMaterial | null>(null);
 
   const uniforms = useMemo(
@@ -17,6 +18,7 @@ const TitleShaderMaterial: React.FC<ShaderProps> = ({ color }) => {
       time: { value: 0.0 },
       uColor: { value: new THREE.Color(color) },
       uProgress: { value: 0.0 },
+      uActivePage: { value: activePage },
     }),
     [color]
   );
@@ -25,7 +27,8 @@ const TitleShaderMaterial: React.FC<ShaderProps> = ({ color }) => {
     if (!materialRef.current) return;
 
     // Update uProgress uniform using getAnimProgress()
-    materialRef.current.uniforms.uProgress.value = getAnimProgress();
+    materialRef.current.uniforms.uProgress.value =
+      getAnimProgress() - activePage;
   });
 
   return (

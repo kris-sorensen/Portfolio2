@@ -35,7 +35,7 @@ function Rig() {
     if (!initialAnimationDone.current) {
       // * Initial Camera Movement
       if (camera.isOrthographicCamera) {
-        camera.zoom = THREE.MathUtils.lerp(camera.zoom, 10, 0.0465);
+        // camera.zoom = THREE.MathUtils.lerp(camera.zoom, 10, 0.0465);
         camera.updateProjectionMatrix();
       }
     }

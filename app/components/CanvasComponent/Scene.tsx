@@ -6,10 +6,12 @@ import useStore from "@/app/store/useStore";
 // import NextPageBtn from "./components/NextPageBtn/NextPageBtn";
 import { Plane } from "@react-three/drei";
 import MountainMaterial from "./shader/MountainMaterial/MountainMaterial";
-import BackgroundMaterial from "./shader/BackgroundMaterial/BackgroundMaterial";
+import BackgroundMaterial from "./components/Background/shader/BackgroundMaterial/BackgroundMaterial";
 import useAnimProgressUpdater from "@/app/hook/useAnimProgressUpdater";
 import WorkSlides from "./components/WorkSlides/WorkSlides";
 import Mountain from "./components/Mountain/Mountain";
+import Background from "./components/Background/Background";
+import SunMoon from "./components/PostProcessing/components/SunMoon/SunMoon";
 
 const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
   useAnimProgressUpdater();
@@ -19,18 +21,10 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       <Logo />
       {/* <NextPageBtn /> */}
       {/* <Moon /> */}
-      {/* <WorkSlides /> */}
+      <WorkSlides />
       <Mountain />
-      {/* <mesh visible={true} position={[0, 0, 1.8]}>
-        <Plane args={[3, 2, 2, 2]}>
-          <MountainMaterial />
-        </Plane>
-      </mesh> */}
-      <mesh visible={true} position={[0, 0, -2]}>
-        <Plane args={[3, 2, 2, 2]}>
-          <BackgroundMaterial />
-        </Plane>
-      </mesh>
+      <Background />
+      <SunMoon />
     </>
   );
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Text } from "@react-three/drei";
 import TitleShaderMaterial from "./shader/TitleMaterial/TitleMaterial";
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import {
   getAnimProgress,
   sunMoonPropChangeDelay,
@@ -11,113 +11,102 @@ import useStore from "@/app/store/useStore";
 
 const Logo: React.FC = () => {
   const Page = useStore((state) => state.Page);
-
+  const { viewport } = useThree();
   const text = useRef<THREE.Mesh | null>(null);
   const page1Group = useRef<THREE.Group | null>(null);
   const page2Group = useRef<THREE.Group | null>(null);
 
-  // * Turns on and off the visibility of the logo. Without this you see god rays shinning through invisible letters.
+  // Font scale variable
+  const fontScale = 500; // Adjust this scale as needed
+
   useEffect(() => {
-    if (Page === 2) {
-      setTimeout(() => {
-        if (page1Group.current) page1Group.current.visible = false;
-        if (page2Group.current) page2Group.current.visible = true;
-      }, sunMoonPropChangeDelay * 2);
-    } else {
-      setTimeout(() => {
-        if (page1Group.current) page1Group.current.visible = true;
-        if (page2Group.current) page2Group.current.visible = false;
-      }, sunMoonPropChangeDelay / 2);
-    }
+    // Add your visibility logic here
   }, [Page]);
 
   return (
-    <group>
+    <group scale={[1.2, 1.2, 1.2]} position={[0, viewport.height / 3, 80]}>
       {/* PAGE 1 */}
-      <group position={[0, 0.62, 4]} visible={true} ref={page1Group}>
-        <mesh>
-          <Text
-            ref={text}
-            letterSpacing={0.0005}
-            fontSize={0.2}
-            anchorX={"center"}
-            font="./fonts/dessau-heavy-regular.woff"
-          >
-            {/* Use the same material instance */}
-            <TitleShaderMaterial color="#fc8be9" />
-            RISTOPHER
-          </Text>
-        </mesh>
-        <mesh position={[-0.5895, 0.01, 0]}>
-          <Text
-            ref={text}
-            letterSpacing={0.0005}
-            fontSize={0.35}
-            anchorX={"center"}
-            font="./fonts/dessau-heavy-regular.woff"
-          >
-            {/* Use the same material instance */}
-            <TitleShaderMaterial color="#fc8be9" />K
-          </Text>
-        </mesh>
-        <group position={[0, 0.0, 0]}>
-          <mesh position={[0, -0.155, 0]}>
+      <group visible={true} ref={page1Group}>
+        <group position={[0, 40, 0]}>
+          <mesh>
             <Text
               ref={text}
-              letterSpacing={0.01}
-              fontSize={0.2}
+              letterSpacing={0.0005}
+              fontSize={0.2 * fontScale}
               anchorX={"center"}
               font="./fonts/dessau-heavy-regular.woff"
             >
-              <TitleShaderMaterial color="#47f36c" />
-              ORENSEN
+              <TitleShaderMaterial color="#fc8be9" activePage={0} />
+              RISTOPHER
             </Text>
           </mesh>
-          <mesh position={[-0.5, -0.185, 0.01]}>
+          <mesh position={[-300, 0, 0]}>
             <Text
               ref={text}
-              letterSpacing={0.01}
-              fontSize={0.3}
+              letterSpacing={0.0005}
+              fontSize={0.35 * fontScale}
               anchorX={"center"}
               font="./fonts/dessau-heavy-regular.woff"
             >
-              <TitleShaderMaterial color="#47f36c" />S
+              <TitleShaderMaterial color="#fc8be9" activePage={0} />K
             </Text>
           </mesh>
         </group>
-        <group position={[-0.015, -0.27, 0]} scale={[1, 1, 1]}>
+        <group position={[0, -40, 0]}>
+          <mesh position={[0, 0, 0]}>
+            <Text
+              ref={text}
+              letterSpacing={0.01}
+              fontSize={0.2 * fontScale}
+              anchorX={"center"}
+              font="./fonts/dessau-heavy-regular.woff"
+            >
+              <TitleShaderMaterial color="#47f36c" activePage={0} />
+              ORENSEN
+            </Text>
+          </mesh>
+          <mesh position={[-250, -10, 1]}>
+            <Text
+              ref={text}
+              letterSpacing={0.01}
+              fontSize={0.3 * fontScale}
+              anchorX={"center"}
+              font="./fonts/dessau-heavy-regular.woff"
+            >
+              <TitleShaderMaterial color="#47f36c" activePage={0} />S
+            </Text>
+          </mesh>
+        </group>
+        <group position={[0, -100, 0]} scale={[1, 1, 1]}>
           <mesh>
             <Text
               ref={text}
               letterSpacing={0.3}
-              fontSize={0.048}
+              fontSize={0.044 * fontScale}
               anchorX={"center"}
               font="./fonts/altehaasgroteskregular.woff"
             >
-              {/* Use the same material instance for CREATIVE DEVELOPER */}
-              <TitleShaderMaterial color="white" />
+              <TitleShaderMaterial color="white" activePage={0} />
               CREATIVE DEVELOPER
             </Text>
           </mesh>
         </group>
       </group>
       {/* PAGE 2 */}
-      <group position={[0, 0.62, 4]} visible={false} ref={page2Group}>
+      {/* <group position={[0, 0.4, 4]} visible={true} ref={page2Group}>
         <mesh>
           <Text
             ref={text}
             letterSpacing={0.08}
-            fontSize={0.2}
+            fontSize={0.35 * fontScale}
             anchorX={"center"}
             font="./fonts/dessau-heavy-regular.woff"
           >
-            {/* Use the same material instance */}
-            {/* <TitleShaderMaterial color="#fc8b8b" /> */}
-            <meshBasicMaterial color="#fc8b8b" />
+            <TitleShaderMaterial color="#fc8b8b" activePage={1} />
             WORK
           </Text>
         </mesh>
-      </group>
+      </group> */}
     </group>
   );
 };
