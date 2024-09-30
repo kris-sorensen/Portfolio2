@@ -21,8 +21,8 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       <Logo />
       {/* <NextPageBtn /> */}
       {/* <Moon /> */}
-      <WorkSlides />
-      <Mountain />
+      {/* <WorkSlides /> */}
+      {/* <Mountain /> */}
       <Background />
       <SunMoon />
     </>

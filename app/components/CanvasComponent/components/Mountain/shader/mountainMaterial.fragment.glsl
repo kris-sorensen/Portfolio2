@@ -2,26 +2,24 @@ uniform vec2 resolution;
 uniform float time;
 uniform float uProgress;
 in vec2 vUv;
-
+in vec3 vPosition; // Assuming you pass the vertex position from the vertex shader
 
 void main() {
-    vec2 uv = vUv - vec2(.5);
-
-    // Initial colors
-    vec3 mountainColor = vec3(0.0, 0.2, 1.0); // Mountain color (night color)
-    
+    // Initial colors for the mountain
+    vec3 mountainColor = vec3(0.0, 0.2, 1.0); // Night color
     // Transition to day color based on uProgress
-    mountainColor = mix(mountainColor, vec3(0.0, 1.0, 0.2), uProgress);
+    mountainColor = mix(mountainColor, vec3(0.1, 1.0, 0.5), uProgress);
 
-    // Add snow caps
-    vec3 snowCaps = vec3(1.0);
-    mountainColor = mix(mountainColor, snowCaps, step((sin(uv.x * 22.0) * 0.1) + 1.3, uv.y));
+    // Add snow caps based on world y-position
+    vec3 snowcaps = vec3(1.0); // White color for snow
+    float jaggedEdge =  mod(vPosition.y, .15);
+    float snowMask = smoothstep(1.0, 2.0, vPosition.y ); // Adjust the range based on your mountain's height
     
-    // Output final color and alpha
-    vec3 finalColor = mountainColor;
+    // Blend snowcaps with the mountain color
+    vec3 finalColor = mix(mountainColor, snowcaps, snowMask);
 
-
-    gl_FragColor = vec4(finalColor, 1.);
+    // Output the final color
+    gl_FragColor = vec4(finalColor, 1.0);
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
 }

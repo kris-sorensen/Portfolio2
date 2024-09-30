@@ -5,7 +5,7 @@ import { useThree } from "@react-three/fiber";
 
 const WorkSlides = () => {
   const { viewport } = useThree();
-  const gap = 0.05 * viewport.width; // 10% of the screen width as the total gap on each side
+  const gap = 0.07 * viewport.width; // 10% of the screen width as the total gap on each side
   const slideWidth = (viewport.width - gap) / 2; // Calculate slide width to fit within the screen
   const slideHeight = viewport.height / 3; // Calculate slide width to fit within the screen
   const halfSlideHeight = slideHeight / 2; // Calculate slide width to fit within the screen

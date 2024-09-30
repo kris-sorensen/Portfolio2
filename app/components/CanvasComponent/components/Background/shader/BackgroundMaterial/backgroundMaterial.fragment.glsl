@@ -31,8 +31,20 @@ void main() {
     // Apply easing to uProgress for smoother transitions
     float easedProgress = easeInOutCubic(uProgress);
 
-    // Interpolating background color from black to blue based on uProgress
-    vec3 backgroundColor = mix(vec3(0.0, 0.0, 0.0), vec3(0.0, 1., 1.0), easedProgress);
+    // Blue sky gradient colors
+    vec3 topColor = vec3(0.173, 0.404, 0.949);  // #2c67f2
+    vec3 bottomColor = vec3(0.384, 0.812, 0.957);  // #62cff4
+
+    // Create the blue sky gradient using the y-component of vUv and shape w/ sqrt
+    vec3 blueSkyColor = mix(bottomColor, topColor, sqrt(vUv.y));
+
+    // Create the black gradient (quick transition to black)
+    vec3 bottomBlack = vec3(0.01); // Slightly less black at the bottom
+    vec3 topBlack = vec3(0.0);    // Pure black at the top
+    vec3 blackGradient = mix(bottomBlack, topBlack, vUv.y);
+
+    // Mix the black gradient with the blue sky gradient based on easedProgress
+    vec3 backgroundColor = mix(blackGradient, blueSkyColor, easedProgress);
 
     // Mix stars/meteor visibility based on uProgress (visible when uProgress is 0, invisible at 1)
     float starVisibility = mix(1.0, 0.0, easedProgress); 
@@ -48,4 +60,3 @@ void main() {
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
 }
-
