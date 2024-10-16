@@ -24,9 +24,9 @@ const Logo: React.FC = () => {
   }, [Page]);
 
   return (
-    <group scale={[1.2, 1.2, 1.2]} position={[0, viewport.height / 3, 80]}>
+    <group scale={[1.2, 1.2, 1.2]} position={[0, viewport.height / 2, 80]}>
       {/* PAGE 1 */}
-      <group visible={true} ref={page1Group}>
+      {/* <group visible={true} ref={page1Group}>
         <group position={[0, 40, 0]}>
           <mesh>
             <Text
@@ -91,7 +91,7 @@ const Logo: React.FC = () => {
             </Text>
           </mesh>
         </group>
-      </group>
+      </group> */}
       {/* PAGE 2 */}
       {/* <group position={[0, 0.4, 4]} visible={true} ref={page2Group}>
         <mesh>
@@ -107,6 +107,39 @@ const Logo: React.FC = () => {
           </Text>
         </mesh>
       </group> */}
+
+      <mesh>
+        <Text
+          ref={text}
+          letterSpacing={0.0001}
+          fontSize={0.12 * fontScale}
+          anchorX={"center"}
+          font="./fonts/dessau-heavy-regular.woff"
+        >
+          <TitleShaderMaterial
+            color="#fc8be9"
+            color2="#47f36c"
+            activePage={0}
+          />
+          CREATIVE DEVELOPER
+        </Text>
+      </mesh>
+      <mesh position={[0, -50, 0]}>
+        <Text
+          ref={text}
+          letterSpacing={0.25}
+          fontSize={0.04 * fontScale}
+          anchorX={"center"}
+          font="./fonts/dessau-heavy-regular.woff"
+        >
+          <TitleShaderMaterial
+            color="#ffffff"
+            color2="#ffffff"
+            activePage={0}
+          />
+          KRISTOPHER SORENSEN
+        </Text>
+      </mesh>
     </group>
   );
 };

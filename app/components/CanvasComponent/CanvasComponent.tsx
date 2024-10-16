@@ -19,9 +19,9 @@ const CanvasComponent: React.FC = () => {
         onClick={() => console.log("canvas click")}
         dpr={[1, 2]}
         camera={{
-          position: [0, 0, 100],
+          position: [0, 50, 100],
           zoom: 1,
-          near: -100,
+          near: -1000,
           far: 1000,
         }}
         orthographic

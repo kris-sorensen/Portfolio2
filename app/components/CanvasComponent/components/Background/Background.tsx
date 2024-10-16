@@ -14,7 +14,7 @@ const Background = () => {
 
   return (
     <mesh visible={true} position={[0, 0, -500]}>
-      <Plane args={[planeWidth, planeHeight, 2, 2]}>
+      <Plane args={[planeWidth, planeHeight * 2, 2, 2]}>
         <BackgroundMaterial />
       </Plane>
     </mesh>

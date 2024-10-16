@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useThree } from "@react-three/fiber"; // Import useThree
 import Logo from "./components/Logo/Logo";
 // import Moon from "./components/Moon/Moon";
 import * as THREE from "three";
@@ -12,6 +13,9 @@ import WorkSlides from "./components/WorkSlides/WorkSlides";
 import Mountain from "./components/Mountain/Mountain";
 import Background from "./components/Background/Background";
 import SunMoon from "./components/PostProcessing/components/SunMoon/SunMoon";
+import Water from "./components/Water/Water";
+import Clouds from "./components/Clouds/Clouds";
+import Trees from "./components/Trees/Trees";
 
 const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
   useAnimProgressUpdater();
@@ -25,6 +29,8 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       {/* <Mountain /> */}
       <Background />
       <SunMoon />
+      <Water />
+      <Trees />
     </>
   );
 };

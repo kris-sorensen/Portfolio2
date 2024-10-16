@@ -248,7 +248,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             weight={applyPage2Props ? page2GodRaysProps.weight : weight}
             exposure={applyPage2Props ? page2GodRaysProps.exposure : exposure}
             clampMax={applyPage2Props ? page2GodRaysProps.clampMax : clampMax}
-            blur={applyPage2Props ? page2GodRaysProps.blur : blur}
+            blur={true}
           />
         </EffectComposer>
       )}
