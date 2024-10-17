@@ -29,7 +29,7 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       {/* <Mountain /> */}
       <Background />
       <SunMoon />
-      <Water />
+      {/* <Water /> */}
       <Trees />
     </>
   );

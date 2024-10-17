@@ -8,12 +8,11 @@ import SunMoonMaterial from "./shader/SunMoonMaterial";
 import { sunMoonPropChangeDelay } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
-const scaleFactor = 1.85; // Adjust this factor to match your new scale
-const totalDuration = 10.0; // Duration in seconds
+const scaleFactor = 1.85;
+const totalDuration = 10.0;
 const xParallaxFactor = 0.5;
 const yParallaxFactor = 0.5;
 
-// Define the page 2 properties directly
 const page2GodRaysProps = {
   samples: 45,
   density: 0.8,
@@ -29,19 +28,17 @@ export interface SunMoonProps {}
 
 const SunMoon: React.FC<SunMoonProps> = () => {
   const Page = useStore((state) => state.Page);
-  // Prevents bug where god rays don't activate on initial render
+  const { scene } = useThree();
   const [isInitialRender, setIsInitialRender] = useState(true);
-  // State to control when to apply page 2 props
   const [applyPage2Props, setApplyPage2Props] = useState(false);
   const page2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
   const initialized = useRef(true);
-
   const { pointer, viewport } = useThree();
   const sunRef = useRef<THREE.Mesh | null>(null);
   const group = useRef<THREE.Group | null>(null);
   const godRaysRef = useRef(null);
   const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
+  const lightRef = useRef<THREE.DirectionalLight | null>(null); // Reference for the directional light
 
   const animationPhase = useRef<
     "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
@@ -52,7 +49,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   const parallaxStarted = useRef(false);
   const parallaxReady = useRef(false);
 
-  // Get GodRays properties from the control hook
   const {
     sunOpacity,
     sphereRadius,
@@ -65,10 +61,8 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     blur,
   } = useGodRaysControls(Page);
 
-  // * Update GodRay Props Boolean when switching from Moon to Sun or back
   useEffect(() => {
     if (Page === 2) {
-      // Set timeout to apply page 2 props after 6 seconds
       page2TimeoutRef.current = setTimeout(() => {
         setApplyPage2Props(true);
       }, sunMoonPropChangeDelay);
@@ -79,14 +73,12 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     }
 
     return () => {
-      // Clean up timeout on unmount or when Page changes
       if (page2TimeoutRef.current) {
         clearTimeout(page2TimeoutRef.current);
       }
     };
   }, [Page]);
 
-  // * Only start Parallax effect after mouse movement
   useEffect(() => {
     const handleMouseMove = () => {
       if (!parallaxStarted.current && parallaxReady.current) {
@@ -101,25 +93,21 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   }, []);
 
   useFrame((state, delta) => {
-    if (!sunRef.current) return;
+    if (!sunRef.current || !lightRef.current) return;
 
-    // * Bug workaround. Without this, the sun isn't illuminated at first
     if (initialized.current) {
       initialized.current = false;
       setIsInitialRender(false);
     }
 
-    // Calculate normalized arc parameters based on viewport size
-    const arcRadius = 0.3 * viewport.width * scaleFactor; // 30% of the viewport width
-    const centerY = -0.2 * viewport.height * scaleFactor; // Adjust the Y center based on viewport height
-
-    const leftArcRadius = 0.35 * viewport.width * scaleFactor; // Left arc radius as 35% of the viewport width
-    const rightArcRadius = 0.3 * viewport.width * scaleFactor; // Right arc radius as 30% of the viewport width
-    const rightArcCenterY = -0.2 * viewport.height * scaleFactor; // Y center for the right arc
+    const arcRadius = 0.3 * viewport.width * scaleFactor;
+    const centerY = -0.2 * viewport.height * scaleFactor;
+    const leftArcRadius = 0.35 * viewport.width * scaleFactor;
+    const rightArcRadius = 0.3 * viewport.width * scaleFactor;
+    const rightArcCenterY = -0.2 * viewport.height * scaleFactor;
     const leftArcCenterY =
-      -0.2 * viewport.height * scaleFactor - leftArcRadius * 0.07; // Lower the left arc by 7% of its radius
+      -0.2 * viewport.height * scaleFactor - leftArcRadius * 0.07;
 
-    // Detect page changes
     if (Page !== prevPage.current) {
       if (Page === 2) {
         if (
@@ -144,7 +132,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     const elapsedPhaseTime =
       state.clock.getElapsedTime() - phaseStartTime.current;
     let progress = Math.min(elapsedPhaseTime / totalDuration, 1);
-    const easedProgress = Math.sin(progress * Math.PI * 0.5); // Ease in/out
+    const easedProgress = Math.sin(progress * Math.PI * 0.5);
     let currentAngle = 0;
 
     switch (animationPhase.current) {
@@ -221,7 +209,13 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         }
         break;
     }
+
+    // Update the directional light's position to match the sun/moon
+    lightRef.current.position.copy(sunRef.current.position);
+    lightRef.current.target.position.set(0, 0, 0); // Always point the light to the center of the scene
   });
+
+  console.log(`scene`, scene.children[4]);
 
   return (
     <group ref={group}>
@@ -237,6 +231,16 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           applyPage2Props={applyPage2Props}
         />
       </mesh>
+
+      {/* Directional light that follows the sun/moon */}
+      <directionalLight
+        ref={lightRef}
+        position={[0, 500, 100]} // Initial position (will be updated in useFrame)
+        intensity={1}
+        castShadow={true}
+        color={"#349ef5"}
+        // target={scene.children[4]}
+      />
       {sunRef.current && !isInitialRender && (
         <EffectComposer multisampling={4}>
           <GodRays

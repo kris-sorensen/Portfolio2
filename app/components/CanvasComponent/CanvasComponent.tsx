@@ -19,14 +19,14 @@ const CanvasComponent: React.FC = () => {
         onClick={() => console.log("canvas click")}
         dpr={[1, 2]}
         camera={{
-          position: [0, 50, 100],
+          position: [0, 0, 100],
           zoom: 1,
           near: -1000,
           far: 1000,
         }}
         orthographic
+        shadows={true}
         // linear
-        // shadows={true}
       >
         {/* <fog attach="fog" args={["#b3b3b38d", 0.5, -2]} /> */}
         <Camera />

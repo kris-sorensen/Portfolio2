@@ -24,7 +24,7 @@ const Logo: React.FC = () => {
   }, [Page]);
 
   return (
-    <group scale={[1.2, 1.2, 1.2]} position={[0, viewport.height / 2, 80]}>
+    <group scale={[1.2, 1.2, 1.2]} position={[0, viewport.height / 2.6, 800]}>
       {/* PAGE 1 */}
       {/* <group visible={true} ref={page1Group}>
         <group position={[0, 40, 0]}>

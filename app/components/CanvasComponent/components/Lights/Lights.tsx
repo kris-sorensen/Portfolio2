@@ -18,12 +18,12 @@ const Lights = () => {
 
   return (
     <>
-      <directionalLight
+      {/* <directionalLight
         position={[5, 5, 30]}
         rotation={[0, 0, Math.PI / 2]}
         intensity={3}
         // castShadow
-      />
+      /> */}
       {/* 
       <directionalLight
         position={[0, 0, -15]}
@@ -47,7 +47,7 @@ const Lights = () => {
         intensity={4}
         decay={5}
       /> */}
-      {/* <ambientLight intensity={1} /> */}
+      <ambientLight intensity={0.1} />
       {/* <Environment preset="warehouse" /> */}
     </>
   );
