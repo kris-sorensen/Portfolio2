@@ -1,13 +1,57 @@
-import React from "react";
-import { useThree } from "@react-three/fiber";
+import React, { useMemo, useRef, Suspense } from "react";
+import { useThree, extend, useLoader, useFrame } from "@react-three/fiber";
 import TreeModel from "./TreeModel";
 import { Sphere } from "@react-three/drei";
 import * as THREE from "three";
+import { Water } from "three-stdlib";
+
+// Extend water from three-stdlib
+extend({ Water });
+
+// Ocean component for water
+const Ocean = () => {
+  const ref = useRef();
+  const { gl } = useThree();
+  const waterNormals = useLoader(
+    THREE.TextureLoader,
+    "./textures/waternormals.jpeg"
+  );
+  waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+
+  const geom = useMemo(() => new THREE.PlaneGeometry(10000, 10000), []);
+  const config = useMemo(
+    () => ({
+      textureWidth: 512,
+      textureHeight: 512,
+      waterNormals,
+      sunDirection: new THREE.Vector3(),
+      sunColor: "#349ef5",
+      waterColor: "#0054bb",
+      distortionScale: 3.7,
+      fog: true,
+      format: gl.encoding,
+    }),
+    [waterNormals, gl.encoding]
+  );
+
+  useFrame((state, delta) => {
+    ref.current.material.uniforms.time.value += delta;
+  });
+
+  return (
+    <water
+      ref={ref}
+      args={[geom, config]}
+      rotation-x={-Math.PI / 2}
+      position={[0, -310, 0]}
+    />
+  );
+};
 
 const Trees = () => {
   const { viewport } = useThree();
-  const numClusters = 50; // Number of tree clusters
-  const sphereRadius = 1500; // Radius of the sphere
+  const numClusters = 25; // Number of tree clusters
+  const sphereRadius = 1000; // Radius of the sphere
 
   // Helper function to generate a random number between min and max
   const randomBetween = (min, max) => Math.random() * (max - min) + min;
@@ -51,30 +95,37 @@ const Trees = () => {
   );
 
   return (
-    <group position={[0, -1400, -170]} name={"ground"}>
-      <mesh position={[0, 460, 0]}>
-        {clusters.map((cluster, clusterIndex) =>
-          cluster.map((tree, treeIndex) => (
-            <TreeModel
-              key={`${clusterIndex}-${treeIndex}`}
-              scale={tree.scale}
-              position={tree.position}
-              rotation={tree.rotation}
-              castShadow
+    <group position={[0, -50, 0]}>
+      <group position={[0, -1070, -100]} name={"ground"}>
+        <mesh position={[0, 460, 0]}>
+          {clusters.map((cluster, clusterIndex) =>
+            cluster.map((tree, treeIndex) => (
+              <TreeModel
+                key={`${clusterIndex}-${treeIndex}`}
+                scale={tree.scale}
+                position={tree.position}
+                rotation={tree.rotation}
+                castShadow
+              />
+            ))
+          )}
+        </mesh>
+        {/* The sphere is the "ground" */}
+        <mesh position={[0, 0, 0]} name={"floor"}>
+          <Sphere args={[sphereRadius, 100, 100]}>
+            <meshStandardMaterial
+              color={"#213362"}
+              metalness={1}
+              roughness={0.5}
             />
-          ))
-        )}
-      </mesh>
-      {/* The sphere is the "ground" */}
-      <mesh position={[0, 0, 0]} name={"floor"}>
-        <Sphere args={[sphereRadius, 100, 100]}>
-          <meshStandardMaterial
-            color={"#213362"}
-            metalness={1}
-            roughness={0.5}
-          />
-        </Sphere>
-      </mesh>
+          </Sphere>
+        </mesh>
+      </group>
+
+      {/* Water - using Ocean shader */}
+      <Suspense fallback={null}>
+        <Ocean />
+      </Suspense>
     </group>
   );
 };

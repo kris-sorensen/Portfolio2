@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 
 const CameraSettings = () => {
   const { camera, viewport } = useThree();
+
+  useFrame(() => {
+    console.log(`camera`, camera);
+  });
 
   useEffect(() => {
     if (camera.isOrthographicCamera) {

@@ -222,7 +222,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       <mesh
         visible={true}
         ref={sunRef}
-        position={[viewport.width / 2, viewport.height / 2, -200]}
+        position={[viewport.width / 2, viewport.height / 2, -900]}
       >
         <sphereGeometry args={[sphereRadius, 36, 36]} />
         <SunMoonMaterial
@@ -235,7 +235,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       {/* Directional light that follows the sun/moon */}
       <directionalLight
         ref={lightRef}
-        position={[0, 500, 100]} // Initial position (will be updated in useFrame)
+        position={[viewport.width / 2, viewport.height / 2, -900]} // Initial position (will be updated in useFrame)
         intensity={1}
         castShadow={true}
         color={"#349ef5"}

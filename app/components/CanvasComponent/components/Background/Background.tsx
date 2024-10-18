@@ -13,7 +13,7 @@ const Background = () => {
   console.log(`Here`, viewport);
 
   return (
-    <mesh visible={true} position={[0, 0, -500]}>
+    <mesh visible={true} position={[0, 0, -1000]}>
       <Plane args={[planeWidth, planeHeight * 2, 2, 2]}>
         <BackgroundMaterial />
       </Plane>
