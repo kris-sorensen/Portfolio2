@@ -31,9 +31,11 @@ export interface SunMoonProps {}
 
 const SunMoon: React.FC<SunMoonProps> = () => {
   const Page = useStore((state) => state.Page);
+  const Page2PropsActive = useStore((state) => state.Page2PropsActive);
+  const setPage2PropsActive = useStore((state) => state.setPage2PropsActive);
+
   const { scene } = useThree();
   const [isInitialRender, setIsInitialRender] = useState(true);
-  const [applyPage2Props, setApplyPage2Props] = useState(false);
   const page2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const initialized = useRef(true);
   const { pointer, viewport } = useThree();
@@ -41,8 +43,8 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   const group = useRef<THREE.Group | null>(null);
   const godRaysRef = useRef(null);
   const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
-  const lightRef = useRef<THREE.DirectionalLight | null>(null); // Reference for the directional light
-  const ambientLightRef = useRef<THREE.AmbientLight | null>(null); // Reference for the ambient light
+  const lightRef = useRef<THREE.DirectionalLight | null>(null);
+  const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
 
   const animationPhase = useRef<
     "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
@@ -68,11 +70,11 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   useEffect(() => {
     if (Page === 2) {
       page2TimeoutRef.current = setTimeout(() => {
-        setApplyPage2Props(true);
+        setPage2PropsActive(true);
       }, sunMoonPropChangeDelay);
     } else {
       page2TimeoutRef.current = setTimeout(() => {
-        setApplyPage2Props(false);
+        setPage2PropsActive(false);
       }, sunMoonPropChangeDelay);
     }
 
@@ -81,7 +83,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         clearTimeout(page2TimeoutRef.current);
       }
     };
-  }, [Page]);
+  }, [Page, setPage2PropsActive]);
 
   useEffect(() => {
     const handleMouseMove = () => {
@@ -106,7 +108,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     }
 
     const arcRadius = 0.3 * viewport.width * scaleFactor;
-    const centerY = -0.2 * viewport.height * scaleFactor;
     const leftArcRadius = 0.35 * viewport.width * scaleFactor;
     const rightArcRadius = 0.3 * viewport.width * scaleFactor;
     const rightArcCenterY = -0.2 * viewport.height * scaleFactor;
@@ -214,11 +215,9 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
     }
 
-    // Update the directional light's position to match the sun/moon
     lightRef.current.position.copy(sunRef.current.position);
-    lightRef.current.target.position.set(0, 0, 0); // Always point the light to the center of the scene
+    lightRef.current.target.position.set(0, 0, 0);
 
-    // Transition the ambient light's intensity based on animation progress
     const animProgress = getAnimProgress();
     ambientLightRef.current.intensity = THREE.MathUtils.lerp(
       0.1,
@@ -238,20 +237,18 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         <SunMoonMaterial
           materialRef={shaderMaterialRef}
           sunOpacity={0.4}
-          applyPage2Props={applyPage2Props}
+          applyPage2Props={Page2PropsActive}
         />
       </mesh>
 
-      {/* Directional light that follows the sun/moon */}
       <directionalLight
         ref={lightRef}
-        position={[viewport.width / 2, viewport.height / 2, -900]} // Initial position (will be updated in useFrame)
+        position={[viewport.width / 2, viewport.height / 2, -900]}
         intensity={1}
         castShadow={true}
-        color={applyPage2Props ? "#c5f534" : "#349ef5"}
+        color={Page2PropsActive ? "#c5f534" : "#349ef5"}
       />
 
-      {/* Ambient light with dynamic intensity */}
       <ambientLight ref={ambientLightRef} intensity={0.1} />
 
       {sunRef.current && !isInitialRender && (
@@ -259,12 +256,12 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           <GodRays
             ref={godRaysRef}
             sun={sunRef.current}
-            samples={applyPage2Props ? page2GodRaysProps.samples : samples}
-            density={applyPage2Props ? page2GodRaysProps.density : density}
-            decay={applyPage2Props ? page2GodRaysProps.decay : decay}
-            weight={applyPage2Props ? page2GodRaysProps.weight : weight}
-            exposure={applyPage2Props ? page2GodRaysProps.exposure : exposure}
-            clampMax={applyPage2Props ? page2GodRaysProps.clampMax : clampMax}
+            samples={Page2PropsActive ? page2GodRaysProps.samples : samples}
+            density={Page2PropsActive ? page2GodRaysProps.density : density}
+            decay={Page2PropsActive ? page2GodRaysProps.decay : decay}
+            weight={Page2PropsActive ? page2GodRaysProps.weight : weight}
+            exposure={Page2PropsActive ? page2GodRaysProps.exposure : exposure}
+            clampMax={Page2PropsActive ? page2GodRaysProps.clampMax : clampMax}
             blur={true}
           />
         </EffectComposer>

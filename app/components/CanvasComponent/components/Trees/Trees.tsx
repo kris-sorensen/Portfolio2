@@ -4,11 +4,11 @@ import TreeModel from "./TreeModel";
 import { Sphere } from "@react-three/drei";
 import * as THREE from "three";
 import { Water } from "three-stdlib";
+import useStore from "@/app/store/useStore"; // Import Zustand store
 
 // Extend water from three-stdlib
 extend({ Water });
 
-// Ocean component for water
 const Ocean = () => {
   const ref = useRef();
   const { gl } = useThree();
@@ -52,120 +52,8 @@ const Trees = () => {
   const { viewport } = useThree();
   const sphereRadius = 1000; // Radius of the sphere
 
-  // Define spherical coordinates for tree clusters, some near the top, others more spread out
-  // const clusters = [
-  //   // Clusters near the top
-  //   { theta: Math.PI / 4, phi: 0.05 * Math.PI, numTrees: 2 }, // Closer to the top
-  //   { theta: Math.PI / 3, phi: 0.07 * Math.PI, numTrees: 3 }, // Closer to the top
-  //   // Spread out clusters
-  //   { theta: Math.PI / 6, phi: 0.12 * Math.PI, numTrees: 4 },
-  //   { theta: Math.PI / 2, phi: 0.15 * Math.PI, numTrees: 5 },
-  //   { theta: (3 * Math.PI) / 4, phi: 0.18 * Math.PI, numTrees: 6 },
-  //   { theta: (5 * Math.PI) / 6, phi: 0.2 * Math.PI, numTrees: 1 }, // Further from the top
-  // ];
-
-  // Function to convert spherical to Cartesian coordinates
-  // const sphericalToCartesian = (radius, theta, phi) => {
-  //   const x = radius * Math.sin(phi) * Math.cos(theta);
-  //   const y = radius * Math.sin(phi) * Math.sin(theta);
-  //   const z = radius * Math.cos(phi);
-  //   return [x, y, z];
-  // };
-
-  // Generate trees for each cluster based on fixed positions
-  // const treeClusters = clusters.map((cluster, clusterIndex) => {
-  // const basePosition = sphericalToCartesian(
-  //   sphereRadius,
-  //   cluster.theta,
-  //   cluster.phi
-  // );
-
-  // const trees = [
-  //   {
-  //     position: [-375, 310, 500],
-  //     scale: [55, 55, 55],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   {
-  //     position: [-275, 360, 800],
-  //     scale: [40, 40, 40],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   // {
-  //   //   position: [-200, 390, 700],
-  //   //   scale: [30, 30, 30],
-  //   //   rotation: [0, 0, 0],
-  //   // },
-  //   {
-  //     position: [450, 290, 650],
-  //     scale: [17, 17, 17],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   {
-  //     position: [350, 340, 700],
-  //     scale: [18, 18, 18],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   {
-  //     position: [400, 325, 800],
-  //     scale: [22, 22, 22],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   {
-  //     position: [290, 340, 600],
-  //     scale: [18, 18, 18],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   {
-  //     position: [200, 300, 400],
-  //     scale: [30, 30, 30],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   {
-  //     position: [520, 260, 850],
-  //     scale: [10, 10, 10],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   {
-  //     position: [250, 360, 920],
-  //     scale: [13, 13, 13],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  //   {
-  //     position: [450, 300, 1000],
-  //     scale: [20, 20, 20],
-  //     rotation: [0, Math.random() * Math.PI * 2, 0],
-  //   },
-  // ];
-
-  // for (let i = 0; i < cluster.numTrees; i++) {
-  //   const offsetX = Math.random() * 300 - 300; // Increased the random offset range
-  //   const offsetY = Math.random() * 300 - 300;
-  //   const offsetZ = Math.random() * 300 - 300;
-
-  //   const position = [
-  //     basePosition[0] + offsetX,
-  //     basePosition[1] + offsetY,
-  //     basePosition[2] + offsetZ,
-  //   ];
-
-  //   const scale = 24 + Math.random() * 13;
-  //   const yRotation = Math.random() * Math.PI * 2; // Random rotation on the y-axis
-
-  // trees.push({
-  //   position,
-  //   scale: [scale, scale, scale],
-  //   rotation: [0, yRotation, 0],
-  // });
-  // trees.push({
-  //   position: [0, 400, 800],
-  //   scale: [scale, scale, scale],
-  //   rotation: [0, yRotation, 0],
-  // });
-  // }
-
-  //   setTrees(trees);
-  // });
+  // Access applyPage2Props from Zustand store
+  const applyPage2Props = useStore((state) => state.Page2PropsActive);
 
   const [trees, setTrees] = useState([
     {
@@ -178,11 +66,6 @@ const Trees = () => {
       scale: [40, 40, 40],
       rotation: [0, Math.random() * Math.PI * 2, 0],
     },
-    // {
-    //   position: [-200, 390, 700],
-    //   scale: [30, 30, 30],
-    //   rotation: [0, 0, 0],
-    // },
     {
       position: [450, 290, 650],
       scale: [17, 17, 17],
@@ -209,7 +92,7 @@ const Trees = () => {
       rotation: [0, Math.random() * Math.PI * 2, 0],
     },
     {
-      position: [520, 260, 850],
+      position: [520, 257, 850],
       scale: [10, 10, 10],
       rotation: [0, Math.random() * Math.PI * 2, 0],
     },
@@ -219,7 +102,7 @@ const Trees = () => {
       rotation: [0, Math.random() * Math.PI * 2, 0],
     },
     {
-      position: [450, 300, 1000],
+      position: [450, 275, 1000],
       scale: [20, 20, 20],
       rotation: [0, Math.random() * Math.PI * 2, 0],
     },
@@ -244,12 +127,11 @@ const Trees = () => {
         {/* The sphere is the "ground" */}
         <mesh position={[0, 0, 0]} name={"floor"}>
           <Sphere args={[sphereRadius, 100, 100]}>
+            {/* Use ternary operator to change color based on applyPage2Props */}
             <meshStandardMaterial
-              color={"#213362"}
-              metalness={1}
+              color={applyPage2Props ? "#4caf50" : "#213362"} // Green for grass, blue for default
+              metalness={applyPage2Props ? 0.2 : 0.5}
               roughness={0.5}
-              transparent
-              opacity={1}
             />
           </Sphere>
         </mesh>

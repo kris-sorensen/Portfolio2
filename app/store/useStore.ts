@@ -10,27 +10,25 @@ interface StoreState {
   setPage2PropsActive(value: boolean): void;
 }
 
-const useStore = create<StoreState>((set, get) => ({
+const useStore = create<StoreState>((set) => ({
   Page: 1,
   setPage: (page: number) => set(() => ({ Page: page })),
 
   // Method to increment page with boundary checks
-  nextPage: () => {
+  nextPage: () =>
     set((state) => {
       const newPage = state.Page < 3 ? state.Page + 1 : state.Page;
       return { Page: newPage };
-    });
-  },
+    }),
 
   // Method to decrement page with boundary checks
-  prevPage: () => {
+  prevPage: () =>
     set((state) => {
       const newPage = state.Page > 1 ? state.Page - 1 : state.Page;
       return { Page: newPage };
-    });
-  },
+    }),
 
-  // In middle of page transition Animation the properties of god rays and other components change like vis
+  // Page 2 specific properties activation
   Page2PropsActive: false,
   setPage2PropsActive: (value: boolean) =>
     set(() => ({ Page2PropsActive: value })),

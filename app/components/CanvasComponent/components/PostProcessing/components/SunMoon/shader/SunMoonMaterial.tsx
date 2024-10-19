@@ -37,7 +37,7 @@ const SunMoonMaterial: React.FC<SunMoonMaterialProps> = ({
 
     // Switch colors instantly based on the adjusted progress value
     if (applyPage2Props) {
-      materialRef.current.uniforms.uColor.value.set("#fde216"); // Yellow color
+      materialRef.current.uniforms.uColor.value.set("#fef6b5"); // Yellow color
       materialRef.current.uniforms.opacity.value = 0.2; // Yellow color
     } else if (!applyPage2Props) {
       materialRef.current.uniforms.uColor.value.set("#349ef5"); // Blue color
