@@ -5,7 +5,10 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { EffectComposer } from "@react-three/postprocessing";
 import { useGodRaysControls } from "./hooks/useGodRayControls";
 import SunMoonMaterial from "./shader/SunMoonMaterial";
-import { sunMoonPropChangeDelay } from "@/app/anim/animManager";
+import {
+  sunMoonPropChangeDelay,
+  getAnimProgress,
+} from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
 const scaleFactor = 1.85;
@@ -39,6 +42,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   const godRaysRef = useRef(null);
   const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
   const lightRef = useRef<THREE.DirectionalLight | null>(null); // Reference for the directional light
+  const ambientLightRef = useRef<THREE.AmbientLight | null>(null); // Reference for the ambient light
 
   const animationPhase = useRef<
     "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
@@ -93,7 +97,8 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   }, []);
 
   useFrame((state, delta) => {
-    if (!sunRef.current || !lightRef.current) return;
+    if (!sunRef.current || !lightRef.current || !ambientLightRef.current)
+      return;
 
     if (initialized.current) {
       initialized.current = false;
@@ -195,7 +200,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
 
       case "idle":
-      case "idle":
       default:
         if (parallaxStarted.current) {
           sunRef.current.position.lerp(
@@ -213,9 +217,15 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     // Update the directional light's position to match the sun/moon
     lightRef.current.position.copy(sunRef.current.position);
     lightRef.current.target.position.set(0, 0, 0); // Always point the light to the center of the scene
-  });
 
-  console.log(`scene`, scene.children[4]);
+    // Transition the ambient light's intensity based on animation progress
+    const animProgress = getAnimProgress();
+    ambientLightRef.current.intensity = THREE.MathUtils.lerp(
+      0.1,
+      2,
+      animProgress
+    );
+  });
 
   return (
     <group ref={group}>
@@ -238,9 +248,12 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         position={[viewport.width / 2, viewport.height / 2, -900]} // Initial position (will be updated in useFrame)
         intensity={1}
         castShadow={true}
-        color={"#349ef5"}
-        // target={scene.children[4]}
+        color={applyPage2Props ? "#c5f534" : "#349ef5"}
       />
+
+      {/* Ambient light with dynamic intensity */}
+      <ambientLight ref={ambientLightRef} intensity={0.1} />
+
       {sunRef.current && !isInitialRender && (
         <EffectComposer multisampling={4}>
           <GodRays

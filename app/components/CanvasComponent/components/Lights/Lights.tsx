@@ -1,54 +1,29 @@
-import { Environment } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { useThree, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import * as THREE from "three";
+import { getAnimProgress } from "@/app/anim/animManager";
 
 const Lights = () => {
-  const pointLightRef = useRef(null);
-  const { scene, viewport } = useThree();
+  const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
+  const { scene } = useThree();
 
-  // useEffect(() => {
-  //   if (pointLightRef.current) {
-  //     const helper = new THREE.PointLightHelper(pointLightRef.current, 5); // The second argument controls the size of the helper
-  //     scene.add(helper);
-  //     return () => {
-  //       scene.remove(helper); // Clean up the helper when the component unmounts
-  //     };
-  //   }
-  // }, [scene]);
+  useFrame(() => {
+    if (ambientLightRef.current) {
+      // Get animation progress from 0 to 1
+      const animProgress = getAnimProgress();
+
+      // Transition ambient light intensity from 0.1 to 1 based on animProgress
+      ambientLightRef.current.intensity = THREE.MathUtils.lerp(
+        0.1,
+        2,
+        animProgress
+      );
+    }
+  });
 
   return (
     <>
-      {/* <directionalLight
-        position={[5, 5, 30]}
-        rotation={[0, 0, Math.PI / 2]}
-        intensity={3}
-        // castShadow
-      /> */}
-      {/* 
-      <directionalLight
-        position={[0, 0, -15]}
-        rotation={[0, 0, Math.PI / 2]}
-        intensity={3}
-        // target={[0, 0, 0]}
-      /> */}
-      {/* <pointLight
-        ref={pointLightRef}
-        position={[0, 0, 2]}
-        distance={0.025}
-        intensity={1}
-        decay={1}
-        // color="#00f2de"
-        color="#ff6cb5"
-      /> */}
-      {/* <pointLight
-        ref={pointLightRef}
-        position={[0, 0, 0]}
-        distance={viewport.width}
-        intensity={4}
-        decay={5}
-      /> */}
-      <ambientLight intensity={0.1} />
-      {/* <Environment preset="warehouse" /> */}
+      <ambientLight ref={ambientLightRef} intensity={0.1} />
     </>
   );
 };

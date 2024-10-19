@@ -37,7 +37,7 @@ const CanvasComponent: React.FC = () => {
         /> */}
         <Suspense fallback={null}>
           {/* <PostProcessing /> */}
-          <Lights />
+          {/* <Lights /> */}
           <Scene />
         </Suspense>
         <DevToolsR3F />
