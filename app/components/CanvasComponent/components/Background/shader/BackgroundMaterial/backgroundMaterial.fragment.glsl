@@ -3,6 +3,7 @@ uniform vec2 resolution;
 uniform float time;
 uniform float uProgress;
 uniform float uStarViz;
+uniform float sunMoonPosY;  // sunMoon Y uniform
 in vec2 vUv;
 
 // Include necessary random and effect generators
@@ -55,13 +56,14 @@ void main() {
     blueSkyColor += ditherAmount; // Add dithering to the gradient
     blackGradient += ditherAmount * vUv.y; // Add dithering to black gradient as well
 
-
+    // Adjust brightness based on mouse Y position
+    float brightness = mix(0.4, .8, sunMoonPosY); // Dim at top, brighten at bottom
+    blueSkyColor *= brightness;
 
     // Mix the black gradient with the blue sky gradient based on easedProgress
     vec3 backgroundColor = mix(blackGradient, blueSkyColor, easedProgress);
 
     // Mix stars/meteor visibility based on uProgress (visible when uProgress is 0, invisible at 1)
-    // float starVisibility = mix(1.0, 0.0, easedProgress ); 
     float starVisibility = mix(1.0, 0.0, uStarViz); 
     vec3 finalStars = stars * starVisibility;
 

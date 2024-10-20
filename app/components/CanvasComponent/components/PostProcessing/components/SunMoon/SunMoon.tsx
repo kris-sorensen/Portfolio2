@@ -13,8 +13,6 @@ import useStore from "@/app/store/useStore";
 
 const scaleFactor = 1;
 const totalDuration = 10.0;
-const xParallaxFactor = 1;
-const yParallaxFactor = 1;
 
 const page2GodRaysProps = {
   samples: 45,
@@ -107,11 +105,16 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       setIsInitialRender(false);
     }
 
+    // Adjusting the arc radius to move the Sun/Moon further right
     const arcRadius = (0.3 * viewport.width) / 2;
     const leftArcRadius = (1 * viewport.width) / 2;
-    const rightArcRadius = (1 * viewport.width) / 2;
-    const rightArcCenterY = (-0.5 * viewport.height) / 2;
-    const leftArcCenterY = (-0.5 * viewport.height) / 2 - leftArcRadius * 0.07;
+
+    // Increase the rightArcRadius to shift the starting position further to the right
+    const rightArcRadius = (1 * viewport.width) / 2 + 200; // Increased value to move more to the right
+
+    // Lowering the top of the arc by adjusting the rightArcCenterY
+    const rightArcCenterY = (-1 * viewport.height) / 2; // Lowering the arc's center
+    const leftArcCenterY = (-1 * viewport.height) / 2 - leftArcRadius * 0.07;
 
     if (Page !== prevPage.current) {
       if (Page === 2) {
@@ -144,9 +147,11 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       case "initial":
         if (progress < 1) {
           currentAngle = Math.PI * 0.75 * easedProgress;
-          sunRef.current.position.x = rightArcRadius * Math.cos(currentAngle);
+
+          // Adjust the sun/moon position based on the modified arc radius and center
+          sunRef.current.position.x = rightArcRadius * Math.cos(currentAngle); // X-axis position
           sunRef.current.position.y =
-            rightArcCenterY + rightArcRadius * Math.sin(currentAngle);
+            rightArcCenterY + rightArcRadius * Math.sin(currentAngle); // Lowered Y-axis
         } else {
           animationPhase.current = "idle";
           parallaxReady.current = true;
@@ -204,8 +209,8 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         if (parallaxStarted.current) {
           sunRef.current.position.lerp(
             new THREE.Vector3(
-              -pointer.x * xParallaxFactor * viewport.width,
-              -pointer.y * yParallaxFactor * viewport.height,
+              -pointer.x * viewport.width,
+              -pointer.y * viewport.height,
               sunRef.current.position.z
             ),
             0.006
@@ -226,10 +231,11 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   });
 
   return (
-    <group ref={group}>
+    <group ref={group} name="sunMoonGroup">
       <mesh
         visible={true}
         ref={sunRef}
+        name={"sunMoonMesh"}
         position={[viewport.width / 2, viewport.height / 2, -900]}
       >
         <sphereGeometry args={[sphereRadius, 36, 36]} />

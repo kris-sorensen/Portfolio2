@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import vertexShader from "./backgroundMaterial.vertex.glsl";
 import fragmentShader from "./backgroundMaterial.fragment.glsl";
 import starMakerChunk from "../includes/starMaker.glsl";
@@ -19,14 +19,22 @@ THREE.ShaderChunk.meteorstorm = meteorstormChunk;
 
 const BackgroundMaterial: React.FC = () => {
   const applyPage2Props = useStore((state) => state.Page2PropsActive);
-
   const mat = useRef<THREE.ShaderMaterial | null>(null);
+  const { size, pointer, scene } = useThree(); // Get pointer (mouse) data
 
   useFrame((state, delta) => {
     if (!mat.current) return;
 
     const elapsedTime = mat.current.uniforms.time.value;
     mat.current.uniforms.time.value = elapsedTime + delta;
+
+    // Look for the 'sunMoonMesh' mesh by its name
+    const sunMoonMesh = scene.getObjectByName("sunMoonMesh");
+
+    if (sunMoonMesh && sunMoonMesh.position) {
+      mat.current.uniforms.sunMoonPosY.value =
+        sunMoonMesh.position.y / window.innerHeight;
+    }
 
     // Update the shader material's uProgress uniform
     mat.current.uniforms.uProgress.value = getAnimProgress();
@@ -51,6 +59,7 @@ const BackgroundMaterial: React.FC = () => {
       },
       uProgress: { value: 0 },
       uStarViz: { value: 0 },
+      sunMoonPosY: { value: 0.5 }, // Add pos of sunMoon
     }),
     []
   );
