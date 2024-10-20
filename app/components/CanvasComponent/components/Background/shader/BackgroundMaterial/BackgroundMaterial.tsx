@@ -9,6 +9,7 @@ import random2Chunk from "../includes/util/random2.glsl";
 import meteorChunk from "../includes/meteor.glsl";
 import meteorstormChunk from "../includes/meteorstorm.glsl";
 import { getAnimProgress } from "@/app/anim/animManager";
+import useStore from "@/app/store/useStore";
 
 THREE.ShaderChunk.starMaker = starMakerChunk;
 THREE.ShaderChunk.random = randomChunk;
@@ -17,6 +18,8 @@ THREE.ShaderChunk.meteor = meteorChunk;
 THREE.ShaderChunk.meteorstorm = meteorstormChunk;
 
 const BackgroundMaterial: React.FC = () => {
+  const applyPage2Props = useStore((state) => state.Page2PropsActive);
+
   const mat = useRef<THREE.ShaderMaterial | null>(null);
 
   useFrame((state, delta) => {
@@ -27,6 +30,15 @@ const BackgroundMaterial: React.FC = () => {
 
     // Update the shader material's uProgress uniform
     mat.current.uniforms.uProgress.value = getAnimProgress();
+    if (applyPage2Props) {
+      mat.current.uniforms.uStarViz.value = THREE.MathUtils.clamp(
+        getAnimProgress(),
+        0,
+        1
+      );
+    } else {
+      mat.current.uniforms.uStarViz.value = getAnimProgress();
+    }
   });
 
   const uniforms = useMemo(
@@ -38,6 +50,7 @@ const BackgroundMaterial: React.FC = () => {
         value: new THREE.Vector2(window.innerWidth, window.innerHeight),
       },
       uProgress: { value: 0 },
+      uStarViz: { value: 0 },
     }),
     []
   );

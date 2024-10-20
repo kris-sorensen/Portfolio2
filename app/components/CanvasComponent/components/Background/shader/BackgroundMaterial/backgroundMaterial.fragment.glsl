@@ -2,6 +2,7 @@
 uniform vec2 resolution;
 uniform float time;
 uniform float uProgress;
+uniform float uStarViz;
 in vec2 vUv;
 
 // Include necessary random and effect generators
@@ -60,7 +61,8 @@ void main() {
     vec3 backgroundColor = mix(blackGradient, blueSkyColor, easedProgress);
 
     // Mix stars/meteor visibility based on uProgress (visible when uProgress is 0, invisible at 1)
-    float starVisibility = mix(1.0, 0.0, easedProgress); 
+    // float starVisibility = mix(1.0, 0.0, easedProgress ); 
+    float starVisibility = mix(1.0, 0.0, uStarViz); 
     vec3 finalStars = stars * starVisibility;
 
     // Final color and alpha

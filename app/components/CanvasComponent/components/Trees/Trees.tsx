@@ -129,7 +129,7 @@ const Trees = () => {
           <Sphere args={[sphereRadius, 100, 100]}>
             {/* Use ternary operator to change color based on applyPage2Props */}
             <meshStandardMaterial
-              color={applyPage2Props ? "#4caf50" : "#213362"} // Green for grass, blue for default
+              color={applyPage2Props ? "#008736" : "#153178"} // Green for grass, blue for default//#87fb8f// #fbf587
               metalness={applyPage2Props ? 0.2 : 0.5}
               roughness={0.5}
             />

@@ -11,10 +11,10 @@ import {
 } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
-const scaleFactor = 1.85;
+const scaleFactor = 1;
 const totalDuration = 10.0;
-const xParallaxFactor = 0.5;
-const yParallaxFactor = 0.5;
+const xParallaxFactor = 1;
+const yParallaxFactor = 1;
 
 const page2GodRaysProps = {
   samples: 45,
@@ -107,12 +107,11 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       setIsInitialRender(false);
     }
 
-    const arcRadius = 0.3 * viewport.width * scaleFactor;
-    const leftArcRadius = 0.35 * viewport.width * scaleFactor;
-    const rightArcRadius = 0.3 * viewport.width * scaleFactor;
-    const rightArcCenterY = -0.2 * viewport.height * scaleFactor;
-    const leftArcCenterY =
-      -0.2 * viewport.height * scaleFactor - leftArcRadius * 0.07;
+    const arcRadius = (0.3 * viewport.width) / 2;
+    const leftArcRadius = (1 * viewport.width) / 2;
+    const rightArcRadius = (1 * viewport.width) / 2;
+    const rightArcCenterY = (-0.5 * viewport.height) / 2;
+    const leftArcCenterY = (-0.5 * viewport.height) / 2 - leftArcRadius * 0.07;
 
     if (Page !== prevPage.current) {
       if (Page === 2) {
@@ -246,7 +245,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         position={[viewport.width / 2, viewport.height / 2, -900]}
         intensity={1}
         castShadow={true}
-        color={Page2PropsActive ? "#c5f534" : "#349ef5"}
+        color={Page2PropsActive ? "#fcffc4" : "#349ef5"}
       />
 
       <ambientLight ref={ambientLightRef} intensity={0.1} />
