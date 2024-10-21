@@ -96,21 +96,24 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       setIsInitialRender(false);
     }
 
+    // Define the arc radius and center positions
     const arcRadius = (0.3 * viewport.width) / 2;
     const leftArcRadius = (1 * viewport.width) / 2;
     const rightArcRadius = (1 * viewport.width) / 2 + 200;
     const rightArcCenterY = (-1 * viewport.height) / 2;
     const leftArcCenterY = (-1 * viewport.height) / 2 - leftArcRadius * 0.07;
 
+    // Detect if a new page triggers a new animation
     if (Page !== prevPage.current) {
-      // Reset the parallax and store current sun position
       parallaxReady.current = false;
       parallaxStarted.current = false;
 
+      // Capture the sun's current position at the start of the new animation phase
       if (sunRef.current) {
         initialSunPosition.current = sunRef.current.position.clone();
       }
 
+      // Determine which animation phase to run
       if (Page === 2) {
         if (
           animationPhase.current !== "reverseInitial" &&
@@ -137,6 +140,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     let progress = Math.min(elapsedPhaseTime / totalDuration, 1);
     const easedProgress = Math.sin(progress * Math.PI * 0.5);
 
+    // Perform the animation based on the current phase
     switch (animationPhase.current) {
       case "initial":
         if (progress < 1 && initialSunPosition.current) {
@@ -146,7 +150,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             rightArcCenterY +
             rightArcRadius * Math.sin(Math.PI * 0.75 * easedProgress);
 
-          // Interpolate from initial position to target arc position
+          // Interpolate from the initial position to the calculated target
           sunRef.current.position.lerpVectors(
             initialSunPosition.current,
             new THREE.Vector3(targetX, targetY, sunRef.current.position.z),
@@ -166,14 +170,13 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             rightArcCenterY +
             rightArcRadius * Math.sin(Math.PI * 0.75 * (1 - easedProgress));
 
-          // Interpolate from initial position to target arc position
+          // Interpolate from the initial position to the calculated target
           sunRef.current.position.lerpVectors(
             initialSunPosition.current,
             new THREE.Vector3(targetX, targetY, sunRef.current.position.z),
             easedProgress
           );
         } else {
-          // Move to the left arc position
           sunRef.current.position.set(
             -leftArcRadius,
             leftArcCenterY,
@@ -193,7 +196,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             leftArcCenterY +
             leftArcRadius * Math.sin(Math.PI - Math.PI * 0.68 * easedProgress);
 
-          // Interpolate from initial position to target arc position
+          // Interpolate from the initial position to the calculated target
           sunRef.current.position.lerpVectors(
             initialSunPosition.current,
             new THREE.Vector3(targetX, targetY, sunRef.current.position.z),
@@ -215,14 +218,13 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             rightArcRadius *
               Math.sin(Math.PI - Math.PI * 0.68 * (1 - easedProgress));
 
-          // Interpolate from initial position to target arc position
+          // Interpolate from the initial position to the calculated target
           sunRef.current.position.lerpVectors(
             initialSunPosition.current,
             new THREE.Vector3(targetX, targetY, sunRef.current.position.z),
             easedProgress
           );
         } else {
-          // Set the final position at the right arc
           sunRef.current.position.set(
             rightArcRadius,
             rightArcCenterY,
