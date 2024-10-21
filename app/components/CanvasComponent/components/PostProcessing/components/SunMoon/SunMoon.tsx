@@ -84,6 +84,9 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   const parallaxStarted = useRef(false);
   const parallaxReady = useRef(false);
 
+  // Define the variable to store the initial position at the start of reverseInitial animation
+  const initialSunPosition = useRef<THREE.Vector3 | null>(null);
+
   useFrame((state, delta) => {
     if (!sunRef.current || !lightRef.current || !ambientLightRef.current)
       return;
@@ -93,22 +96,21 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       setIsInitialRender(false);
     }
 
-    // Adjusting the arc radius to move the Sun/Moon further right
     const arcRadius = (0.3 * viewport.width) / 2;
     const leftArcRadius = (1 * viewport.width) / 2;
-
-    // Increase the rightArcRadius to shift the starting position further to the right
-    const rightArcRadius = (1 * viewport.width) / 2 + 200; // Increased value to move more to the right
-
-    // Lowering the top of the arc by adjusting the rightArcCenterY
-    const rightArcCenterY = (-1 * viewport.height) / 2; // Lowering the arc's center
+    const rightArcRadius = (1 * viewport.width) / 2 + 200;
+    const rightArcCenterY = (-1 * viewport.height) / 2;
     const leftArcCenterY = (-1 * viewport.height) / 2 - leftArcRadius * 0.07;
 
     if (Page !== prevPage.current) {
-      // turn off parallax effect while animating
+      // Reset the parallax and store current sun position
       parallaxReady.current = false;
       parallaxStarted.current = false;
-      // Select Animation phase based on new Page
+
+      if (sunRef.current) {
+        initialSunPosition.current = sunRef.current.position.clone();
+      }
+
       if (Page === 2) {
         if (
           animationPhase.current !== "reverseInitial" &&
@@ -126,6 +128,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           phaseStartTime.current = state.clock.getElapsedTime();
         }
       }
+
       prevPage.current = Page;
     }
 
@@ -133,17 +136,22 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       state.clock.getElapsedTime() - phaseStartTime.current;
     let progress = Math.min(elapsedPhaseTime / totalDuration, 1);
     const easedProgress = Math.sin(progress * Math.PI * 0.5);
-    let currentAngle = 0;
 
     switch (animationPhase.current) {
       case "initial":
-        if (progress < 1) {
-          currentAngle = Math.PI * 0.75 * easedProgress;
+        if (progress < 1 && initialSunPosition.current) {
+          const targetX =
+            rightArcRadius * Math.cos(Math.PI * 0.75 * easedProgress);
+          const targetY =
+            rightArcCenterY +
+            rightArcRadius * Math.sin(Math.PI * 0.75 * easedProgress);
 
-          // Adjust the sun/moon position based on the modified arc radius and center
-          sunRef.current.position.x = rightArcRadius * Math.cos(currentAngle); // X-axis position
-          sunRef.current.position.y =
-            rightArcCenterY + rightArcRadius * Math.sin(currentAngle); // Lowered Y-axis
+          // Interpolate from initial position to target arc position
+          sunRef.current.position.lerpVectors(
+            initialSunPosition.current,
+            new THREE.Vector3(targetX, targetY, sunRef.current.position.z),
+            easedProgress
+          );
         } else {
           animationPhase.current = "idle";
           parallaxReady.current = true;
@@ -151,12 +159,21 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
 
       case "reverseInitial":
-        if (progress < 1) {
-          currentAngle = Math.PI * 0.75 * (1 - easedProgress);
-          sunRef.current.position.x = rightArcRadius * Math.cos(currentAngle);
-          sunRef.current.position.y =
-            rightArcCenterY + rightArcRadius * Math.sin(currentAngle);
+        if (progress < 1 && initialSunPosition.current) {
+          const targetX =
+            rightArcRadius * Math.cos(Math.PI * 0.75 * (1 - easedProgress));
+          const targetY =
+            rightArcCenterY +
+            rightArcRadius * Math.sin(Math.PI * 0.75 * (1 - easedProgress));
+
+          // Interpolate from initial position to target arc position
+          sunRef.current.position.lerpVectors(
+            initialSunPosition.current,
+            new THREE.Vector3(targetX, targetY, sunRef.current.position.z),
+            easedProgress
+          );
         } else {
+          // Move to the left arc position
           sunRef.current.position.set(
             -leftArcRadius,
             leftArcCenterY,
@@ -169,11 +186,19 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
 
       case "newArc":
-        if (progress < 1) {
-          currentAngle = Math.PI - Math.PI * 0.68 * easedProgress;
-          sunRef.current.position.x = leftArcRadius * Math.cos(currentAngle);
-          sunRef.current.position.y =
-            leftArcCenterY + leftArcRadius * Math.sin(currentAngle);
+        if (progress < 1 && initialSunPosition.current) {
+          const targetX =
+            leftArcRadius * Math.cos(Math.PI - Math.PI * 0.68 * easedProgress);
+          const targetY =
+            leftArcCenterY +
+            leftArcRadius * Math.sin(Math.PI - Math.PI * 0.68 * easedProgress);
+
+          // Interpolate from initial position to target arc position
+          sunRef.current.position.lerpVectors(
+            initialSunPosition.current,
+            new THREE.Vector3(targetX, targetY, sunRef.current.position.z),
+            easedProgress
+          );
         } else {
           animationPhase.current = "idle";
           parallaxReady.current = true;
@@ -181,12 +206,23 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
 
       case "reverseNewArc":
-        if (progress < 1) {
-          currentAngle = Math.PI - Math.PI * 0.68 * (1 - easedProgress);
-          sunRef.current.position.x = leftArcRadius * Math.cos(currentAngle);
-          sunRef.current.position.y =
-            leftArcCenterY + leftArcRadius * Math.sin(currentAngle);
+        if (progress < 1 && initialSunPosition.current) {
+          const targetX =
+            rightArcRadius *
+            Math.cos(Math.PI - Math.PI * 0.68 * (1 - easedProgress));
+          const targetY =
+            rightArcCenterY +
+            rightArcRadius *
+              Math.sin(Math.PI - Math.PI * 0.68 * (1 - easedProgress));
+
+          // Interpolate from initial position to target arc position
+          sunRef.current.position.lerpVectors(
+            initialSunPosition.current,
+            new THREE.Vector3(targetX, targetY, sunRef.current.position.z),
+            easedProgress
+          );
         } else {
+          // Set the final position at the right arc
           sunRef.current.position.set(
             rightArcRadius,
             rightArcCenterY,
@@ -197,7 +233,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           parallaxReady.current = true;
         }
         break;
-      // * ParallaxEffect - only active if a mouse move event has happened while not animating
+
       case "idle":
       default:
         if (parallaxStarted.current) {

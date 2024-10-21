@@ -57,7 +57,7 @@ void main() {
     blackGradient += ditherAmount * vUv.y; // Add dithering to black gradient as well
 
     // Adjust brightness based on mouse Y position
-    float brightness = mix(0.4, .8, sunMoonPosY); // Dim at top, brighten at bottom
+    float brightness = mix(0.5, .8, sunMoonPosY); // Dim at top, brighten at bottom
     blueSkyColor *= brightness;
 
     // Mix the black gradient with the blue sky gradient based on easedProgress
