@@ -251,47 +251,61 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   });
 
   return (
-    <group ref={group} name="sunMoonGroup">
-      <mesh
-        visible={true}
-        ref={sunRef}
-        name={"sunMoonMesh"}
-        position={[viewport.width / 2, viewport.height / 2, -900]}
-      >
-        <sphereGeometry args={[sphereRadius, 36, 36]} />
-        <SunMoonMaterial
-          materialRef={shaderMaterialRef}
-          sunOpacity={0.4}
-          applyPage2Props={Page2PropsActive}
-        />
-      </mesh>
-
-      <directionalLight
-        ref={lightRef}
-        position={[viewport.width / 2, viewport.height / 2, -900]}
-        intensity={1}
-        castShadow={true}
-        color={Page2PropsActive ? "#fcffc4" : "#349ef5"}
+    <>
+      <fog
+        attach="fog"
+        args={[
+          Page2PropsActive ? "#7CA0B1" : "rgb(10, 10, 10)",
+          Page2PropsActive ? 1000 : 100,
+          Page2PropsActive ? 1100 : 1000,
+        ]}
       />
-
-      <ambientLight ref={ambientLightRef} intensity={0.1} />
-
-      {sunRef.current && !isInitialRender && (
-        <EffectComposer multisampling={4}>
-          <GodRays
-            ref={godRaysRef}
-            sun={sunRef.current}
-            samples={Page2PropsActive ? page2GodRaysProps.samples : samples}
-            density={Page2PropsActive ? page2GodRaysProps.density : density}
-            decay={Page2PropsActive ? page2GodRaysProps.decay : decay}
-            weight={Page2PropsActive ? page2GodRaysProps.weight : weight}
-            exposure={Page2PropsActive ? page2GodRaysProps.exposure : exposure}
-            clampMax={Page2PropsActive ? page2GodRaysProps.clampMax : clampMax}
-            blur={true}
+      <group ref={group} name="sunMoonGroup">
+        <mesh
+          visible={true}
+          ref={sunRef}
+          name={"sunMoonMesh"}
+          position={[viewport.width / 2, viewport.height / 2, -1050]}
+        >
+          <sphereGeometry args={[sphereRadius, 36, 36]} />
+          <SunMoonMaterial
+            materialRef={shaderMaterialRef}
+            sunOpacity={0.4}
+            applyPage2Props={Page2PropsActive}
           />
-        </EffectComposer>
-      )}
-    </group>
+        </mesh>
+
+        <directionalLight
+          ref={lightRef}
+          position={[viewport.width / 2, viewport.height / 2, -1050]}
+          intensity={1}
+          castShadow={true}
+          color={Page2PropsActive ? "#fcffc4" : "#349ef5"}
+        />
+
+        <ambientLight ref={ambientLightRef} intensity={0.1} />
+
+        {sunRef.current && !isInitialRender && (
+          <EffectComposer multisampling={4}>
+            <GodRays
+              ref={godRaysRef}
+              sun={sunRef.current}
+              samples={Page2PropsActive ? page2GodRaysProps.samples : samples}
+              density={Page2PropsActive ? page2GodRaysProps.density : density}
+              decay={Page2PropsActive ? page2GodRaysProps.decay : decay}
+              weight={Page2PropsActive ? page2GodRaysProps.weight : weight}
+              exposure={
+                Page2PropsActive ? page2GodRaysProps.exposure : exposure
+              }
+              clampMax={
+                Page2PropsActive ? page2GodRaysProps.clampMax : clampMax
+              }
+              blur={true}
+            />
+          </EffectComposer>
+        )}
+      </group>
+    </>
   );
 };
 
