@@ -98,10 +98,10 @@ const SunMoon: React.FC<SunMoonProps> = () => {
 
     // Adjusting the arc radius and positions
     const arcRadius = (0.3 * viewport.width) / 2;
-    const leftArcRadius = (1 * viewport.width) / 2;
+    const leftArcRadius = (1 * viewport.width) / 2 - 100;
     const rightArcRadius = (1 * viewport.width) / 2 + 200;
     const rightArcCenterY = (-1 * viewport.height) / 2;
-    const leftArcCenterY = (-1 * viewport.height) / 2 - leftArcRadius * 0.07;
+    const leftArcCenterY = (-1 * viewport.height) / 2 - 200; //- leftArcRadius * 0.07;
 
     if (Page !== prevPage.current) {
       parallaxReady.current = false;
