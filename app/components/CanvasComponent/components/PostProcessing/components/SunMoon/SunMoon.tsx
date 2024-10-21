@@ -10,20 +10,7 @@ import {
   getAnimProgress,
 } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
-
-const scaleFactor = 1;
-const totalDuration = 10.0;
-
-const page2GodRaysProps = {
-  samples: 45,
-  density: 0.8,
-  decay: 0.9,
-  weight: 0.6,
-  exposure: 1,
-  clampMax: 1.0,
-  blur: 1,
-  sunOpacity: 0.2,
-};
+import { page2GodRaysProps, totalDuration } from "./constants/sunMoon.constant";
 
 export interface SunMoonProps {}
 
@@ -43,15 +30,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
   const lightRef = useRef<THREE.DirectionalLight | null>(null);
   const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
-
-  const animationPhase = useRef<
-    "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
-  >("initial");
-
-  const phaseStartTime = useRef(0);
-  const prevPage = useRef(Page);
-  const parallaxStarted = useRef(false);
-  const parallaxReady = useRef(false);
 
   const {
     sunOpacity,
@@ -87,7 +65,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     const handleMouseMove = () => {
       if (!parallaxStarted.current && parallaxReady.current) {
         parallaxStarted.current = true;
-        window.removeEventListener("mousemove", handleMouseMove);
+        // window.removeEventListener("mousemove", handleMouseMove);
       }
     };
     window.addEventListener("mousemove", handleMouseMove);
@@ -95,6 +73,16 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
+
+  // * Animation and Parallax effect
+  const animationPhase = useRef<
+    "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
+  >("initial");
+
+  const phaseStartTime = useRef(0);
+  const prevPage = useRef(Page);
+  const parallaxStarted = useRef(false);
+  const parallaxReady = useRef(false);
 
   useFrame((state, delta) => {
     if (!sunRef.current || !lightRef.current || !ambientLightRef.current)
@@ -117,6 +105,10 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     const leftArcCenterY = (-1 * viewport.height) / 2 - leftArcRadius * 0.07;
 
     if (Page !== prevPage.current) {
+      // turn off parallax effect while animating
+      parallaxReady.current = false;
+      parallaxStarted.current = false;
+      // Select Animation phase based on new Page
       if (Page === 2) {
         if (
           animationPhase.current !== "reverseInitial" &&
@@ -172,6 +164,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           );
           animationPhase.current = "newArc";
           phaseStartTime.current = state.clock.getElapsedTime();
+          parallaxReady.current = true;
         }
         break;
 
@@ -201,9 +194,10 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           );
           animationPhase.current = "initial";
           phaseStartTime.current = state.clock.getElapsedTime();
+          parallaxReady.current = true;
         }
         break;
-
+      // * ParallaxEffect - only active if a mouse move event has happened while not animating
       case "idle":
       default:
         if (parallaxStarted.current) {
