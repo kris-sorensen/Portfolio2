@@ -108,8 +108,6 @@ const Trees = () => {
     },
   ]);
 
-  useEffect(() => {}, []);
-
   return (
     <group position={[0, -50, 0]}>
       <group position={[0, -1070, -100]} name={"ground"}>
@@ -136,11 +134,6 @@ const Trees = () => {
           </Sphere>
         </mesh>
       </group>
-
-      {/* Water - using Ocean shader */}
-      <Suspense fallback={null}>
-        <Ocean />
-      </Suspense>
     </group>
   );
 };
