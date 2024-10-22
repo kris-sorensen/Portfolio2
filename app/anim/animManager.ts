@@ -1,5 +1,5 @@
 let animProgress = 0;
-export const sunMoonPropChangeDelay = 10000;
+export const sunMoonPropChangeDelay = 12000;
 
 export const speedMap = {
   1: 1 / 6,

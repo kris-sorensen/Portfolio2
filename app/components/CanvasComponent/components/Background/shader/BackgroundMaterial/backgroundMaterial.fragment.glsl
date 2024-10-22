@@ -39,8 +39,8 @@ void main() {
     float easedProgress = easeInOutCubic(uProgress);
 
     // Blue sky gradient colors
-    vec3 topColor = vec3(0.173, 0.404, 0.949);  // #2c67f2
-    vec3 bottomColor = vec3(0.384, 0.812, 0.957);  // #62cff4
+    vec3 topColor = vec3(0.173, 0.404, 0.949);    // #2c67f2
+    vec3 bottomColor = vec3(0.384, 0.812, 0.957); // #62cff4
 
     // Instead of sqrt, use a smoother easing for the gradient
     float gradientFactor = easeInOutCubic(vUv.y);
@@ -48,22 +48,46 @@ void main() {
 
     // Create the black gradient (quick transition to black)
     vec3 bottomBlack = vec3(0.0035); // Slightly less black at the bottom
-    vec3 topBlack = vec3(0.0);    // Pure black at the top
+    vec3 topBlack = vec3(0.0);       // Pure black at the top
     vec3 blackGradient = mix(bottomBlack, topBlack, vUv.y);
+
+    // Calculate sunsetIntensity based on sunMoonPosY
+    float sunsetIntensity = 0.0;
+    float multiplier = sunMoonPosY + .5;
+    if (multiplier <= 0.25 && multiplier >= -.5) {
+        if (multiplier >= 0.0) {
+            sunsetIntensity = (0.25 - multiplier) / 0.25;
+        } else {
+            sunsetIntensity = (multiplier + 1.0);
+        }
+        sunsetIntensity = clamp(sunsetIntensity, 0.0, 1.0);
+        sunsetIntensity = easeInOutCubic(sunsetIntensity);
+    }
+
+    // Define sunset colors
+    vec3 sunsetTopColor = vec3(0.988, 0.549, 0.235);    // #FC8C3C (Rich Orange)
+    vec3 sunsetBottomColor = vec3(0.992, 0.733, 0.306); // #FDBB4E (Golden Yellow)
+
+    // Create a sunset gradient
+    float sunsetGradientFactor = pow(vUv.y, 1.5); // Adjust exponent for desired effect
+    vec3 sunsetColor = mix(sunsetBottomColor, sunsetTopColor, sunsetGradientFactor);
+
+    // Blend blue sky and sunset colors based on sunsetIntensity
+    vec3 skyColor = mix(blueSkyColor, sunsetColor, sunsetIntensity);
 
     // Apply small dithering to break up color banding
     float ditherAmount = (random(gl_FragCoord.xy) - 0.5) * 0.005;
-    blueSkyColor += ditherAmount; // Add dithering to the gradient
+    skyColor += ditherAmount; // Add dithering to the sky color
     blackGradient += ditherAmount * vUv.y; // Add dithering to black gradient as well
 
-    // Adjust brightness based on mouse Y position
-    float brightness = mix(0.5, .8, sunMoonPosY); // Dim at top, brighten at bottom
-    blueSkyColor *= brightness;
+    // Adjust brightness based on sunMoonPosY
+    float brightness = mix(0.5, 0.8, sunMoonPosY); // Dim at top, brighten at bottom
+    skyColor *= brightness;
 
-    // Mix the black gradient with the blue sky gradient based on easedProgress
-    vec3 backgroundColor = mix(blackGradient, blueSkyColor, easedProgress);
+    // Mix the black gradient with the sky color based on easedProgress
+    vec3 backgroundColor = mix(blackGradient, skyColor, easedProgress);
 
-    // Mix stars/meteor visibility based on uProgress (visible when uProgress is 0, invisible at 1)
+    // Mix stars/meteor visibility based on uStarViz
     float starVisibility = mix(1.0, 0.0, uStarViz); 
     vec3 finalStars = stars * starVisibility;
 
@@ -73,7 +97,7 @@ void main() {
 
     // Output final color and alpha
     gl_FragColor = vec4(color, alpha);
-    
+
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
 }

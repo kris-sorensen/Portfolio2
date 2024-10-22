@@ -10,8 +10,6 @@ const Background = () => {
   const planeWidth = viewport.width;
   const planeHeight = viewport.height;
 
-  console.log(`Here`, viewport);
-
   return (
     <mesh visible={true} position={[0, 0, -1000]}>
       <Plane args={[planeWidth, planeHeight * 2, 2, 2]}>

@@ -19,7 +19,7 @@ const Css: React.FC = () => {
 
   return (
     <>
-      <NextPageBtn />
+      {/* <NextPageBtn /> */}
       {/* <Title /> */}
       {/* <Menu addBalloon={addBalloon} toggleVisibility={toggleVisibility} /> */}
       {/* <Logo /> */}

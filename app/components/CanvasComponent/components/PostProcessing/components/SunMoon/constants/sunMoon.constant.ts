@@ -1,6 +1,6 @@
 // constants.ts
 export const scaleFactor = 1;
-export const totalDuration = 10.0;
+export const totalDuration = 12.0;
 
 export const page2GodRaysProps = {
   samples: 45,

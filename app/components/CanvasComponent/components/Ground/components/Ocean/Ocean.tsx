@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import {
   useThree,
   extend,
@@ -8,7 +8,7 @@ import {
 } from "@react-three/fiber";
 import * as THREE from "three";
 import { Water } from "three-stdlib";
-
+// todo: component throwing webgl error in loop
 // Extend the Water class so that it can be used as a JSX element
 extend({ Water });
 
@@ -60,14 +60,12 @@ const Ocean: React.FC = () => {
   });
 
   return (
-    <Suspense fallback={null}>
-      <water
-        ref={ref}
-        args={[geom, config]}
-        rotation-x={-Math.PI / 2}
-        position={[0, -360, 0]}
-      />
-    </Suspense>
+    <water
+      ref={ref}
+      args={[geom, config]}
+      rotation-x={-Math.PI / 2}
+      position={[0, -310, 0]}
+    />
   );
 };
 

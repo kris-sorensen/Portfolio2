@@ -34,6 +34,7 @@ const BackgroundMaterial: React.FC = () => {
     if (sunMoonMesh && sunMoonMesh.position) {
       mat.current.uniforms.sunMoonPosY.value =
         sunMoonMesh.position.y / window.innerHeight;
+      console.log(`Here`, mat.current.uniforms.sunMoonPosY.value);
     }
 
     // Update the shader material's uProgress uniform
