@@ -280,10 +280,15 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             applyPage2Props={Page2PropsActive}
           />
         </mesh>
+        {/* ECLIPSE MOON*/}
+        {/* <mesh visible={true} position={[0, 0, -600]}>
+          <circleGeometry args={[sphereRadius * 0.95, 72, 72]} />
+          <meshBasicMaterial transparent color={"black"} opacity={0} />
+        </mesh> */}
 
         <directionalLight
           ref={lightRef}
-          position={[viewport.width / 2, viewport.height / 2, -1050]}
+          position={[viewport.width / 2, viewport.height / 2, 0]}
           intensity={1}
           castShadow={true}
           color={Page2PropsActive ? "#fcffc4" : "#349ef5"}

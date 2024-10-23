@@ -3,6 +3,7 @@ import * as THREE from "three";
 import Trees from "./components/Trees/Trees";
 import Ocean from "./components/Ocean/Ocean";
 import Land from "./components/Land/Land";
+import Water from "../Water/Water";
 
 const Ground = () => {
   return (
@@ -11,7 +12,8 @@ const Ground = () => {
         <Land />
         <Trees />
       </group>
-      <Ocean />
+      <Water />
+      {/* <Ocean /> */}
     </group>
   );
 };

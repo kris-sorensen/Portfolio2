@@ -99,8 +99,8 @@ const Land = () => {
         <meshStandardMaterial
           ref={materialRef}
           onBeforeCompile={OBC}
-          metalness={applyPage2Props ? 0.2 : 0.5}
-          roughness={0.5}
+          metalness={0.8}
+          roughness={0.6}
         />
       </Sphere>
     </mesh>

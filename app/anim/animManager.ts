@@ -10,7 +10,7 @@ export const speedMap = {
 // Define delay for each page in milliseconds
 export const delayMap = {
   1: 6000, // 6 second delay for Page 1
-  2: sunMoonPropChangeDelay, // 12 seconds delay for Page 2
+  2: sunMoonPropChangeDelay - 2000, // 12 seconds delay for Page 2
   3: 3000, // 3 seconds delay for Page 3
 };
 

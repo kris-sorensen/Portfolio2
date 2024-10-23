@@ -38,15 +38,16 @@ const BackgroundMaterial: React.FC = () => {
 
     // Update the shader material's uProgress uniform
     mat.current.uniforms.uProgress.value = getAnimProgress();
-    if (applyPage2Props) {
-      mat.current.uniforms.uStarViz.value = THREE.MathUtils.clamp(
-        getAnimProgress(),
-        0,
-        1
-      );
-    } else {
-      mat.current.uniforms.uStarViz.value = getAnimProgress();
-    }
+    // if (applyPage2Props) {
+    // console.log(`star viz`, getAnimProgress());
+    // mat.current.uniforms.uStarViz.value = THREE.MathUtils.clamp(
+    //   getAnimProgress(),
+    //   0,
+    //   1
+    // );
+    // } else {
+    mat.current.uniforms.uStarViz.value = getAnimProgress();
+    // }
   });
 
   const uniforms = useMemo(
