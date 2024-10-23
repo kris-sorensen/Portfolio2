@@ -1,14 +1,15 @@
 uniform vec2 resolution;
 uniform float time;
+uniform float alpha;  
+uniform vec3 uColor;  
 in vec2 vUv;
 
 void main() {
-    // Initial color and alpha
-    vec3 color = vec3(0.,1.,.2);
-    float alpha = 1.0;
+    // Initial color
+    vec3 color = uColor;
 
     // Output final color and alpha
-    gl_FragColor = vec4(color, alpha);
+    gl_FragColor = vec4(color, alpha);  // Use the updated alpha uniform value
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
 }

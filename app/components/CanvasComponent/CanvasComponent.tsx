@@ -26,7 +26,7 @@ const CanvasComponent: React.FC = () => {
         shadows={true}
       >
         <Config />
-        {/* <OrbitControls makeDefault enableZoom={false} /> */}
+        <OrbitControls makeDefault enableZoom={true} />
         <Suspense fallback={null}>
           <Scene />
         </Suspense>

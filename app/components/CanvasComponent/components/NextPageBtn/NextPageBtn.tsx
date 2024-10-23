@@ -23,12 +23,12 @@ const NextPageBtn = () => {
       <mesh position={[0, 0, 1]}>
         <Text
           // ref={text}
-          color={"#e1e1e1"}
           letterSpacing={0.25}
           fontSize={40}
           anchorX={"center"}
           font="./fonts/dessau-heavy-regular.woff"
         >
+          <NextPageBtnMaterial color={"#e1e1e1"} />
           WORK
         </Text>
       </mesh>
@@ -49,7 +49,7 @@ const NextPageBtn = () => {
         onPointerOver={() => setClickHovered(true)}
         onPointerOut={() => setClickHovered(false)}
       >
-        <NextPageBtnMaterial />
+        <NextPageBtnMaterial color={"#008261"} />
       </Plane>
       {/* </mesh> */}
     </group>
