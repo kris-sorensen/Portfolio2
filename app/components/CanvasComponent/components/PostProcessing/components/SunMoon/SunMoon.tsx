@@ -98,9 +98,9 @@ const SunMoon: React.FC<SunMoonProps> = () => {
 
     // Adjusting the arc radius and positions
     const arcRadius = (0.3 * viewport.width) / 2;
-    const leftArcRadius = (1 * viewport.width) / 2 - 100;
-    const rightArcRadius = (1 * viewport.width) / 2 + 200;
-    const rightArcCenterY = (-1 * viewport.height) / 2;
+    const leftArcRadius = (1 * viewport.width) / 2 - 50;
+    const rightArcRadius = (1 * viewport.width) / 2 + 150;
+    const rightArcCenterY = (-1 * viewport.height) / 2 - 200;
     const leftArcCenterY = (-1 * viewport.height) / 2 - 200; //- leftArcRadius * 0.07;
 
     if (Page !== prevPage.current) {
@@ -145,7 +145,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     switch (animationPhase.current) {
       case "initial":
         if (progress < 1) {
-          const currentAngle = Math.PI * 0.75 * easedProgress;
+          const currentAngle = Math.PI * 0.63 * easedProgress;
 
           sunRef.current.position.x = rightArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
@@ -240,7 +240,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     }
 
     lightRef.current.position.copy(sunRef.current.position);
-    lightRef.current.target.position.set(0, 0, 0);
+    // lightRef.current.target.position.set(0, -sunRef.current.position.y, 0);
 
     const animProgress = getAnimProgress();
     ambientLightRef.current.intensity = THREE.MathUtils.lerp(
