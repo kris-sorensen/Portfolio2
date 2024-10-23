@@ -23,26 +23,6 @@ float random(vec2 st) {
     return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
 }
 
-// Simple noise function for clouds
-float noise(vec2 st) {
-    vec2 i = floor(st);
-    vec2 f = fract(st);
-    vec2 u = f * f * (3.0 - 2.0 * f);
-
-    return mix(
-        mix(random(i), random(i + vec2(1.0, 0.0)), u.x),
-        mix(random(i + vec2(0.0, 1.0)), random(i + vec2(1.0, 1.0)), u.x),
-        u.y
-    );
-}
-
-// Function to create wispy clouds
-float cloudLayer(vec2 uv, float speed) {
-    float cloud = noise(uv * 1.5 + vec2(time * speed, time * speed * 0.5));
-    cloud = smoothstep(0.4, 0.6, cloud); // Smooth transitions for wispy clouds
-    return cloud;
-}
-
 void main() {
     // Calculate aspect ratio
     float aspectRatio = resolution.x / resolution.y;
@@ -62,7 +42,7 @@ void main() {
     vec3 topColor = vec3(0.173, 0.404, 0.949);    // #2c67f2
     vec3 bottomColor = vec3(0.384, 0.812, 0.957); // #62cff4
 
-    // Use easing for the gradient
+    // Instead of sqrt, use a smoother easing for the gradient
     float gradientFactor = easeInOutCubic(vUv.y);
     vec3 blueSkyColor = mix(bottomColor, topColor, gradientFactor);
 
@@ -73,8 +53,8 @@ void main() {
 
     // Calculate sunsetIntensity based on sunMoonPosY
     float sunsetIntensity = 0.0;
-    float multiplier = sunMoonPosY + 0.5;
-    if (multiplier <= 0.25 && multiplier >= -0.5) {
+    float multiplier = sunMoonPosY + .5;
+    if (multiplier <= 0.25 && multiplier >= -.5) {
         if (multiplier >= 0.0) {
             sunsetIntensity = (0.25 - multiplier) / 0.25;
         } else {
@@ -104,16 +84,11 @@ void main() {
     float brightness = mix(0.5, 0.8, sunMoonPosY); // Dim at top, brighten at bottom
     skyColor *= brightness;
 
-    // Create the cloud layer
-    float clouds = cloudLayer(vUv * 2.0, 0.02); // Scale UV for clouds, slow speed
-    vec3 cloudColor = vec3(1.0); // White clouds
-    skyColor = mix(skyColor, cloudColor, clouds * 0.4); // Blend clouds into the sky
-
     // Mix the black gradient with the sky color based on easedProgress
     vec3 backgroundColor = mix(blackGradient, skyColor, easedProgress);
 
     // Mix stars/meteor visibility based on uStarViz
-    float starVisibility = mix(1.0, 0.0, uStarViz);
+    float starVisibility = mix(1.0, 0.0, uStarViz); 
     vec3 finalStars = stars * starVisibility;
 
     // Final color and alpha
