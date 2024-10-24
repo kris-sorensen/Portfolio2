@@ -16,7 +16,7 @@ import { Environment } from "@react-three/drei";
 
 const HEIGHT = 400;
 // const WIDTH = 2400;
-const BOUNDS = 2024;
+const BOUNDS = 3000;
 // Texture width
 // const WIDTH = 128;
 const WIDTH = 512;
@@ -41,7 +41,8 @@ const Water = () => {
   waterMaterial.transmission = 1;
   waterMaterial.metalness = 0;
   waterMaterial.roughness = 0;
-  waterMaterial.color = new Color(0x217d9c);
+  waterMaterial.color = new Color("#183774");
+  // waterMaterial.color = new Color(0x217d9c);
 
   // Defines
   waterMaterial.defines.WIDTH = WIDTH.toFixed(1);
@@ -73,7 +74,8 @@ const Water = () => {
 
   useFrame(() => {
     const uniforms = heightmapVariable.material.uniforms;
-    uniforms["mousePos"].value.set(pointer.x * 200, -pointer.y * 200);
+    // uniforms["mousePos"].value.set(pointer.x * 200, -pointer.y * 200);
+    uniforms["mousePos"].value.set(0, -pointer.y * 200);
     gpuCompute.compute();
     waterUniforms["heightmap"].value =
       gpuCompute.getCurrentRenderTarget(heightmapVariable).texture;
@@ -90,7 +92,7 @@ const Water = () => {
         // castShadow
         // receiveShadow
       >
-        <planeGeometry args={[BOUNDS, BOUNDS, WIDTH, WIDTH]} />
+        <planeGeometry args={[viewport.width, BOUNDS, WIDTH, WIDTH]} />
       </mesh>
     </>
   );

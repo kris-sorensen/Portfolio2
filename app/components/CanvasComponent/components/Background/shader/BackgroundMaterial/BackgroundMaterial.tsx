@@ -38,16 +38,23 @@ const BackgroundMaterial: React.FC = () => {
 
     // Update the shader material's uProgress uniform
     mat.current.uniforms.uProgress.value = getAnimProgress();
-    // if (applyPage2Props) {
-    // console.log(`star viz`, getAnimProgress());
-    // mat.current.uniforms.uStarViz.value = THREE.MathUtils.clamp(
-    //   getAnimProgress(),
-    //   0,
-    //   1
-    // );
-    // } else {
-    mat.current.uniforms.uStarViz.value = getAnimProgress();
-    // }
+
+    // Define fade duration based on whether we're fading in or out
+    const fadeOutDuration = 0.5; // Seconds to fade out
+    const fadeInDuration = 2; // Seconds to fade in
+
+    // Target visibility for stars (fade out when applyPage2Props is true, fade in otherwise)
+    const targetStarViz = getAnimProgress() > 0.5 ? 1 : 0;
+
+    // Define the duration for the transition based on the current target
+    const fadeDuration = applyPage2Props ? fadeOutDuration : fadeInDuration;
+
+    // Interpolate uStarViz based on the target value, delta time, and duration
+    mat.current.uniforms.uStarViz.value = THREE.MathUtils.lerp(
+      mat.current.uniforms.uStarViz.value,
+      targetStarViz,
+      delta / fadeDuration
+    );
   });
 
   const uniforms = useMemo(

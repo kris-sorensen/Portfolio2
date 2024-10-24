@@ -17,7 +17,7 @@ const CanvasComponent: React.FC = () => {
         }}
         dpr={[1, 2]}
         camera={{
-          position: [0, 2, 30],
+          position: [0, 2.8, 30],
           zoom: 1.06,
           near: -1500,
           far: 1500,
