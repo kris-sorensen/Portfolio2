@@ -17,7 +17,7 @@ interface ShaderProps {
 const NextPageBtnMaterial: React.FC<ShaderProps> = ({ color }) => {
   const mat = useRef<any>(null);
   const revealTime = 11; // Time in seconds to start revealing
-  const fadeDuration = 3; // Time in seconds for the fade-in effect
+  const fadeDuration = 2; // Time in seconds for the fade-in effect
 
   const hoverProgress = useRef(0);
 

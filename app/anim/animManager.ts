@@ -37,3 +37,7 @@ export const updateAnimProgress = (
 export const getAnimProgress = () => {
   return animProgress;
 };
+
+// * WORK and HOME Btn
+export const btnAnimationRevealDelay = 22000;
+export const btnAnimationDuration = 0.35;
