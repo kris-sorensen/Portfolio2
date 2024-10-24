@@ -38,7 +38,6 @@ const BackgroundMaterial: React.FC = () => {
 
     // Update the shader material's uProgress uniform
     mat.current.uniforms.uProgress.value = getAnimProgress();
-
     // Define fade duration based on whether we're fading in or out
     const fadeOutDuration = 0.5; // Seconds to fade out
     const fadeInDuration = 2; // Seconds to fade in

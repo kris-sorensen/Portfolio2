@@ -259,14 +259,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
 
   return (
     <>
-      <fog
-        attach="fog"
-        args={[
-          Page2PropsActive ? "#7CA0B1" : "rgb(10, 10, 10)",
-          Page2PropsActive ? 1000 : 100,
-          Page2PropsActive ? 1100 : 1000,
-        ]}
-      />
       <group ref={group} name="sunMoonGroup">
         <mesh
           visible={true}

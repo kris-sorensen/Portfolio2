@@ -1,8 +1,9 @@
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import vertexShader from "./vertexShader.glsl";
 import fragmentShader from "./fragmentShader.glsl";
+import { isHovered } from "../constants/nextPageBtn.constant";
 
 // Cubic easing function
 function easeInOutCubic(t: number): number {
@@ -14,13 +15,16 @@ interface ShaderProps {
 }
 
 const NextPageBtnMaterial: React.FC<ShaderProps> = ({ color }) => {
-  const mat = useRef(null);
+  const mat = useRef<any>(null);
   const revealTime = 12; // Time in seconds to start revealing
   const fadeDuration = 3; // Time in seconds for the fade-in effect
 
+  const hoverProgress = useRef(0);
+
   useFrame((state, delta) => {
     if (!mat.current) return;
-    // @ts-ignore
+
+    // Update time uniform
     const elapsedTime = mat.current.uniforms.time.value;
     mat.current.uniforms.time.value = elapsedTime + delta;
 
@@ -28,9 +32,15 @@ const NextPageBtnMaterial: React.FC<ShaderProps> = ({ color }) => {
     if (elapsedTime >= revealTime) {
       const progress = (elapsedTime - revealTime) / fadeDuration;
       const easedAlpha = easeInOutCubic(Math.min(progress, 1)); // Eased alpha goes from 0 to 1
-      // @ts-ignore
       mat.current.uniforms.alpha.value = easedAlpha;
     }
+
+    // Update hover progress smoothly
+    const targetProgress = isHovered ? 1 : 0;
+    hoverProgress.current += (targetProgress - hoverProgress.current) * 0.1;
+
+    // Update shader uniforms for hover effect
+    mat.current.uniforms.uHoverProgress.value = hoverProgress.current;
   });
 
   const uniforms = useMemo(
@@ -41,8 +51,9 @@ const NextPageBtnMaterial: React.FC<ShaderProps> = ({ color }) => {
       },
       alpha: { value: 0.0 },
       uColor: { value: new THREE.Color(color) },
+      uHoverProgress: { value: 0.0 },
     }),
-    []
+    [color]
   );
 
   return (
@@ -52,6 +63,8 @@ const NextPageBtnMaterial: React.FC<ShaderProps> = ({ color }) => {
       fragmentShader={fragmentShader}
       uniforms={uniforms}
       transparent={true}
+      depthWrite={false}
+      depthTest={false}
     />
   );
 };

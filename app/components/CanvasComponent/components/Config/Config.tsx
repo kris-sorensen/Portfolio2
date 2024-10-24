@@ -3,7 +3,7 @@ import Camera from "./components/Camera/Camera";
 import useCanvasClick from "./hooks/useCanvasClick";
 
 const Config = () => {
-  useCanvasClick();
+  // useCanvasClick();
   return (
     <>
       <Camera />

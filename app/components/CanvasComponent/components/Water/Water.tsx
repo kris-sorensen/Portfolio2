@@ -42,6 +42,7 @@ const Water = () => {
   waterMaterial.metalness = 0;
   waterMaterial.roughness = 0;
   waterMaterial.color = new Color("#183774");
+  // waterMaterial.envMapIntensity = 5;
   // waterMaterial.color = new Color(0x217d9c);
 
   // Defines

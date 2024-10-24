@@ -6,7 +6,7 @@ import Water from "../Water/Water";
 
 const Ground = () => {
   return (
-    <group position={[0, -50, 0]}>
+    <group position={[0, -70, 0]}>
       <group position={[0, -1070, 0]} name={"ground"}>
         <Land />
         <Trees />
