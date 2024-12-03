@@ -9,7 +9,8 @@ import { Leva } from "leva";
 
 const CanvasComponent: React.FC = () => {
   return (
-    <div className="absolute top-[0px] left-0 w-full h-full outline-none pointer-events-none">
+    <div className="absolute top-[0px] left-0 w-full h-full outline-none pointer-events-auto">
+      {/*<div className="absolute top-[0px] left-0 w-full h-full outline-none pointer-events-none">*/}
       <Leva collapsed />
       <Canvas
         dpr={[1, 2]}

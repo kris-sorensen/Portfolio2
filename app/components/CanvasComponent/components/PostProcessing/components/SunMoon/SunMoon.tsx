@@ -11,6 +11,7 @@ import {
 } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 import { page2GodRaysProps, totalDuration } from "./constants/sunMoon.constant";
+import { useControls } from "leva";
 
 export interface SunMoonProps {}
 
@@ -239,7 +240,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
     }
 
-    lightRef.current.position.copy(sunRef.current.position);
+    // lightRef.current.position.copy(sunRef.current.position);
     // lightRef.current.target.position.set(0, -sunRef.current.position.y, 0);
 
     const animProgress = getAnimProgress();
@@ -248,15 +249,32 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       2 * (1 + sunRef.current.position.y / window.innerHeight),
       animProgress * 0.5
     );
-
-    lightRef.current.intensity = THREE.MathUtils.lerp(
+    const newIntensity = THREE.MathUtils.lerp(
       0,
       1,
       sunRef.current.position.y / window.innerHeight + 0.5
     );
-    lightRef.current.target.position.set(0, 0, -100);
+    lightRef.current.intensity = THREE.MathUtils.clamp(
+      newIntensity * 0.1,
+      0,
+      1
+    );
+    // lightRef.current.target.position.set(0, 0, -100);
   });
 
+  const { position, intensity, color } = useControls("Directional Light", {
+    position: {
+      value: [0, 1, -7],
+      step: 0.1,
+    },
+    intensity: {
+      value: 1,
+      min: 0,
+      max: 10,
+      step: 0.1,
+    },
+    color: "#ffffff",
+  });
   return (
     <>
       <group ref={group} name="sunMoonGroup">
@@ -281,8 +299,9 @@ const SunMoon: React.FC<SunMoonProps> = () => {
 
         <directionalLight
           ref={lightRef}
-          position={[viewport.width / 2, viewport.height / 2, 0]}
-          intensity={1}
+          // position={[viewport.width / 2, viewport.height / 2, 0]}
+          position={position}
+          intensity={intensity}
           castShadow={true}
           color={Page2PropsActive ? "#fcffc4" : "#349ef5"}
         />
