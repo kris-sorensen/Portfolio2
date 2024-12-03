@@ -42,7 +42,7 @@ const BackgroundMaterial: React.FC = () => {
     const fadeOutDuration = 0.5; // Seconds to fade out
     const fadeInDuration = 2; // Seconds to fade in
 
-    // Target visibility for stars (fade out when applyPage2Props is true, fade in otherwise)
+  // Target visibility for stars (fade out when applyPage2Props is true, fade in otherwise)
     const targetStarViz = getAnimProgress() > 0.5 ? 1 : 0;
 
     // Define the duration for the transition based on the current target

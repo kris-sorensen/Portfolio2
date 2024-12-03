@@ -7,8 +7,8 @@ const Background = () => {
   const { viewport } = useThree();
 
   // Calculate the width and height of the plane based on the viewport size
-  const planeWidth = viewport.width;
-  const planeHeight = viewport.height;
+  const planeWidth = viewport.width * 500;
+  const planeHeight = viewport.height * 500;
 
   return (
     <mesh visible={true} position={[0, 0, -1000]}>

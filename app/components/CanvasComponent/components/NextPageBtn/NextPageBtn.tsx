@@ -79,6 +79,7 @@ const NextPageBtn = () => {
 
   return (
     <group
+      visible={false}
       ref={group}
       position={[0, -350, 0]}
       onClick={handleClick}

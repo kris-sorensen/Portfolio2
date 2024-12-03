@@ -11,6 +11,8 @@ import {
 } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 import { page2GodRaysProps, totalDuration } from "./constants/sunMoon.constant";
+import { useControls } from "leva";
+import { Environment } from "@react-three/drei";
 
 export interface SunMoonProps {}
 
@@ -65,7 +67,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     const handleMouseMove = () => {
       if (!parallaxStarted.current && parallaxReady.current) {
         parallaxStarted.current = true;
-        // window.removeEventListener("mousemove", handleMouseMove);
       }
     };
     window.addEventListener("mousemove", handleMouseMove);
@@ -74,7 +75,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     };
   }, []);
 
-  // * Animation and Parallax effect
   const animationPhase = useRef<
     "initial" | "reverseInitial" | "newArc" | "reverseNewArc" | "idle"
   >("initial");
@@ -84,8 +84,13 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   const parallaxStarted = useRef(false);
   const parallaxReady = useRef(false);
 
-  // Define the variable to store the initial position at the start of reverseInitial animation
   const initialSunPosition = useRef<THREE.Vector3 | null>(null);
+
+  useEffect(() => {
+    if (lightRef.current) {
+      scene.add(lightRef.current.target);
+    }
+  }, [scene]);
 
   useFrame((state, delta) => {
     if (!sunRef.current || !lightRef.current || !ambientLightRef.current)
@@ -96,18 +101,16 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       setIsInitialRender(false);
     }
 
-    // Adjusting the arc radius and positions
     const arcRadius = (0.3 * viewport.width) / 2;
     const leftArcRadius = (1 * viewport.width) / 2 - 50;
     const rightArcRadius = (1 * viewport.width) / 2 + 150;
     const rightArcCenterY = (-1 * viewport.height) / 2 - 200;
-    const leftArcCenterY = (-1 * viewport.height) / 2 - 200; //- leftArcRadius * 0.07;
+    const leftArcCenterY = (-1 * viewport.height) / 2 - 200;
 
     if (Page !== prevPage.current) {
       parallaxReady.current = false;
       parallaxStarted.current = false;
 
-      // Capture the sun's current position when animation starts
       if (sunRef.current) {
         initialSunPosition.current = sunRef.current.position.clone();
       }
@@ -125,7 +128,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           animationPhase.current !== "reverseNewArc" &&
           animationPhase.current !== "initial"
         ) {
-          // Capture the sun's current position when reverseNewArc starts
           if (sunRef.current) {
             initialSunPosition.current = sunRef.current.position.clone();
           }
@@ -198,7 +200,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       case "reverseNewArc":
         if (progress < 1) {
           if (initialSunPosition.current) {
-            // Interpolate from the initial saved position to the reverse new arc position
             sunRef.current.position.lerpVectors(
               initialSunPosition.current,
               new THREE.Vector3(
@@ -239,32 +240,53 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
     }
 
-    lightRef.current.position.copy(sunRef.current.position);
-    // lightRef.current.target.position.set(0, -sunRef.current.position.y, 0);
+    // lightRef.current.position.copy(sunRef.current.position);
+    // lightRef.current.target.position.copy(
+    //   sunRef.current.position.clone().setY(sunRef.current.position.y - 1)
+    // );
+    // lightRef.current.target.updateMatrixWorld();
 
     const animProgress = getAnimProgress();
-    ambientLightRef.current.intensity = THREE.MathUtils.lerp(
-      0.1,
-      2 * (1 + sunRef.current.position.y / window.innerHeight),
-      animProgress * 0.5
-    );
+    // ambientLightRef.current.intensity = THREE.MathUtils.lerp(
+    //   0.1,
+    //   2 * (1 + sunRef.current.position.y / window.innerHeight),
+    //   animProgress * 0.5
+    // );
 
-    lightRef.current.intensity = THREE.MathUtils.lerp(
-      0,
-      1,
-      sunRef.current.position.y / window.innerHeight + 0.5
-    );
-    lightRef.current.target.position.set(0, 0, -100);
+    // lightRef.current.intensity = THREE.MathUtils.lerp(
+    //   0,
+    //   1,
+    //   sunRef.current.position.y / window.innerHeight + 0.5
+    // );
+  });
+
+  // Add position control for directional light
+  const { lightX, lightY, lightZ } = useControls("Directional Light Position", {
+    lightX: { value: 0, min: -viewport.width, max: viewport.width, step: 1 },
+    lightY: { value: 0, min: -viewport.height, max: viewport.height, step: 1 },
+    lightZ: { value: -3, min: -2000, max: 2000, step: 10 },
   });
 
   return (
     <>
+      <Environment preset="studio" environmentIntensity={1} />
+      <directionalLight
+        ref={lightRef}
+        // position={[viewport.width / 2, viewport.height / 2, -500]}
+        position={[lightX, lightY, lightZ]}
+        // target={[targX, targY, targZ]}
+        intensity={1}
+        castShadow={true}
+        color={Page2PropsActive ? "#fcffc4" : "#349ef5"}
+      />
+
+      <ambientLight ref={ambientLightRef} intensity={0.1} />
       <group ref={group} name="sunMoonGroup">
         <mesh
           visible={true}
           ref={sunRef}
           name={"sunMoonMesh"}
-          position={[viewport.width / 2, viewport.height / 2, -1050]}
+          position={[viewport.width / 2, viewport.height / 2, -450]}
         >
           <sphereGeometry args={[sphereRadius, 36, 36]} />
           <SunMoonMaterial
@@ -273,21 +295,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             applyPage2Props={Page2PropsActive}
           />
         </mesh>
-        {/* ECLIPSE MOON*/}
-        {/* <mesh visible={true} position={[0, 0, -600]}>
-          <circleGeometry args={[sphereRadius * 0.95, 72, 72]} />
-          <meshBasicMaterial transparent color={"black"} opacity={0} />
-        </mesh> */}
-
-        <directionalLight
-          ref={lightRef}
-          position={[viewport.width / 2, viewport.height / 2, 0]}
-          intensity={1}
-          castShadow={true}
-          color={Page2PropsActive ? "#fcffc4" : "#349ef5"}
-        />
-
-        <ambientLight ref={ambientLightRef} intensity={0.1} />
 
         {sunRef.current && !isInitialRender && (
           <EffectComposer multisampling={4}>

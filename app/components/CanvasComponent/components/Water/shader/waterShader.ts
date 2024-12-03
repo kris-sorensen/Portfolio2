@@ -2,7 +2,8 @@ export const waterVertexShader = `
   uniform sampler2D heightmap;
 
 	void main() {
-    float multiplier = 20.;	
+    float multiplier = 1.;	
+    float multiplierWidth = 1.;	
     vec2 cellSize = vec2( 1.0 / WIDTH * multiplier, 1.0 / WIDTH * multiplier );
 
 		// Compute normal from heightmap
@@ -11,6 +12,7 @@ export const waterVertexShader = `
 			( texture2D( heightmap, uv + vec2( 0, - cellSize.y ) ).x - texture2D( heightmap, uv + vec2( 0, cellSize.y ) ).x ) * WIDTH / BOUNDS,
 			1.0
 		);
+
   }
 `;
 
@@ -39,6 +41,8 @@ export const heightmapFragmentShader = `
 		// Mouse influence
 		float mousePhase = clamp( length( ( uv - vec2( 0.5 ) ) * BOUNDS - vec2( mousePos.x, - mousePos.y ) ) * PI / mouseSize, 0.0, PI );
 		newHeight += ( cos( mousePhase ) + 1.0 ) * 0.28;
+
+  
 
 		heightmapValue.y = heightmapValue.x;
 		heightmapValue.x = newHeight;
