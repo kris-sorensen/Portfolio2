@@ -19,7 +19,7 @@ body {
   color: rgb(var(--foreground-rgb));
   overscroll-behavior-y: none;
   background: #111;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 

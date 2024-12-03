@@ -1,8 +1,9 @@
 import { useControls } from "leva";
 
-export const useGodRaysControls = (page: number) => {
+export const useGodRaysControls = (page, Page2PropsActive) => {
+  const isPage2Active = Page2PropsActive;
+
   const {
-    // sunPosition,
     sunColor,
     sunOpacity,
     sphereRadius,
@@ -14,26 +15,29 @@ export const useGodRaysControls = (page: number) => {
     clampMax,
     blur,
   } = useControls("godrays", {
-    // sunPosition: { x: 1, y: -1.35, z: -8 },
-    sunColor: "#349ef5", // #e5d093, #34f57e,#349ef5,#e193cb
-    sunOpacity: { value: 1.0, min: 0, max: 1, step: 0.1 },
+    sunColor: isPage2Active ? "#e193cb" : "#349ef5",
+    sunOpacity: { value: isPage2Active ? 0.8 : 1.0, min: 0, max: 1, step: 0.1 },
     sphereRadius: {
-      value: 250,
+      value: isPage2Active ? 130 : 130,
       min: 0.001,
       max: 1000,
       step: 0.001,
     },
-    samples: { value: 45, min: 1, max: 100, step: 1 },
-    density: { value: 0.49, min: 0, max: 1, step: 0.01 },
-    decay: { value: 0.87, min: 0, max: 1, step: 0.01 }, // .94 // .9
-    weight: { value: 1, min: 0, max: 1, step: 0.01 },
-    exposure: { value: 0.93, min: 0, max: 1, step: 0.01 }, //.93 //.48
-    clampMax: { value: 1.0, min: 0, max: 1, step: 0.01 },
-    blur: { value: 0.4, min: 0, max: 1, step: 0.01 },
+    samples: { value: isPage2Active ? 50 : 45, min: 1, max: 100, step: 1 },
+    density: { value: isPage2Active ? 0.55 : 0.49, min: 0, max: 1, step: 0.01 },
+    decay: { value: isPage2Active ? 0.9 : 0.87, min: 0, max: 1, step: 0.01 },
+    weight: { value: isPage2Active ? 0.95 : 1, min: 0, max: 1, step: 0.01 },
+    exposure: {
+      value: isPage2Active ? 0.88 : 0.93,
+      min: 0,
+      max: 1,
+      step: 0.01,
+    },
+    clampMax: { value: isPage2Active ? 0.95 : 1.0, min: 0, max: 1, step: 0.01 },
+    blur: { value: isPage2Active ? 0.5 : 0.4, min: 0, max: 1, step: 0.01 },
   });
 
   return {
-    // sunPosition,
     sunColor,
     sunOpacity,
     sphereRadius,

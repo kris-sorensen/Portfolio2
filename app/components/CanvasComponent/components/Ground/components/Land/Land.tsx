@@ -1,12 +1,12 @@
 import useStore from "@/app/store/useStore";
-import { Sphere } from "@react-three/drei";
+import { Box, Sphere } from "@react-three/drei";
 import React, { useCallback, useRef, useEffect } from "react";
 import { ShaderMaterial, Color } from "three";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 // Sphere radius
-const sphereRadius = 1000; // Radius of the sphere
+const sphereRadius = 50; // Radius of the sphere
 
 interface Uniforms {
   uProgress: { value: number };
@@ -85,7 +85,12 @@ const Land = () => {
       // Calculate the current progress
       const start = startValue.current;
       const end = applyPage2Props ? 1 : 0;
-      uniforms.uProgress.value = start + (end - start) * t;
+
+      uniforms.uProgress.value = THREE.MathUtils.clamp(
+        start + (end - start) * t,
+        0,
+        1
+      );
 
       if (t >= 1) {
         isAnimating.current = false;
@@ -94,16 +99,24 @@ const Land = () => {
   });
 
   return (
-    <mesh position={[0, 0, 0]} name={"floor"}>
-      <Sphere args={[sphereRadius, 100, 100]}>
-        <meshStandardMaterial
-          ref={materialRef}
-          onBeforeCompile={OBC}
-          metalness={0.8}
-          roughness={0.6}
-        />
-      </Sphere>
-    </mesh>
+    <group>
+      <mesh
+        position={[0, -46, 20]}
+        rotation={[Math.PI / 2, 0, 0]}
+        name={"floor"}
+      >
+        {/* <mesh position={[0, -80, 25]} name={"floor"}> */}
+        <Box args={[300, 40, 3]}>
+          {/* <Sphere args={[sphereRadius, 100, 100]}> */}
+          <meshStandardMaterial
+            ref={materialRef}
+            onBeforeCompile={OBC}
+            metalness={0.3}
+            roughness={0.6}
+          />
+        </Box>
+      </mesh>
+    </group>
   );
 };
 

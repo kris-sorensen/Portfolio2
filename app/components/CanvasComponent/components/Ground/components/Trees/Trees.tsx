@@ -57,7 +57,7 @@ const Trees = () => {
   ]);
 
   return (
-    <mesh position={[0, 600, -800]}>
+    <mesh position={[0, -300, -500]}>
       {treesRef.current.map((tree, treeIndex) => (
         <TreeModel
           key={`${treeIndex}-${treeIndex}`}
