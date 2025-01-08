@@ -5,20 +5,22 @@ import React, { useState } from "react";
 // import Logo from "./components/Logo/Logo";
 // import Title from "./components/Title/Title";
 import NextPageBtn from "./components/NextPageBtn/NextPageBtn";
+import Portfolio from "./components/Portfolio/Portfolio";
 
 const Css: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const toggleVisibility = () => {
     setIsVisible((prev) => !prev);
   };
 
-  const addBalloon = () => {
-    console.log("Balloon added");
-  };
+  // const addBalloon = () => {
+  //   console.log("Balloon added");
+  // };
 
   return (
     <>
+      {isVisible && <Portfolio />}
       {/* <NextPageBtn /> */}
       {/* <Title /> */}
       {/* <Menu addBalloon={addBalloon} toggleVisibility={toggleVisibility} /> */}
