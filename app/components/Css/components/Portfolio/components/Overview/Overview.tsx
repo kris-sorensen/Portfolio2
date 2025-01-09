@@ -19,7 +19,8 @@ const Overview = ({ projects, SelectedProject, setSelectedProject }) => {
             {project.title}
           </h2>
           <p className="text-right text-sm text-gray-600">
-            {project.role} | {project.awards}
+            {project.role}
+            {project.awards && ` | ${project.awards}`}
           </p>
         </div>
       ))}
