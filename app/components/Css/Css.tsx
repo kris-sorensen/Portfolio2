@@ -6,9 +6,10 @@ import React, { useState } from "react";
 // import Title from "./components/Title/Title";
 import NextPageBtn from "./components/NextPageBtn/NextPageBtn";
 import Portfolio from "./components/Portfolio/Portfolio";
+import DarkModeToggle from "./components/DarkModeToggle/DarkModeToggle";
 
 const Css: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
     setIsVisible((prev) => !prev);
@@ -21,6 +22,7 @@ const Css: React.FC = () => {
   return (
     <>
       {isVisible && <Portfolio />}
+      <DarkModeToggle />
       {/* <NextPageBtn /> */}
       {/* <Title /> */}
       {/* <Menu addBalloon={addBalloon} toggleVisibility={toggleVisibility} /> */}

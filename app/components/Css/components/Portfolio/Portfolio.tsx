@@ -5,9 +5,10 @@ import ProjectPage from "./components/ProjectPage/ProjectPage";
 const projects = [
   {
     title: "Warner Brothers (Scooby Doo) AI Experience",
+    description: "",
     role: "Lead Frontend Developer",
     awards: "",
-    image: "/images/scooby-doo.jpg",
+    image: "/images/scoobydoo.webp",
     caseStudy:
       "https://www.groovejones.com/scooby-doo-character-studio-an-interactive-customized-collectible-e-commerce-experience",
     website: "https://scoobydoo.characterstudio.com/",
@@ -15,9 +16,10 @@ const projects = [
   },
   {
     title: "FuelCell Energy WebGL Walkthrough",
+    description: "",
     role: "Lead Frontend Developer",
     awards: "GOLD 2024 Horizon Interactive Awards",
-    image: "/images/fuelcell.jpg",
+    image: "/images/fuelcell.webp",
     caseStudy:
       "https://www.groovejones.com/using-webgl-for-co2-recovery-walkthrough",
     website: "https://go.fuelcellenergy.com/carbon-recovery-walkthrough",
@@ -25,9 +27,10 @@ const projects = [
   },
   {
     title: "Toyota Crown 3D Virtual Showroom",
+    description: "",
     role: "Lead Frontend Developer",
     awards: "Winner of 13 Industry Awards",
-    image: "/images/toyota-crown.jpg",
+    image: "/images/crown.webp",
     caseStudy:
       "https://www.groovejones.com/toyota-crown-webgl-interactive-experience",
     website: "https://dijgcc9z3yval.cloudfront.net/",
@@ -35,19 +38,22 @@ const projects = [
   },
   {
     title: "Toyota Mirai 3D Virtual Showroom",
+    description: "",
     role: "Advisor",
-    awards: "PLATINUM 2024 MUSE Creative Awards",
-    image: "/images/toyota-mirai.jpg",
+    awards:
+      "PLATINUM 2024 MUSE Creative Awards, GOLD 2025 HORIZON INTERACTIVE AWARDS",
+    image: "/images/mirai.webp",
     caseStudy: "https://www.groovejones.com/toyota-mirai-webgl",
     website: "https://toyotamirai.groove-tech.com/",
     id: 3,
   },
   {
     title: "University of South Florida 3D/AR Remembrance Experience",
+    description: "",
     role: "Lead Frontend Developer",
     awards:
       "GOLD 2023 Vega Digital Awards, PLATINUM 2023 Hermes Creative Awards",
-    image: "/images/usf-remembrance.jpg",
+    image: "/images/usf.webp",
     caseStudy:
       "https://www.groovejones.com/journey-to-revive-zion-cemetery-through-immersive-technology",
     website: "https://zioncemeteryremembrance.com/",
@@ -55,9 +61,10 @@ const projects = [
   },
   {
     title: "Hoosier Lottery Flurry of Fun Holiday AR Experience",
+    description: "",
     role: "Lead Frontend Developer",
     awards: "",
-    image: "/images/hoosier-lottery.jpg",
+    image: "/images/hoosier.webp",
     caseStudy:
       "https://www.groovejones.com/hoosier-lottery-flurry-of-fun-holiday-ar-experience",
     website: "",
@@ -65,9 +72,10 @@ const projects = [
   },
   {
     title: "BAYER Crop Science AR Experience",
+    description: "",
     role: "Lead Frontend Developer",
     awards: "",
-    image: "/images/bayer-crop.jpg",
+    image: "/images/bayer.webp",
     caseStudy:
       "https://www.groovejones.com/bayer-crop-science-group-leverages-ar-for-weather-damage-demonstration-to-corn-crops",
     website: "",

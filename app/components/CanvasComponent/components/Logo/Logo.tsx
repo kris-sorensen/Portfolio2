@@ -117,7 +117,7 @@ const Logo: React.FC = () => {
           font="./fonts/dessau-heavy-regular.woff"
         >
           <TitleShaderMaterial
-            color="#fc8be9"
+            color="#47f36c"
             color2="#47f36c"
             activePage={0}
           />
@@ -133,7 +133,7 @@ const Logo: React.FC = () => {
           font="./fonts/dessau-heavy-regular.woff"
         >
           <TitleShaderMaterial
-            color="#ffffff"
+            color="#fc8be9"
             color2="#ffffff"
             activePage={0}
           />

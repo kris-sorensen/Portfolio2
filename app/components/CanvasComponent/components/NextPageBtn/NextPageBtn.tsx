@@ -26,7 +26,7 @@ const NextPageBtn = () => {
   const isAnimatingRef = useRef(false); // Track if animation is in progress
   const isRevealingRef = useRef(false); // Track if it's in revealing phase
   const animationStartTimeRef = useRef(0); // Track when animation starts
-  const [buttonText, setButtonText] = useState("WORK"); // UseState for button text
+  const [buttonText, setButtonText] = useState("DAY"); // UseState for button text
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -39,7 +39,9 @@ const NextPageBtn = () => {
     animationStartTimeRef.current = performance.now();
 
     setTimeout(() => {
-      setButtonText("HOME"); // Change text after 1 second
+      // Change text after 1 second
+      if (buttonText === "DAY") setButtonText("NIGHT");
+      else setButtonText("DAY");
     }, btnAnimationDuration * 1000);
 
     // Start the reveal animation after 10 seconds
