@@ -87,7 +87,7 @@ const Portfolio = () => {
   const [SelectedProject, setSelectedProject] = useState(-1); // * -1 means show all projects, Anything above is a selected Project and should show a specific Project
 
   return (
-    <div className="w-screen h-screen z-20">
+    <div className="w-screen h-screen z-20 select-none">
       <Overview
         projects={projects}
         SelectedProject={SelectedProject}

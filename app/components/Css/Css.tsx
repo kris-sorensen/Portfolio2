@@ -9,7 +9,7 @@ import Portfolio from "./components/Portfolio/Portfolio";
 import DarkModeToggle from "./components/DarkModeToggle/DarkModeToggle";
 
 const Css: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const toggleVisibility = () => {
     setIsVisible((prev) => !prev);

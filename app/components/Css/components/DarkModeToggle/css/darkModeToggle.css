@@ -3,7 +3,6 @@
   pointer-events: none;
   width: 100%;
   height: 100%;
-
   /** sunny side **/
   --blue-background: #c2e9f6;
   --blue-border: #72cce3;
@@ -66,9 +65,9 @@
 .toggle--label {
   transform: scale(0.4);
   transform-origin: top right;
-  z-index: 30;
+  z-index: 32;
   pointer-events: auto;
-  position: absolute;
+  position: fixed;
   top: 30px;
   right: 20px;
   width: 200px;
