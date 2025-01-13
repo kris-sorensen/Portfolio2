@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import "./css/darkModeToggle.css";
 import useStore from "@/app/store/useStore";

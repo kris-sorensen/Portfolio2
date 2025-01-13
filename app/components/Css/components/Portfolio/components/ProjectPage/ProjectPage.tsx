@@ -50,7 +50,7 @@ const ProjectPage = ({ project, SelectedProject, setSelectedProject }) => {
               alt={project.title}
               layout="fill"
               objectFit="contain"
-              loading="lazy"
+              loading="eager"
             />
           )}
         </div>

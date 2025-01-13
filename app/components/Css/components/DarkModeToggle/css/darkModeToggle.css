@@ -1,8 +1,6 @@
 .darkModeToggle {
   position: absolute;
   pointer-events: none;
-  width: 100%;
-  height: 100%;
   /** sunny side **/
   --blue-background: #c2e9f6;
   --blue-border: #72cce3;

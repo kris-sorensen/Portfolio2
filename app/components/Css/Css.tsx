@@ -1,39 +1,21 @@
-"use client";
-import React, { useState } from "react";
-// import IDE from "./components/IDE/IDE";
-// import Menu from "./components/Menu/Menu";
-// import Logo from "./components/Logo/Logo";
-// import Title from "./components/Title/Title";
-import NextPageBtn from "./components/NextPageBtn/NextPageBtn";
-import Portfolio from "./components/Portfolio/Portfolio";
+import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
 import DarkModeToggle from "./components/DarkModeToggle/DarkModeToggle";
+import ShowExperienceBtn from "./components/ShowExperienceBtn/ShowExperienceBtn";
+
+// Dynamically import the Portfolio component
+const Portfolio = dynamic(() => import("./components/Portfolio/Portfolio"), {
+  suspense: true,
+});
 
 const Css: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  const toggleVisibility = () => {
-    setIsVisible((prev) => !prev);
-  };
-
-  // const addBalloon = () => {
-  //   console.log("Balloon added");
-  // };
-
   return (
     <>
-      {isVisible && <Portfolio />}
+      <ShowExperienceBtn />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Portfolio />
+      </Suspense>
       <DarkModeToggle />
-      {/* <NextPageBtn /> */}
-      {/* <Title /> */}
-      {/* <Menu addBalloon={addBalloon} toggleVisibility={toggleVisibility} /> */}
-      {/* <Logo /> */}
-      {/* <div style={{ position: "absolute", zIndex: 10 }}>
-        <IDE
-          addBalloon={addBalloon}
-          toggleVisibility={toggleVisibility}
-          isVisible={isVisible}
-        />
-      </div> */}
     </>
   );
 };

@@ -1,6 +1,9 @@
 import { create } from "zustand";
 
 interface StoreState {
+  ShowWorkExperience: boolean;
+  setShowWorkExperience(page: boolean): void;
+
   Page: number;
   setPage(page: number): void;
   nextPage(): void;
@@ -11,6 +14,10 @@ interface StoreState {
 }
 
 const useStore = create<StoreState>((set) => ({
+  ShowWorkExperience: false,
+  setShowWorkExperience: (value: boolean) =>
+    set(() => ({ ShowWorkExperience: value })),
+
   Page: 1,
   setPage: (page: number) => set(() => ({ Page: page })),
 

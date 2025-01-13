@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Overview from "./components/Overview/Overview";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
+import useStore from "@/app/store/useStore";
 
 const projects = [
   {
@@ -84,10 +86,25 @@ const projects = [
 ];
 
 const Portfolio = () => {
-  const [SelectedProject, setSelectedProject] = useState(-1); // * -1 means show all projects, Anything above is a selected Project and should show a specific Project
+  const ShowWorkExperience = useStore((state) => state.ShowWorkExperience);
+  const [SelectedProject, setSelectedProject] = useState(-1);
 
+  // Reset SelectedProject to -1 when ShowWorkExperience changes to false
+  useEffect(() => {
+    if (!ShowWorkExperience) {
+      setSelectedProject(-1);
+    }
+  }, [ShowWorkExperience]);
+
+  // Hide or show the Portfolio content based on ShowWorkExperience
   return (
-    <div className="w-screen h-screen z-20 select-none">
+    <div
+      className={`w-screen h-screen z-20 select-none transition-all duration-300 ${
+        ShowWorkExperience
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+      }`}
+    >
       <Overview
         projects={projects}
         SelectedProject={SelectedProject}
