@@ -105,6 +105,10 @@ const Portfolio = () => {
           : "opacity-0 pointer-events-none"
       }`}
     >
+      {/* <div
+        className="z-20 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-45"
+        style={{ backgroundImage: `url('/path-to-your-background-image.jpg')` }}
+      > */}
       <Overview
         projects={projects}
         SelectedProject={SelectedProject}
@@ -115,6 +119,7 @@ const Portfolio = () => {
         SelectedProject={SelectedProject}
         setSelectedProject={setSelectedProject}
       />
+      {/* </div> */}
     </div>
   );
 };
