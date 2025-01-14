@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import localFont from "next/font/local";
+
+const frantz = localFont({
+  src: "../public/fonts/frantz.woff",
+  variable: "--font-frantz",
+});
 
 // * every page needs proper metadata
 export const metadata: Metadata = {
@@ -20,7 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="">{children}</main>
+        {/* <main className={`${inter.variable} font-sans`}>{children}</main> */}
+        <main className={frantz.className}>{children}</main>
       </body>
     </html>
   );

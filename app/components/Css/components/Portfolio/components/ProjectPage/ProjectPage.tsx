@@ -34,7 +34,9 @@ const ProjectPage = ({ project, SelectedProject, setSelectedProject }) => {
       <div className="p-8 flex items-center justify-between h-full">
         {/* Left Section */}
         <div className="max-w-[50%] text-white pr-8">
-          <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
+          <h1 className="font-frantz text-4xl font-bold mb-4">
+            {project.title}
+          </h1>
           <p className="text-lg mb-4">{project.description}</p>
           <div className="border-b border-gray-400 my-4"></div>
           <p className="uppercase text-sm tracking-wider mb-2">

@@ -10,7 +10,10 @@ const config: Config = {
     extend: {
       spacing: {},
       colors: {},
-      fontFamily: {},
+      fontFamily: {
+        // sans: ["var(--font-inter)"],
+        frantz: ["var(--font-frantz)"],
+      },
       backgroundImage: {},
     },
   },

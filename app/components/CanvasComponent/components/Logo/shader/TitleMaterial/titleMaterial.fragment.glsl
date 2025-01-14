@@ -10,7 +10,7 @@ void main() {
   vec2 uv = vUv;
 
 
-  vec3 finalColor = vec3(uColor);
+  vec3 finalColor = vec3(mix(uColor,uColor2, pow(uv.x, 8.)));
   gl_FragColor = vec4(finalColor, 1.);
 
   #include <tonemapping_fragment>
