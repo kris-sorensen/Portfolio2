@@ -33,7 +33,7 @@ const Logo: React.FC = () => {
         <Text
           ref={text}
           letterSpacing={0.025}
-          fontSize={0.035 * fontScale}
+          fontSize={0.03 * fontScale}
           anchorX={"center"}
           font="./fonts/dessau-heavy-regular.woff"
         >
