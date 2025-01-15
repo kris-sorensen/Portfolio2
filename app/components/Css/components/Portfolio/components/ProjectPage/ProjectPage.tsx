@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -7,16 +8,41 @@ const ProjectPage = ({
   SelectedProject,
   setSelectedProject,
   setShowOverview,
+  ShowProjectPage,
+  setShowProjectPage,
 }) => {
+  const containerRef = useRef(null); // Reference to the container
   const closePage = () => {
-    setSelectedProject(-1);
     setShowOverview(true);
+    setShowProjectPage(false);
   };
 
-  if (SelectedProject === -1) return null;
+  useEffect(() => {
+    if (ShowProjectPage) {
+      // Fade in with a delay of 2 seconds
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0 },
+        { opacity: 1, delay: 1, duration: 2, ease: "power3.out" }
+      );
+    } else {
+      // Fade out over 0.75 seconds
+      gsap.to(containerRef.current, {
+        opacity: 0,
+        duration: 0.75,
+        ease: "power3.in",
+        onComplete: () => {
+          setSelectedProject(-1);
+        },
+      });
+    }
+  }, [ShowProjectPage]);
+
+  if (!project) return null; // Guard against rendering when no project is passed
 
   return (
     <div
+      ref={containerRef}
       className="z-20 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-85"
       style={{ backgroundImage: `url('/path-to-your-background-image.jpg')` }}
     >

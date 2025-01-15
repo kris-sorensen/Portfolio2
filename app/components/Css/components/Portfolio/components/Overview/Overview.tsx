@@ -7,6 +7,7 @@ const Overview = ({
   setSelectedProject,
   ShowOverview,
   setShowOverview,
+  setShowProjectPage,
 }) => {
   const containerRef = useRef(null); // Reference to the container element
 
@@ -28,6 +29,7 @@ const Overview = ({
           x: "0%", // End on-screen
           opacity: 1,
           duration: 1, // Animation duration
+          // delay: 0.5,
           ease: "power3.out",
         }
       );
@@ -37,6 +39,7 @@ const Overview = ({
   const openProject = (projectID) => {
     setSelectedProject(projectID);
     setShowOverview(false);
+    setShowProjectPage(true);
   };
 
   return (

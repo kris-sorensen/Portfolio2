@@ -89,6 +89,7 @@ const Portfolio = () => {
   const ShowWorkExperience = useStore((state) => state.ShowWorkExperience);
   const [SelectedProject, setSelectedProject] = useState(-1);
   const [ShowOverview, setShowOverview] = useState(false);
+  const [ShowProjectPage, setShowProjectPage] = useState(false);
 
   // Reset SelectedProject to -1 when ShowWorkExperience changes to false
   useEffect(() => {
@@ -113,12 +114,15 @@ const Portfolio = () => {
         setSelectedProject={setSelectedProject}
         ShowOverview={ShowOverview}
         setShowOverview={setShowOverview}
+        setShowProjectPage={setShowProjectPage}
       />
       <ProjectPage
         project={projects[SelectedProject]}
         SelectedProject={SelectedProject}
         setSelectedProject={setSelectedProject}
         setShowOverview={setShowOverview}
+        ShowProjectPage={ShowProjectPage}
+        setShowProjectPage={setShowProjectPage}
       />
       {/* </div> */}
     </div>
