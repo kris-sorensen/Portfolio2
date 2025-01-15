@@ -13,7 +13,7 @@ const ShowExperienceBtn = () => {
 
   return (
     <div
-      className="select-none pointer-events-auto z-30 absolute bottom-4 left-4 flex items-center cursor-pointer text-white text-lg font-semibold group hover:text-blue-400 transition-all duration-300"
+      className="select-none pointer-events-auto z-30 absolute bottom-4 left-4 flex items-center cursor-pointer text-white text-lg font-semibold group hover:text-blue-400 transition-all duration-300 font-sans"
       onClick={toggleWorkExperience}
     >
       <span>Show My Projects</span>

@@ -2,9 +2,15 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const ProjectPage = ({ project, SelectedProject, setSelectedProject }) => {
+const ProjectPage = ({
+  project,
+  SelectedProject,
+  setSelectedProject,
+  setShowOverview,
+}) => {
   const closePage = () => {
     setSelectedProject(-1);
+    setShowOverview(true);
   };
 
   if (SelectedProject === -1) return null;
