@@ -3,17 +3,15 @@ import React from "react";
 import useStore from "@/app/store/useStore";
 
 const ShowExperienceBtn = () => {
-  const setShowWorkExperience = useStore(
-    (state) => state.setShowWorkExperience
-  );
   const ShowWorkExperience = useStore((state) => state.ShowWorkExperience);
+  const toggleWorkExperience = useStore((state) => state.toggleWorkExperience);
 
-  const toggleWorkExperience = () => setShowWorkExperience(!ShowWorkExperience);
+  const handleToggleWorkExperience = () => toggleWorkExperience();
 
   return (
     <div
       className="select-none pointer-events-auto z-30 absolute bottom-4 left-4 flex items-center cursor-pointer text-white text-lg font-semibold group hover:text-blue-400 transition-all duration-300 font-sans"
-      onClick={toggleWorkExperience}
+      onClick={handleToggleWorkExperience}
     >
       <span>Show My Projects</span>
       <svg

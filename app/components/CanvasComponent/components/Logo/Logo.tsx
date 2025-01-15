@@ -32,10 +32,11 @@ const Logo: React.FC = () => {
       <mesh position={[0, -460, 0]}>
         <Text
           ref={text}
-          letterSpacing={0.025}
-          fontSize={0.03 * fontScale}
+          letterSpacing={0.0025}
+          fontSize={0.027 * fontScale}
           anchorX={"center"}
-          font="./fonts/dessau-heavy-regular.woff"
+          fontWeight={600}
+          // font="./fonts/altehaasgroteskregular.woff"
         >
           <TitleShaderMaterial
             color="#ffffff"

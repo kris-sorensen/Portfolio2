@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import useStore from "@/app/store/useStore";
 
 const Overview = ({
   projects,
@@ -9,6 +10,8 @@ const Overview = ({
   setShowOverview,
   setShowProjectPage,
 }) => {
+  const toggleWorkExperience = useStore((state) => state.toggleWorkExperience);
+
   const containerRef = useRef(null); // Reference to the container element
 
   useEffect(() => {
@@ -29,7 +32,6 @@ const Overview = ({
           x: "0%", // End on-screen
           opacity: 1,
           duration: 1, // Animation duration
-          // delay: 0.5,
           ease: "power3.out",
         }
       );
@@ -41,11 +43,12 @@ const Overview = ({
     setShowOverview(false);
     setShowProjectPage(true);
   };
+  const handleToggleWorkExperience = () => toggleWorkExperience();
 
   return (
     <div
       ref={containerRef}
-      className="z-20 absolute right-0 w-1/3 h-screen flex flex-col justify-center items-end pr-8 bg-blue-900 bg-opacity-95 pointer-events-none rounded-l-sm opacity-0"
+      className="z-40 absolute right-0 w-[35rem] h-screen flex flex-col justify-center items-end pr-8 bg-blue-900 bg-opacity-95 pointer-events-none rounded-l-sm opacity-0 p-10"
     >
       {projects.map((project) => (
         <div key={project.id} className="w-full hover:bg-gray-500 rounded-sm">
@@ -63,6 +66,27 @@ const Overview = ({
           </div>
         </div>
       ))}
+
+      {/* Return Arrow */}
+      <button
+        onClick={handleToggleWorkExperience}
+        className="absolute bottom-4 left-5 z-30 flex items-center justify-center w-10 h-10 bg-orange-600 hover:bg-orange-400 rounded-full transition-all duration-300 group pointer-events-auto"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="white"
+          className="w-6 h-6 transform transition-transform duration-300 group-hover:-translate-x-2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
     </div>
   );
 };

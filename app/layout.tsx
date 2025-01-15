@@ -26,7 +26,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <main className={`${inter.variable} font-sans`}>{children}</main> */}
         <main className={frantz.className}>{children}</main>
       </body>
     </html>

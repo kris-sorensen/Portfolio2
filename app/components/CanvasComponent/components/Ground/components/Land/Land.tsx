@@ -95,7 +95,7 @@ const Land = () => {
 
   return (
     <mesh position={[0, 0, 0]} name={"floor"}>
-      <Sphere args={[sphereRadius, 100, 100]}>
+      <Sphere args={[sphereRadius, 128, 128]}>
         <meshStandardMaterial
           ref={materialRef}
           onBeforeCompile={OBC}

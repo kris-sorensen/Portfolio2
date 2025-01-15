@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,7 +11,8 @@ const ProjectPage = ({
   ShowProjectPage,
   setShowProjectPage,
 }) => {
-  const containerRef = useRef(null); // Reference to the container
+  const containerRef = useRef(null);
+
   const closePage = () => {
     setShowOverview(true);
     setShowProjectPage(false);
@@ -19,14 +20,12 @@ const ProjectPage = ({
 
   useEffect(() => {
     if (ShowProjectPage) {
-      // Fade in with a delay of 2 seconds
       gsap.fromTo(
         containerRef.current,
         { opacity: 0 },
         { opacity: 1, delay: 1, duration: 2, ease: "power3.out" }
       );
     } else {
-      // Fade out over 0.75 seconds
       gsap.to(containerRef.current, {
         opacity: 0,
         duration: 0.75,
@@ -38,12 +37,12 @@ const ProjectPage = ({
     }
   }, [ShowProjectPage]);
 
-  if (!project) return null; // Guard against rendering when no project is passed
+  if (!project) return null;
 
   return (
     <div
       ref={containerRef}
-      className="z-20 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-85"
+      className="z-30 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-85"
       style={{ backgroundImage: `url('/path-to-your-background-image.jpg')` }}
     >
       {/* Close Button */}
@@ -90,23 +89,51 @@ const ProjectPage = ({
         </div>
 
         {/* Bottom-Right Links */}
-        <div className="absolute bottom-4 right-4 flex space-x-4">
+        <div className="font-sans absolute bottom-4 right-4 flex space-x-4">
           {project.caseStudy && (
             <Link
               href={project.caseStudy}
               target="_blank"
-              className="text-gray-300 hover:underline text-lg pointer-events-auto"
+              className="text-gray-300 hover:underline text-lg pointer-events-auto flex items-center group"
             >
               Case Study
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-4 h-4 ml-1 transform -rotate-45 transition-transform duration-300 group-hover:scale-x-150"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H7"
+                />
+              </svg>
             </Link>
           )}
           {project.website && (
             <Link
               href={project.website}
               target="_blank"
-              className="text-gray-300 hover:underline text-lg pointer-events-auto"
+              className="text-gray-300 hover:underline text-lg pointer-events-auto flex items-center group"
             >
               Website
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-4 h-4 ml-1 transform -rotate-45 transition-transform duration-300 group-hover:scale-x-150"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H7"
+                />
+              </svg>
             </Link>
           )}
         </div>
