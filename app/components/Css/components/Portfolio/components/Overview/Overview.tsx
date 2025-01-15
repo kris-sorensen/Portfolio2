@@ -4,7 +4,6 @@ import useStore from "@/app/store/useStore";
 
 const Overview = ({
   projects,
-  SelectedProject,
   setSelectedProject,
   ShowOverview,
   setShowOverview,
@@ -48,10 +47,13 @@ const Overview = ({
   return (
     <div
       ref={containerRef}
-      className="z-40 absolute right-0 w-[35rem] h-screen flex flex-col justify-center items-end pr-8 bg-blue-900 bg-opacity-95 pointer-events-none rounded-l-sm opacity-0 p-10"
+      className="z-40 absolute right-0 w-[35rem] h-screen flex flex-col justify-center items-end pr-8 bg-blue-900 bg-opacity-95 pointer-events-none rounded-l-sm opacity-0"
     >
       {projects.map((project) => (
-        <div key={project.id} className="w-full hover:bg-gray-500 rounded-sm">
+        <div
+          key={project.id}
+          className="w-full hover:bg-indigo-800 rounded-sm pl-10"
+        >
           <div
             onClick={() => openProject(project.id)}
             className="cursor-pointer mb-4 p-2 rounded-lg transition pointer-events-auto"
