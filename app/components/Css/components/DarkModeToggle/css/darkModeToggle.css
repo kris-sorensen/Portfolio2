@@ -2,15 +2,15 @@
   position: absolute;
   pointer-events: none;
   /** sunny side **/
-  --blue-background: #c2e9f6;
-  --blue-border: #72cce3;
-  --blue-color: #96dcee;
+  --day-background: #c2e9f6;
+  --day-border: #fff;
+  --day-color: #96dcee;
   --yellow-background: #fffaa8;
   --yellow-border: #f5eb71;
   /** dark side **/
-  --indigo-background: #808fc7;
-  --indigo-border: #5d6baa;
-  --indigo-color: #6b7abb;
+  --night-background: #808fc7;
+  --night-border: #fff;
+  --night-color: #6b7abb;
   --gray-border: #e8e8ea;
   --gray-dots: #e8e8ea;
   /** general **/
@@ -25,11 +25,12 @@
   /** Change the label color **/
 }
 .toggle--checkbox:checked ~ .background {
-  background: var(--indigo-background);
+  background: var(--night-background);
 }
 .toggle--checkbox:checked + .toggle--label {
-  background: var(--indigo-color);
-  border-color: var(--indigo-border);
+  /* background: var(--night-color); */
+  background: none;
+  border-color: var(--night-border);
   /** Change the cloud to stars **/
   /** Change the sun into the moon **/
   /** Show the dimples on the moon **/
@@ -61,7 +62,7 @@
   opacity: 1;
 }
 .toggle--label {
-  transform: scale(0.4);
+  transform: scale(0.5);
   transform-origin: top right;
   z-index: 18;
   pointer-events: auto;
@@ -70,9 +71,10 @@
   right: 20px;
   width: 200px;
   height: 100px;
-  background: var(--blue-color);
+  /* background: var(--day-color); */
+  background: none;
   border-radius: 100px;
-  border: 5px solid var(--blue-border);
+  border: 5px solid var(--day-border);
   display: flex;
   transition: all 350ms ease-in;
 }
