@@ -8,10 +8,11 @@ in vec2 vUv;
 
 void main() {
   vec2 uv = vUv;
+  float alpha = 1. ;
+  alpha -= uProgress;
 
-
-  vec3 finalColor = vec3(mix(uColor,uColor2, pow(uv.x, 8.)));
-  gl_FragColor = vec4(finalColor, 1.);
+  vec3 finalColor = vec3(mix(uColor,uColor2, pow(uv.x, 6.)));
+  gl_FragColor = vec4(finalColor, alpha);
 
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
