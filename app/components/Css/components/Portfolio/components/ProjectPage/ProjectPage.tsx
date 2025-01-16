@@ -42,7 +42,7 @@ const ProjectPage = ({
   return (
     <div
       ref={containerRef}
-      className="z-30 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-85"
+      className="z-50 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-85"
       style={{ backgroundImage: `url('/path-to-your-background-image.jpg')` }}
     >
       {/* Close Button */}
@@ -65,14 +65,12 @@ const ProjectPage = ({
       <div className="p-8 flex items-center justify-between h-full">
         {/* Left Section */}
         <div className="max-w-[50%] text-white pr-8">
-          <h1 className="font-frantz text-4xl font-bold mb-4">
-            {project.title}
-          </h1>
-          <p className="text-lg mb-4">{project.description}</p>
-          <div className="border-b border-gray-400 my-4"></div>
-          <p className="uppercase text-sm tracking-wider mb-2">
+          <h1 className="font-sans text-4xl font-bold mb-4">{project.title}</h1>
+          <p className="font-sans uppercase text-sm tracking-wider mb-2">
             {project.role} {project.awards && ` | ${project.awards}`}
           </p>
+          <div className="border-b border-gray-400 my-4"></div>
+          <p className="font-sans text-lg mb-4">{project.description}</p>
         </div>
 
         {/* Right Section */}
