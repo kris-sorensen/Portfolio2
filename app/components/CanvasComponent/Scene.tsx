@@ -12,9 +12,9 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
 
   return (
     <>
-      <Title />
-      <Background />
-      <SunMoon />
+      {/* <Title /> */}
+      {/* <Background /> */}
+      {/* <SunMoon /> */}
       <Ground />
       {/* <Fog /> */}
       {/* <NextPageBtn /> */}
