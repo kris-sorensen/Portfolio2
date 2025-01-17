@@ -1,6 +1,6 @@
 "use client";
 import React, { Suspense } from "react";
-import { Loader, OrbitControls } from "@react-three/drei";
+import { Loader } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Scene from "./Scene";
 import DevToolsR3F from "./components/DevTools/DevToolsR3F";
@@ -10,7 +10,6 @@ import { Leva } from "leva";
 const CanvasComponent: React.FC = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none pointer-events-auto">
-      {/*<div className="absolute top-[0px] left-0 w-full h-full outline-none pointer-events-none">*/}
       <Leva hidden />
       <Canvas
         dpr={[1, 2]}

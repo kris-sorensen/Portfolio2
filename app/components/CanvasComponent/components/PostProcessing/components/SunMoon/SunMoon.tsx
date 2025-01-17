@@ -13,6 +13,7 @@ import useStore from "@/app/store/useStore";
 import { page2GodRaysProps, totalDuration } from "./constants/sunMoon.constant";
 import { useControls } from "leva";
 //todo: play with multi-samping for performance
+//todo: could remove ue and put in seperate component and subscribe to page changes to reduce renders
 export interface SunMoonProps {}
 
 const SunMoon: React.FC<SunMoonProps> = React.memo(() => {

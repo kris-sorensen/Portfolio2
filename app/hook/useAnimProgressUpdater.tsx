@@ -1,20 +1,27 @@
-import { useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { delayMap, speedMap, updateAnimProgress } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
 const useAnimProgress = () => {
   console.log(`useAnimProgress hook`);
+  // Fetch initial state
+  const pageRef = useRef(useStore.getState().Page);
+  // Connect to the store on mount, disconnect on unmount, catch state-changes in a reference
+  useEffect(
+    () => useStore.subscribe((state) => (pageRef.current = state.Page)),
+    []
+  );
   const targetProgress = useRef(0);
   const transitionSpeed = useRef(0.1);
-  const Page = useStore((state) => state.Page);
+  // const Page = useStore((state) => state.Page);
 
-  const prevPageRef = useRef(Page);
+  const prevPageRef = useRef(pageRef.current);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const updateTargetProgress = () => {
-    if (prevPageRef.current !== Page) {
-      prevPageRef.current = Page;
+  const updateTargetProgress = useCallback(() => {
+    if (prevPageRef.current !== pageRef.current) {
+      prevPageRef.current = pageRef.current;
 
       // Clear any existing timer
       if (timerRef.current) {
@@ -22,11 +29,11 @@ const useAnimProgress = () => {
         timerRef.current = null;
       }
 
-      const delay = delayMap[Page] || 0;
+      const delay = delayMap[pageRef.current] || 0;
 
       // Set a new timer for the delay
       timerRef.current = setTimeout(() => {
-        switch (Page) {
+        switch (pageRef.current) {
           case 1:
             targetProgress.current = 0;
             transitionSpeed.current = speedMap[1];
@@ -46,7 +53,7 @@ const useAnimProgress = () => {
         timerRef.current = null;
       }, delay);
     }
-  };
+  }, []);
 
   useFrame((state, delta) => {
     updateTargetProgress(); // Update target progress based on Page with delay

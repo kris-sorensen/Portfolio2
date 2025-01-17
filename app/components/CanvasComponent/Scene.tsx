@@ -4,24 +4,24 @@ import Title from "./components/Title/Title";
 import useAnimProgressUpdater from "@/app/hook/useAnimProgressUpdater";
 import Background from "./components/Background/Background";
 import SunMoon from "./components/PostProcessing/components/SunMoon/SunMoon";
-import Ground from "./components/Ground/Ground";
+import Earth from "./components/Earth/Earth";
 import Lights from "./components/Lights/Lights";
 // import Fog from "./components/Fog/Fog";
 
-const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
+const Scene: React.FC<JSX.IntrinsicElements["group"]> = React.memo((props) => {
   useAnimProgressUpdater();
-
+  console.log(`scene component`);
   return (
     <>
       <Title />
       <Background />
       <SunMoon />
-      <Ground />
+      <Earth />
       <Lights />
       {/* <Fog /> */}
       {/* <NextPageBtn /> */}
     </>
   );
-};
+});
 
 export default Scene;
