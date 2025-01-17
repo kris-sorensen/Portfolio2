@@ -3,8 +3,9 @@ import React from "react";
 import { useThree } from "@react-three/fiber";
 import BackgroundMaterial from "./shader/BackgroundMaterial/BackgroundMaterial";
 
-const Background = () => {
+const Background = React.memo(() => {
   const { viewport } = useThree();
+  console.log(`background component`);
 
   // Calculate the width and height of the plane based on the viewport size
   const planeWidth = viewport.width;
@@ -17,6 +18,6 @@ const Background = () => {
       </Plane>
     </mesh>
   );
-};
+});
 
 export default Background;
