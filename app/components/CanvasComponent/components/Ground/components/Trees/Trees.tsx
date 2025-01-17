@@ -106,4 +106,6 @@ const Trees = React.memo(() => {
   );
 });
 
+useGLTF.preload("./models/tree-transformed.glb");
+
 export default Trees;
