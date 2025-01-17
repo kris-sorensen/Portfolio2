@@ -101,7 +101,7 @@ const Land = () => {
           onBeforeCompile={OBC}
           metalness={0.8}
           roughness={0.6}
-          receiveShadows={true}
+          // receiveShadows={true}
         />
       </Sphere>
     </mesh>

@@ -265,8 +265,8 @@ const Ellipsoid: React.FC<EllipsoidProps> = ({
         // scale={[a, b, c]}
         scale={[0.5, 0.5, 0.5]}
         customDepthMaterial={depthMaterial}
-        castShadow
-        receiveShadow
+        // castShadow
+        // receiveShadow
       >
         <sphereGeometry args={[1, 32, 32]} />
         <meshPhysicalMaterial onBeforeCompile={OBC} {...props} />

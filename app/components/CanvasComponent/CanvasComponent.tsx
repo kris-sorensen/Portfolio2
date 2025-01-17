@@ -1,7 +1,7 @@
 "use client";
 import React, { Suspense } from "react";
 import { Loader, OrbitControls } from "@react-three/drei";
-import { Canvas, events } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import Scene from "./Scene";
 import DevToolsR3F from "./components/DevTools/DevToolsR3F";
 import Config from "./components/Config/Config";
@@ -21,7 +21,7 @@ const CanvasComponent: React.FC = () => {
           far: 1500,
         }}
         orthographic
-        shadows={true}
+        // shadows={true}
       >
         <Config />
         {/* <OrbitControls makeDefault enableZoom={true} /> */}
@@ -29,7 +29,7 @@ const CanvasComponent: React.FC = () => {
           {/* <Suspense fallback={<LoadingScreen />}> */}
           <Scene />
         </Suspense>
-        {/* <DevToolsR3F /> */}
+        <DevToolsR3F />
       </Canvas>
       <Loader />
     </div>

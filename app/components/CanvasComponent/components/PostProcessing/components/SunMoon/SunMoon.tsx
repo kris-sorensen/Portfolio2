@@ -302,7 +302,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           // position={[viewport.width / 2, viewport.height / 2, 0]}
           position={position}
           intensity={intensity}
-          castShadow={true}
+          // castShadow={true}
           color={Page2PropsActive ? "#fcffc4" : "#349ef5"}
         />
 
