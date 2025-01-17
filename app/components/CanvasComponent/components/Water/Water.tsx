@@ -13,7 +13,7 @@ import {
   waterVertexShader,
 } from "./shader/waterShader";
 import CustomShaderMaterialImpl from "three-custom-shader-material/vanilla";
-
+//todo: memory leak. need to dispose of water
 const HEIGHT = 400;
 // const WIDTH = 2400;
 const BOUNDS = 3000;

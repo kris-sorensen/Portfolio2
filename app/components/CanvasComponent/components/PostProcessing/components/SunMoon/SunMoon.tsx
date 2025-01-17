@@ -12,10 +12,11 @@ import {
 import useStore from "@/app/store/useStore";
 import { page2GodRaysProps, totalDuration } from "./constants/sunMoon.constant";
 import { useControls } from "leva";
-
+//todo: play with multi-samping for performance
 export interface SunMoonProps {}
 
-const SunMoon: React.FC<SunMoonProps> = () => {
+const SunMoon: React.FC<SunMoonProps> = React.memo(() => {
+  console.log(`SunMoon component`);
   const Page = useStore((state) => state.Page);
   const Page2PropsActive = useStore((state) => state.Page2PropsActive);
   const setPage2PropsActive = useStore((state) => state.setPage2PropsActive);
@@ -275,6 +276,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     },
     color: "#ffffff",
   });
+
   return (
     <>
       <group ref={group} name="sunMoonGroup">
@@ -309,7 +311,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         <ambientLight ref={ambientLightRef} intensity={0.1} />
 
         {sunRef.current && !isInitialRender && (
-          <EffectComposer multisampling={4}>
+          <EffectComposer multisampling={2}>
             <GodRays
               ref={godRaysRef}
               sun={sunRef.current}
@@ -330,6 +332,6 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       </group>
     </>
   );
-};
+});
 
 export default SunMoon;
