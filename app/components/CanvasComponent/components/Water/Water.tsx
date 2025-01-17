@@ -1,3 +1,4 @@
+import React from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import {
   ShaderLib,
@@ -12,7 +13,6 @@ import {
   waterVertexShader,
 } from "./shader/waterShader";
 import CustomShaderMaterialImpl from "three-custom-shader-material/vanilla";
-import { Environment } from "@react-three/drei";
 
 const HEIGHT = 400;
 // const WIDTH = 2400;
@@ -25,8 +25,9 @@ let waterUniforms;
 let heightmapVariable;
 let gpuCompute;
 
-const Water = () => {
+const Water = React.memo(() => {
   const { viewport, gl, pointer } = useThree();
+  console.log(`water component`);
 
   const waterMaterial = new CustomShaderMaterialImpl({
     baseMaterial: MeshPhysicalMaterial,
@@ -81,10 +82,10 @@ const Water = () => {
     waterUniforms["heightmap"].value =
       gpuCompute.getCurrentRenderTarget(heightmapVariable).texture;
   });
+  console.log(gl.info.render.calls);
 
   return (
     <>
-      <Environment preset="sunset" />
       <mesh
         material={waterMaterial}
         position={[0, -320, 0]}
@@ -93,10 +94,10 @@ const Water = () => {
         // castShadow
         // receiveShadow
       >
-        <planeGeometry args={[viewport.width, BOUNDS, WIDTH, WIDTH]} />
+        <planeGeometry args={[BOUNDS, BOUNDS, WIDTH, WIDTH]} />
       </mesh>
     </>
   );
-};
+});
 
 export default Water;

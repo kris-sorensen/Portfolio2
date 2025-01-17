@@ -8,10 +8,10 @@ const Ground = () => {
   return (
     <group position={[0, -70, 0]}>
       <group position={[0, -1070, 0]} name={"ground"}>
-        {/* <Land /> */}
+        <Land />
         <Trees />
       </group>
-      {/* <Water /> */}
+      <Water />
     </group>
   );
 };

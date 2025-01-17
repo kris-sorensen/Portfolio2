@@ -5,7 +5,7 @@ import { treesData } from "./data/trees.data";
 
 const Trees = React.memo(() => {
   const { nodes } = useGLTF("./models/tree-transformed.glb");
-
+  console.log(`trees`);
   // Create a merged geometry (trunk + leaves) with vertex colors
   const mergedGeometry = useMemo(() => {
     if (!nodes?.Cylinder || !nodes?.Cone002) return null;
