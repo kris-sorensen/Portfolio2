@@ -97,8 +97,8 @@ const Trees = React.memo(() => {
       <instancedMesh
         ref={instancedRef}
         args={[mergedGeometry, null, treesData.length]}
-        castShadow
-        receiveShadow
+        // castShadow
+        // receiveShadow
       >
         <meshStandardMaterial vertexColors />
       </instancedMesh>
