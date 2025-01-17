@@ -11,16 +11,20 @@ import meteorstormChunk from "../includes/meteorstorm.glsl";
 import { getAnimProgress } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
-THREE.ShaderChunk.starMaker = starMakerChunk;
-THREE.ShaderChunk.random = randomChunk;
-THREE.ShaderChunk.random2 = random2Chunk;
-THREE.ShaderChunk.meteor = meteorChunk;
-THREE.ShaderChunk.meteorstorm = meteorstormChunk;
+(THREE.ShaderChunk as any).starMaker = starMakerChunk;
+(THREE.ShaderChunk as any).random = randomChunk;
+(THREE.ShaderChunk as any).random2 = random2Chunk;
+(THREE.ShaderChunk as any).meteor = meteorChunk;
+(THREE.ShaderChunk as any).meteorstorm = meteorstormChunk;
+
+const fadeOutDuration = 0.5; // Seconds to fade out
+const fadeInDuration = 2; // Seconds to fade in
 
 const BackgroundMaterial: React.FC = () => {
   const applyPage2Props = useStore((state) => state.Page2PropsActive);
   const mat = useRef<THREE.ShaderMaterial | null>(null);
-  const { size, pointer, scene } = useThree(); // Get pointer (mouse) data
+  const { scene } = useThree();
+  console.log(`background material`);
 
   useFrame((state, delta) => {
     if (!mat.current) return;
@@ -38,9 +42,6 @@ const BackgroundMaterial: React.FC = () => {
 
     // Update the shader material's uProgress uniform
     mat.current.uniforms.uProgress.value = getAnimProgress();
-    // Define fade duration based on whether we're fading in or out
-    const fadeOutDuration = 0.5; // Seconds to fade out
-    const fadeInDuration = 2; // Seconds to fade in
 
     // Target visibility for stars (fade out when applyPage2Props is true, fade in otherwise)
     const targetStarViz = getAnimProgress() > 0.5 ? 1 : 0;
@@ -66,7 +67,7 @@ const BackgroundMaterial: React.FC = () => {
       },
       uProgress: { value: 0 },
       uStarViz: { value: 0 },
-      sunMoonPosY: { value: 0.5 }, // Add pos of sunMoon
+      sunMoonPosY: { value: 0.5 },
     }),
     []
   );

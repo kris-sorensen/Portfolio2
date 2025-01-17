@@ -3,7 +3,7 @@ import { Perf } from "r3f-perf";
 
 const PerformanceMonitor = () => {
   // return null;
-  return <Perf position={"top-left"} />;
+  return <Perf position={"top-right"} />;
 };
 
 export default PerformanceMonitor;

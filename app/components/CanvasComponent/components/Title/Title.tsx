@@ -4,10 +4,10 @@ import TitleShaderMaterial from "./shader/TitleMaterial/TitleMaterial";
 import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
 
-const Title: React.FC = () => {
+const Title: React.FC = React.memo(() => {
   const { viewport } = useThree();
   const text = useRef<THREE.Mesh | null>(null);
-
+  console.log(`title component`);
   // Font scale variable
   const fontScale = 500; // Adjust this scale as needed
 
@@ -62,25 +62,8 @@ const Title: React.FC = () => {
           SOLAR GLOW
         </Text>
       </mesh> */}
-      <mesh position={[0, -460, 0]}>
-        <Text
-          ref={text}
-          letterSpacing={0.0025}
-          fontSize={0.027 * fontScale}
-          anchorX={"center"}
-          fontWeight={600}
-          // font="./fonts/altehaasgroteskregular.woff"
-        >
-          <TitleShaderMaterial
-            color="#ffffff"
-            color2="#ffffff"
-            activePage={0}
-          />
-          KRISTOPHER SORENSEN - CREATIVE DEVELOPER
-        </Text>
-      </mesh>
     </group>
   );
-};
+});
 
 export default Title;
