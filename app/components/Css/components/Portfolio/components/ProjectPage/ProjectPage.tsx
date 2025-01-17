@@ -11,7 +11,7 @@ const ProjectPage = ({
   ShowProjectPage,
   setShowProjectPage,
 }) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const closePage = () => {
     setShowOverview(true);
@@ -19,6 +19,8 @@ const ProjectPage = ({
   };
 
   useEffect(() => {
+    if (!containerRef.current) return;
+
     if (ShowProjectPage) {
       gsap.fromTo(
         containerRef.current,
@@ -43,7 +45,6 @@ const ProjectPage = ({
     <div
       ref={containerRef}
       className="z-50 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-85"
-      style={{ backgroundImage: `url('/path-to-your-background-image.jpg')` }}
     >
       {/* Close Button */}
       <button
@@ -79,9 +80,10 @@ const ProjectPage = ({
             <Image
               src={project.image}
               alt={project.title}
-              layout="fill"
-              objectFit="contain"
-              loading="eager"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              style={{ objectFit: "contain" }}
+              priority
             />
           )}
         </div>
@@ -101,7 +103,7 @@ const ProjectPage = ({
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="w-4 h-4 ml-1 transform -rotate-45 transition-transform duration-300 group-hover:scale-x-150"
+                className="w-4 h-4 ml-1 transition-all duration-300 group-hover:scale-x-150"
               >
                 <path
                   strokeLinecap="round"
@@ -124,7 +126,7 @@ const ProjectPage = ({
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="w-4 h-4 ml-1 transform -rotate-45 transition-transform duration-300 group-hover:scale-x-150"
+                className="w-4 h-4 ml-1 transition-all duration-300 group-hover:scale-x-150"
               >
                 <path
                   strokeLinecap="round"
