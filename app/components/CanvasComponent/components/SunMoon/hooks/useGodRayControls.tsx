@@ -1,6 +1,6 @@
 import { useControls } from "leva";
 
-export const useGodRaysControls = (page: number) => {
+export const useGodRaysControls = () => {
   const {
     // sunPosition,
     sunColor,

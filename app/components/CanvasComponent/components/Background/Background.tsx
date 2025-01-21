@@ -1,6 +1,6 @@
-import { Plane } from "@react-three/drei";
 import React from "react";
 import { useThree } from "@react-three/fiber";
+import { Plane } from "@react-three/drei";
 import BackgroundMaterial from "./shader/BackgroundMaterial/BackgroundMaterial";
 
 const Background = React.memo(() => {

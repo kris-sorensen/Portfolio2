@@ -2,7 +2,7 @@ import React from "react";
 import * as THREE from "three";
 import Trees from "./components/Trees/Trees";
 import Land from "./components/Land/Land";
-import Water from "../Water/Water";
+import Water from "./components/Water/Water";
 
 const Earth = React.memo(() => {
   console.log(`earth component`);
