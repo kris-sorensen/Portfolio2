@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import CanvasComponent from "./components/CanvasComponent/CanvasComponent";
 import Css from "./components/Css/Css";
+//todo: preview images in meta data, and other images
 
 export default function Home() {
   return (
