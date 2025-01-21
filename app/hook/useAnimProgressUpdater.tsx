@@ -5,16 +5,19 @@ import useStore from "@/app/store/useStore";
 
 const useAnimProgress = () => {
   console.log(`useAnimProgress hook`);
+
   // Fetch initial state
-  const pageRef = useRef(useStore.getState().Page);
+  const pageRef = useRef<number>(useStore.getState().Page);
+
   // Connect to the store on mount, disconnect on unmount, catch state-changes in a reference
-  useEffect(
-    () => useStore.subscribe((state) => (pageRef.current = state.Page)),
-    []
-  );
+  useEffect(() => {
+    return useStore.subscribe((state) => {
+      pageRef.current = state.Page;
+    });
+  }, []);
+
   const targetProgress = useRef(0);
   const transitionSpeed = useRef(0.1);
-  // const Page = useStore((state) => state.Page);
 
   const prevPageRef = useRef(pageRef.current);
   const timerRef = useRef<NodeJS.Timeout | null>(null);

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import useStore from "@/app/store/useStore";
+import { OverviewProps, Project } from "../../types/portfolio.types";
 
-const Overview = ({
+const Overview: React.FC<OverviewProps> = ({
   projects,
   setSelectedProject,
   ShowOverview,
@@ -10,46 +11,39 @@ const Overview = ({
   setShowProjectPage,
 }) => {
   const toggleWorkExperience = useStore((state) => state.toggleWorkExperience);
-
-  const containerRef = useRef(null); // Reference to the container element
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!containerRef.current) return;
+
     if (!ShowOverview) {
-      // Animate the Overview off-screen when a project is selected
       gsap.to(containerRef.current, {
-        x: "100%", // Move off-screen to the right
+        x: "100%",
         opacity: 0,
-        duration: 1, // Animation duration
+        duration: 1,
         ease: "power3.inOut",
       });
     } else {
-      // Animate the Overview onto the screen when no project is selected
       gsap.fromTo(
         containerRef.current,
-        { x: "100%", opacity: 0 }, // Start off-screen
-        {
-          x: "0%", // End on-screen
-          opacity: 1,
-          duration: 1, // Animation duration
-          ease: "power3.out",
-        }
+        { x: "100%", opacity: 0 },
+        { x: "0%", opacity: 1, duration: 1, ease: "power3.out" }
       );
     }
-  }, [ShowOverview]); // Run animation on SelectedProject change
+  }, [ShowOverview]);
 
-  const openProject = (projectID) => {
+  const openProject = (projectID: number) => {
     setSelectedProject(projectID);
     setShowOverview(false);
     setShowProjectPage(true);
   };
-  const handleToggleWorkExperience = () => toggleWorkExperience();
 
   return (
     <div
       ref={containerRef}
       className="z-40 absolute right-0 w-[35rem] h-screen flex flex-col justify-center items-end pr-8 bg-blue-900 bg-opacity-95 pointer-events-none rounded-l-sm opacity-0"
     >
-      {projects.map((project) => (
+      {projects.map((project: Project) => (
         <div
           key={project.id}
           className="w-full hover:bg-indigo-800 rounded-sm pl-10"
@@ -62,16 +56,14 @@ const Overview = ({
               {project.title}
             </h2>
             <p className="font-sans text-right text-sm text-orange-400">
-              {project.role}
-              {project.awards && ` | ${project.awards}`}
+              {project.role} {project.awards && ` | ${project.awards}`}
             </p>
           </div>
         </div>
       ))}
-
       {/* Return Arrow */}
       <button
-        onClick={handleToggleWorkExperience}
+        onClick={toggleWorkExperience}
         className="absolute bottom-4 left-5 z-30 flex items-center justify-center w-10 h-10 bg-orange-600 hover:bg-orange-400 rounded-full transition-all duration-300 group pointer-events-auto"
       >
         <svg

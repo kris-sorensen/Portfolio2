@@ -7,7 +7,6 @@ const frantz = localFont({
   variable: "--font-frantz",
 });
 
-// ✅ Centralized Metadata (Applies to All Pages)
 export const metadata: Metadata = {
   title: "Kristopher Sorensen - Creative Developer",
   description:

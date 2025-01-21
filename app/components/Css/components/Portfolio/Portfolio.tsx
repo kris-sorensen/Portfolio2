@@ -4,14 +4,17 @@ import Overview from "./components/Overview/Overview";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
 import useStore from "@/app/store/useStore";
 import { projects } from "./data/portfolio.data";
+import { PortfolioProps } from "./types/portfolio.types";
 
-const Portfolio = () => {
-  const ShowWorkExperience = useStore((state) => state.ShowWorkExperience);
-  const [SelectedProject, setSelectedProject] = useState(-1);
-  const [ShowOverview, setShowOverview] = useState(false);
-  const [ShowProjectPage, setShowProjectPage] = useState(false);
+const Portfolio: React.FC = () => {
+  const ShowWorkExperience = useStore(
+    (state: PortfolioProps) => state.ShowWorkExperience
+  );
+  const [SelectedProject, setSelectedProject] = useState<number>(-1);
+  const [ShowOverview, setShowOverview] = useState<boolean>(false);
+  const [ShowProjectPage, setShowProjectPage] = useState<boolean>(false);
 
-  // Reset SelectedProject to -1 when ShowWorkExperience changes to false
+  // Reset SelectedProject when ShowWorkExperience changes
   useEffect(() => {
     if (!ShowWorkExperience) {
       setSelectedProject(-1);
@@ -21,13 +24,8 @@ const Portfolio = () => {
     }
   }, [ShowWorkExperience]);
 
-  // Hide or show the Portfolio content based on ShowWorkExperience
   return (
-    <div className={`w-screen h-screen z-20 select-none`}>
-      {/* <div
-        className="z-20 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-45"
-        style={{ backgroundImage: `url('/path-to-your-background-image.jpg')` }}
-      > */}
+    <div className="w-screen h-screen z-20 select-none">
       <Overview
         projects={projects}
         setSelectedProject={setSelectedProject}
@@ -36,14 +34,12 @@ const Portfolio = () => {
         setShowProjectPage={setShowProjectPage}
       />
       <ProjectPage
-        project={projects[SelectedProject]}
-        SelectedProject={SelectedProject}
+        project={projects[SelectedProject] ?? null}
         setSelectedProject={setSelectedProject}
         setShowOverview={setShowOverview}
         ShowProjectPage={ShowProjectPage}
         setShowProjectPage={setShowProjectPage}
       />
-      {/* </div> */}
     </div>
   );
 };
