@@ -8,14 +8,21 @@ in vec2 vUv;
 
 void main() {
   vec2 uv = vUv;
-  float alpha = 1. ;
-  alpha -= uProgress;
 
-  vec3 finalColor = vec3(mix(uColor,uColor2, pow(uv.x, 6.)));
+  // Map uProgress from [-1, 0] → [0, 1]
+  float progress = (uProgress + 1.0) * .4; 
+
+  // Interpolate between colors
+  vec3 finalColor = mix(uColor, uColor2, pow(uv.x, 6.));
+
+  // Keep alpha at 2 while progress > 0.1
+  float alpha = 2.0;
+
+  // Rapidly drop alpha when progress is close to 0
+  alpha *= 1.0 - smoothstep(0.01, 0.1, progress); 
+
   gl_FragColor = vec4(finalColor, alpha);
 
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
 }
-
-

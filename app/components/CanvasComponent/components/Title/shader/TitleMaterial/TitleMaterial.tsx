@@ -29,12 +29,18 @@ const TitleShaderMaterial: React.FC<ShaderProps> = ({
     [color]
   );
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     if (!materialRef.current) return;
 
     // Update uProgress uniform using getAnimProgress()
     materialRef.current.uniforms.uProgress.value =
       getAnimProgress() - activePage;
+    console.log(
+      `materialRef.current.uniforms.uProgress.value`,
+      materialRef.current.uniforms.uProgress.value
+    );
+    // update time uniform
+    materialRef.current.uniforms.time.value = clock.getElapsedTime();
   });
 
   return (
