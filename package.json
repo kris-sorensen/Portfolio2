@@ -2,7 +2,7 @@
   "name": "rising-moon",
   "version": "1.0.0",
   "private": true,
-  "description": "Kristopher Sorensen's Portfolio - 3D Web Experiences, Interactive UI, and Creative Development",
+  "description": "KristopherDev's Portfolio - 3D Web Experiences, Interactive UI, and Creative Development",
   "author": "Kristopher Sorensen",
   "scripts": {
     "dev": "next dev",

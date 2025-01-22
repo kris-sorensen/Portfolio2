@@ -8,28 +8,28 @@ const frantz = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Kristopher Sorensen - Creative Developer",
+  title: "KristopherDev - Creative Developer",
   description:
-    "Explore immersive 3D web experiences, interactive UI design, and cutting-edge WebGL projects by Kristopher Sorensen. Specializing in high-performance visuals with React Three Fiber, GLSL, and interactive storytelling.",
+    "Explore immersive 3D web experiences, interactive UI design, and cutting-edge WebGL projects by KristopherDev. Specializing in high-performance visuals with React Three Fiber, GLSL, and interactive storytelling.",
   keywords:
-    "Kristopher Sorensen, 3D web developer, creative developer, WebGL, Three.js, React Three Fiber, GLSL, interactive UI, front-end engineer, immersive web design",
+    "KristopherDev, 3D web developer, creative developer, WebGL, Three.js, React Three Fiber, GLSL, interactive UI, front-end engineer, immersive web design",
   icons: {
     icon: "/favicon.ico",
     apple: "/favicon.png",
     shortcut: "/favicon.ico",
   },
   openGraph: {
-    title: "Kristopher Sorensen - Creative Developer",
+    title: "KristopherDev - Creative Developer",
     description:
       "Award-winning creative developer specializing in 3D web experiences, React Three Fiber, and immersive UI design.",
     url: "https://kristopherdev.com",
-    siteName: "Kristopher Sorensen Portfolio",
+    siteName: "KristopherDev Portfolio",
     images: [
       {
         url: "https://kristopherdev.com/preview-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Kristopher Sorensen Portfolio - 3D Web Experiences",
+        alt: "KristopherDev Portfolio - 3D Web Experiences",
       },
     ],
     type: "website",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@yourTwitterHandle", // Optional
     creator: "@yourTwitterHandle",
-    title: "Kristopher Sorensen - Creative Developer",
+    title: "KristopherDev - Creative Developer",
     description:
       "Building immersive and visually stunning 3D web experiences with React Three Fiber, WebGL, and GLSL.",
     images: ["https://kristopherdev.com/preview-image.jpg"],
