@@ -11,8 +11,8 @@ const ErrorPage = ({ error, reset }: Props) => {
   console.log(`Error`, error);
   return (
     <>
-      <div>An unexpected error has occurred.</div>
-      <button className="btn" onClick={() => reset()}>
+      <div className="font-sans">An unexpected error has occurred.</div>
+      <button className="btn font-sans" onClick={() => reset()}>
         Retry
       </button>
     </>

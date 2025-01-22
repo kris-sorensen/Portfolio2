@@ -103,7 +103,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="w-4 h-4 ml-1 transition-all duration-300 group-hover:scale-x-150"
+                className="w-4 h-4 ml-1 transform -rotate-45 transition-transform duration-300 group-hover:scale-x-150"
               >
                 <path
                   strokeLinecap="round"
@@ -126,7 +126,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="w-4 h-4 ml-1 transition-all duration-300 group-hover:scale-x-150"
+                className="w-4 h-4 ml-1 transform -rotate-45 transition-transform duration-300 group-hover:scale-x-150"
               >
                 <path
                   strokeLinecap="round"

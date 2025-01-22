@@ -9,7 +9,7 @@ const GlobalErrors = ({
   reset: () => void;
 }) => {
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-black text-white text-center p-6">
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-black text-white text-center p-6 font-sans">
       <h1 className="text-4xl font-bold mb-4 font-sans">
         Something went wrong
       </h1>
