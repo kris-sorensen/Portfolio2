@@ -336,4 +336,6 @@ const SunMoon: React.FC<SunMoonProps> = React.memo(() => {
   );
 });
 
+SunMoon.displayName = "SunMoon";
+
 export default SunMoon;

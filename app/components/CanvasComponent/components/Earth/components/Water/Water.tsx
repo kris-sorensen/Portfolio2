@@ -107,4 +107,6 @@ const Water = React.memo(() => {
   );
 });
 
+Water.displayName = "Water";
+
 export default Water;

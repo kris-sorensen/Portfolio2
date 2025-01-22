@@ -26,7 +26,7 @@ const TitleShaderMaterial: React.FC<ShaderProps> = ({
       uActivePage: { value: activePage },
       uColor2: { value: new THREE.Color(color2) },
     }),
-    [color]
+    [color, color2, activePage]
   );
 
   useFrame(({ clock }) => {

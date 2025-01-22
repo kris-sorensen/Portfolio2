@@ -22,13 +22,13 @@ const uniforms: Uniforms = {
 };
 
 // Shader modification function
-const onBeforeCompile = (shader: ShaderMaterial) => {
-  // Add custom uniforms to the shader
+const onBeforeCompile = (
+  shader: ShaderMaterial & { fragmentShader: string; uniforms: any }
+) => {
   shader.uniforms.uProgress = uniforms.uProgress;
   shader.uniforms.dayColor = uniforms.dayColor;
   shader.uniforms.nightColor = uniforms.nightColor;
 
-  // Inject uniforms into the shader code
   shader.fragmentShader = shader.fragmentShader.replace(
     "#include <common>",
     `
@@ -39,7 +39,6 @@ const onBeforeCompile = (shader: ShaderMaterial) => {
     `
   );
 
-  // Modify the color output in the shader
   shader.fragmentShader = shader.fragmentShader.replace(
     "#include <color_fragment>",
     `
@@ -55,7 +54,10 @@ const onBeforeCompile = (shader: ShaderMaterial) => {
 const Land = () => {
   const applyPage2Props = useStore((state) => state.Page2PropsActive);
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
-  const OBC = useCallback(onBeforeCompile, []);
+  const OBC = useCallback(
+    (shader: any) => onBeforeCompile(shader as ShaderMaterial),
+    []
+  );
 
   // Refs for animation
   const isAnimating = useRef(false);
@@ -67,8 +69,7 @@ const Land = () => {
     if (materialRef.current) {
       isAnimating.current = true;
       startTime.current = performance.now() / 1000; // Start time in seconds
-      // Get the current progress
-      startValue.current = uniforms.uProgress.value;
+      startValue.current = uniforms.uProgress.value; // Get the current progress
     }
   }, [applyPage2Props]);
 
@@ -79,8 +80,6 @@ const Land = () => {
       const duration = 12; // Duration of the color transition in seconds
       let t = elapsedTime / duration;
       t = Math.min(t, 1); // Ensure t does not exceed 1
-
-      // Optionally, apply an easing function here
 
       // Calculate the current progress
       const start = startValue.current;
@@ -101,7 +100,6 @@ const Land = () => {
           onBeforeCompile={OBC}
           metalness={0.8}
           roughness={0.6}
-          // receiveShadows={true}
         />
       </Sphere>
     </mesh>

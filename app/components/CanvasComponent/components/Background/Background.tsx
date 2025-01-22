@@ -5,7 +5,6 @@ import BackgroundMaterial from "./shader/BackgroundMaterial/BackgroundMaterial";
 
 const Background = React.memo(() => {
   const { viewport } = useThree();
-  console.log(`background component`);
 
   // Calculate the width and height of the plane based on the viewport size
   const planeWidth = viewport.width;
@@ -19,5 +18,7 @@ const Background = React.memo(() => {
     </mesh>
   );
 });
+
+Background.displayName = "Background";
 
 export default Background;

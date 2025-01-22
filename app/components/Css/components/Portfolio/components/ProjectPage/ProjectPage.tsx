@@ -33,7 +33,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({
         onComplete: () => setSelectedProject(-1),
       });
     }
-  }, [ShowProjectPage]);
+  }, [ShowProjectPage, setSelectedProject]);
 
   if (!project) return null;
 

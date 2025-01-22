@@ -17,4 +17,6 @@ const Earth = React.memo(() => {
   );
 });
 
+Earth.displayName = "Earth";
+
 export default Earth;

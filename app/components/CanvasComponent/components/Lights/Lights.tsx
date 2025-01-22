@@ -24,7 +24,7 @@ const Lights = React.memo(() => {
   //     );
   //   }
   // });
-  console.log(`lights component`);
+
   return (
     <>
       <Environment preset="sunset" />
@@ -32,5 +32,7 @@ const Lights = React.memo(() => {
     </>
   );
 });
+
+Lights.displayName = "Lights";
 
 export default Lights;

@@ -66,4 +66,6 @@ const Title: React.FC = React.memo(() => {
   );
 });
 
+Title.displayName = "Title";
+
 export default Title;

@@ -9,7 +9,7 @@ import Lights from "./components/Lights/Lights";
 
 const Scene: React.FC<JSX.IntrinsicElements["group"]> = React.memo(() => {
   useAnimProgressUpdater();
-  console.log(`scene component`);
+
   return (
     <>
       <Title />
@@ -18,9 +18,10 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = React.memo(() => {
       <Earth />
       <Lights />
       {/* <Fog /> */}
-      {/* <NextPageBtn /> */}
     </>
   );
 });
+
+Scene.displayName = "Scene";
 
 export default Scene;
