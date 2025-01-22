@@ -8,6 +8,7 @@ import {
   MeshPhysicalMaterial,
   IUniform,
 } from "three";
+import * as THREE from "three";
 import { GPUComputationRenderer, Variable } from "three-stdlib";
 import {
   heightmapFragmentShader,
