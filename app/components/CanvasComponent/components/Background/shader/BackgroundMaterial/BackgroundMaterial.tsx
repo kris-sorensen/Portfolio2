@@ -7,7 +7,7 @@ import starMakerChunk from "../includes/starMaker.glsl";
 import randomChunk from "../includes/util/random.glsl";
 import random2Chunk from "../includes/util/random2.glsl";
 import meteorChunk from "../includes/meteor.glsl";
-import meteorstormChunk from "../includes/meteorstorm.glsl";
+import meteorstormChunk from "../includes/meteorStorm.glsl";
 import { getAnimProgress } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
