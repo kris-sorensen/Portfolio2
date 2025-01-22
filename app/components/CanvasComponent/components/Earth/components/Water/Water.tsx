@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import {
   ShaderLib,
@@ -18,13 +18,16 @@ import CustomShaderMaterialImpl from "three-custom-shader-material/vanilla";
 // Constants
 const BOUNDS = 3000;
 const WIDTH = 512;
+const WATER_OFFSET = 140; // Keep water 200px above the bottom of the screen
 
 let waterUniforms: { [key: string]: IUniform };
 let heightmapVariable: Variable;
 let gpuCompute: GPUComputationRenderer | null = null;
 
 const Water = React.memo(() => {
-  const { gl, pointer } = useThree();
+  const { gl, pointer, camera } = useThree();
+  const waterMeshRef = useRef<THREE.Mesh>(null);
+
   console.log(`water component`);
 
   // Ensure we initialize GPUComputationRenderer only once
@@ -71,7 +74,7 @@ const Water = React.memo(() => {
   });
 
   // Material attributes
-  (waterMaterial as any).transmission = 1; // TypeScript doesn't recognize transmission, casting to any
+  (waterMaterial as any).transmission = 1;
   (waterMaterial as any).metalness = 0;
   (waterMaterial as any).roughness = 0;
   (waterMaterial as any).color = new Color("#183774");
@@ -86,20 +89,27 @@ const Water = React.memo(() => {
   waterUniforms = waterMaterial.uniforms;
 
   useFrame(() => {
-    if (!gpuCompute || !heightmapVariable) return;
+    if (!gpuCompute || !heightmapVariable || !waterMeshRef.current) return;
 
+    // Ensure camera is orthographic
+    if ("isOrthographicCamera" in camera) {
+      // Set water Y-position based on the bottom of the orthographic camera + offset
+      waterMeshRef.current.position.y = camera.bottom + WATER_OFFSET;
+    }
+
+    // Update GPUCompute
     const uniforms = heightmapVariable.material.uniforms;
     uniforms["mousePos"].value.set(0, -pointer.y * 200);
     gpuCompute.compute();
-
     waterUniforms["heightmap"].value =
       gpuCompute.getCurrentRenderTarget(heightmapVariable).texture;
   });
 
   return (
     <mesh
+      ref={waterMeshRef}
       material={waterMaterial}
-      position={[0, -320, 0]}
+      position={[0, -320, 0]} // Will be dynamically updated in useFrame()
       rotation={[-Math.PI / 2, 0, 0]}
     >
       <planeGeometry args={[BOUNDS, BOUNDS, WIDTH, WIDTH]} />
