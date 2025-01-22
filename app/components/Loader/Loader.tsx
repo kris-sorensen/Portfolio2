@@ -1,5 +1,5 @@
 import React from "react";
-
+//todo: check if working
 const Loader = () => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black z-50">
