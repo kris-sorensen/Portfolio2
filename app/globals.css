@@ -14,6 +14,59 @@
   }
 }
 
+@media (max-height: 930px) {
+  .overview-title {
+    font-size: 2.6rem;
+  }
+
+  .overview-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-height: 860px) {
+  .overview-title {
+    font-size: 2.4rem;
+  }
+
+  .overview-subtitle {
+    font-size: .9rem;
+  }
+}
+
+@media (max-height: 760px) {
+  .overview-title {
+    font-size: 2.2rem;
+  }
+
+  .overview-subtitle {
+    font-size: .8rem;
+  }
+}
+
+@media (max-height: 690px) {
+  .overview-title {
+    font-size: 1.9rem;
+    /* Smaller than 5rem */
+  }
+
+  .overview-subtitle {
+    font-size: .75rem;
+    /* Smaller than 1.25rem */
+  }
+}
+@media (max-height: 630px) {
+  .overview-title {
+    font-size: 1.8rem;
+    /* Smaller than 5rem */
+  }
+
+  .overview-subtitle {
+    font-size: .7rem;
+    /* Smaller than 1.25rem */
+  }
+}
+
 html{
   overflow: hidden;
 }

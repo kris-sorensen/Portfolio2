@@ -52,10 +52,10 @@ const Overview: React.FC<OverviewProps> = ({
             onClick={() => openProject(project.id)}
             className="cursor-pointer mb-4 p-2 rounded-lg transition pointer-events-auto"
           >
-            <h2 className="font-frantz tracking-wider text-right text-5xl font-bold hover:underline mb-1">
+            <h2 className="font-frantz tracking-wider text-right text-5xl font-bold hover:underline mb-1 overview-title">
               {project.title}
             </h2>
-            <p className="font-sans text-right text-sm text-orange-400">
+            <p className="font-sans text-right text-orange-400 overview-subtitle">
               {project.role} {project.awards && ` | ${project.awards}`}
             </p>
           </div>
