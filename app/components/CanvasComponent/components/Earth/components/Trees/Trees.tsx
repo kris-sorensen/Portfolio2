@@ -12,8 +12,6 @@ const Trees: React.FC = React.memo(() => {
     [gltf.nodes]
   );
 
-  console.log(`trees`);
-
   // ✅ Create a merged geometry (trunk + leaves) with vertex colors
   const mergedGeometry = useMemo(() => {
     const trunkMesh = nodes["Cylinder"] as THREE.Mesh;

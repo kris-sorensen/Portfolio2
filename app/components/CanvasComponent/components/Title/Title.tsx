@@ -5,11 +5,15 @@ import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
 
 const Title: React.FC = React.memo(() => {
-  const { viewport } = useThree();
+  const { viewport, size } = useThree();
   const text = useRef<THREE.Mesh | null>(null);
-  console.log(`title component`);
+
   // Font scale variable
-  const fontScale = 500; // Adjust this scale as needed
+  const baseFontSize = 0.19 * 500; // Default font size
+  const smallScreenFontSize = 0.19 * 400; // Smaller font size for screens below 1180px
+
+  // Adjust font size based on screen width
+  const fontSize = size.width < 1180 ? smallScreenFontSize : baseFontSize;
 
   return (
     <group scale={[1.5, 1.5, 1.5]} position={[0, viewport.height / 2.5, 800]}>
@@ -17,7 +21,7 @@ const Title: React.FC = React.memo(() => {
         <Text
           ref={text}
           letterSpacing={0.001}
-          fontSize={0.19 * fontScale}
+          fontSize={fontSize}
           anchorX={"center"}
           font="./fonts/dessau-heavy-regular.woff"
           outlineWidth={0.015} // Thickness of the glow

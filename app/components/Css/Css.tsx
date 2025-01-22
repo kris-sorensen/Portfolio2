@@ -10,7 +10,6 @@ const Portfolio = dynamic(() => import("./components/Portfolio/Portfolio"), {
 });
 
 const Css: React.FC = () => {
-  console.log(`css component`);
   return (
     <>
       <ShowExperienceBtn />

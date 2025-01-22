@@ -24,7 +24,6 @@ const BackgroundMaterial: React.FC = () => {
   const applyPage2Props = useStore((state) => state.Page2PropsActive);
   const mat = useRef<THREE.ShaderMaterial | null>(null);
   const { scene } = useThree();
-  console.log(`background material`);
 
   useFrame((state, delta) => {
     if (!mat.current) return;

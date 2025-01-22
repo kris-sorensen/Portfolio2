@@ -4,8 +4,6 @@ import { delayMap, speedMap, updateAnimProgress } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
 const useAnimProgress = () => {
-  console.log(`useAnimProgress hook`);
-
   // Fetch initial state
   const pageRef = useRef<number>(useStore.getState().Page);
 

@@ -18,7 +18,6 @@ import { useControls } from "leva";
 export interface SunMoonProps {}
 
 const SunMoon: React.FC<SunMoonProps> = React.memo(() => {
-  console.log(`SunMoon component`);
   const Page = useStore((state) => state.Page);
   const Page2PropsActive = useStore((state) => state.Page2PropsActive);
   const setPage2PropsActive = useStore((state) => state.setPage2PropsActive);
