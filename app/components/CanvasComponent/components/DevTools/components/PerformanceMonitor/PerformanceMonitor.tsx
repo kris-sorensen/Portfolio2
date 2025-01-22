@@ -7,7 +7,7 @@ const PerformanceMonitor = () => {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       // Check if the user pressed "Command + 9" (Alt for Windows/Linux)
-      if ((event.altKey || event.metaKey) && event.key === "9") {
+      if ((event.altKey || event.metaKey) && event.key === "u") {
         setIsVisible((prev) => !prev); // Toggle visibility
       }
     };
