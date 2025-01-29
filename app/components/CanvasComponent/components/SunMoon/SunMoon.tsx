@@ -247,6 +247,7 @@ const SunMoon: React.FC<SunMoonProps> = React.memo(() => {
     // lightRef.current.target.position.set(0, -sunRef.current.position.y, 0);
 
     const animProgress = getAnimProgress();
+
     ambientLightRef.current.intensity = THREE.MathUtils.lerp(
       Page2PropsActive ? ambientIntensitySun : ambientIntensityMoon,
       2 * (1 + sunRef.current.position.y / window.innerHeight),

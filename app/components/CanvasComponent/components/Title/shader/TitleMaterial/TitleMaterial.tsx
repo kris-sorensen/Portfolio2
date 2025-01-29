@@ -35,7 +35,6 @@ const TitleShaderMaterial: React.FC<ShaderProps> = ({
     // Update uProgress uniform using getAnimProgress()
     materialRef.current.uniforms.uProgress.value =
       getAnimProgress() - activePage;
-
     // update time uniform
     materialRef.current.uniforms.time.value = clock.getElapsedTime();
   });

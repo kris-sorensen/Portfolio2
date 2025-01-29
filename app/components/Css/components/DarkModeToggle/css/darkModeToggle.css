@@ -20,47 +20,47 @@
 .toggle--checkbox {
   display: none;
 }
-.toggle--checkbox:checked {
-  /** This will all flip from sun to moon **/
-  /** Change the label color **/
-}
-.toggle--checkbox:checked ~ .background {
+
+.toggle--checkbox:checked~.background {
   background: var(--night-background);
 }
-.toggle--checkbox:checked + .toggle--label {
-  /* background: var(--night-color); */
+
+.toggle--checkbox:checked+.toggle--label {
   background: none;
   border-color: var(--night-border);
-  /** Change the cloud to stars **/
-  /** Change the sun into the moon **/
-  /** Show the dimples on the moon **/
 }
-.toggle--checkbox:checked + .toggle--label .toggle--label-background {
+
+.toggle--checkbox:checked+.toggle--label .toggle--label-background {
   left: 60px;
   width: 5px;
 }
-.toggle--checkbox:checked + .toggle--label .toggle--label-background:before {
+
+.toggle--checkbox:checked+.toggle--label .toggle--label-background:before {
   width: 5px;
   height: 5px;
   top: -25px;
 }
-.toggle--checkbox:checked + .toggle--label .toggle--label-background:after {
+
+.toggle--checkbox:checked+.toggle--label .toggle--label-background:after {
   width: 5px;
   height: 5px;
   left: -30px;
   top: 20px;
 }
-.toggle--checkbox:checked + .toggle--label:before {
+
+.toggle--checkbox:checked+.toggle--label:before {
   background: var(--white);
   border-color: var(--gray-border);
   animation-name: switch;
   animation-duration: 350ms;
   animation-fill-mode: forwards;
 }
-.toggle--checkbox:checked + .toggle--label:after {
+
+.toggle--checkbox:checked+.toggle--label:after {
   transition-delay: 350ms;
   opacity: 1;
 }
+
 .toggle--label {
   transform: scale(0.5);
   transform-origin: top right;
@@ -71,13 +71,29 @@
   right: 20px;
   width: 200px;
   height: 100px;
-  /* background: var(--day-color); */
   background: none;
   border-radius: 100px;
   border: 5px solid var(--day-border);
   display: flex;
   transition: all 350ms ease-in;
 }
+
+/* Disabled state - Greyed out effect */
+.toggle--label.disabled {
+  opacity: 0.5;
+  /* Makes the toggle look faded */
+  cursor: not-allowed;
+  /* Show "not allowed" cursor */
+  filter: grayscale(100%);
+  /* Convert to grayscale */
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Prevent interactions when disabled */
+.toggle--checkbox:disabled+.toggle--label {
+  pointer-events: none;
+}
+
 .toggle--label-background {
   width: 10px;
   height: 5px;
@@ -88,6 +104,7 @@
   top: 45px;
   transition: all 150ms ease-in;
 }
+
 .toggle--label-background:before {
   content: "";
   position: absolute;
@@ -99,6 +116,7 @@
   left: -20px;
   transition: all 150ms ease-in;
 }
+
 .toggle--label-background:after {
   content: "";
   position: absolute;
@@ -110,6 +128,7 @@
   left: -10px;
   transition: all 150ms ease-in;
 }
+
 .toggle--label:before {
   animation-name: reverse;
   animation-duration: 350ms;
@@ -125,6 +144,7 @@
   border-radius: 82px;
   background: var(--yellow-background);
 }
+
 .toggle--label:after {
   transition-delay: 0ms;
   transition: all 250ms ease-in;
@@ -146,26 +166,30 @@
   0% {
     left: 4px;
   }
+
   60% {
     left: 4px;
     width: 112px;
   }
+
   100% {
     left: 104px;
     width: 82px;
   }
 }
+
 @keyframes reverse {
   0% {
     left: 104px;
     width: 82px;
   }
+
   60% {
     left: 72px;
     width: 112px;
   }
+
   100% {
     left: 4px;
   }
 }
-
