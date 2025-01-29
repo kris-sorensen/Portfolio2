@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { Loader, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Scene from "./Scene";
@@ -12,7 +12,7 @@ const CanvasComponent: React.FC = () => {
   const EnableShadows = useStore((state) => state.EnableShadows);
 
   return (
-    <div className="absolute top-[0px] left-0 w-full h-full outline-none pointer-events-auto">
+    <div className="absolute top-0 left-0 w-full h-full outline-none pointer-events-auto">
       <Leva collapsed />
       <Canvas
         dpr={[1, 2]}
@@ -26,7 +26,7 @@ const CanvasComponent: React.FC = () => {
         orthographic
       >
         <Config />
-        <OrbitControls makeDefault enableZoom={true} />
+        <OrbitControls enabled={false} makeDefault enableZoom={true} />
         <Suspense fallback={null}>
           <Scene />
         </Suspense>
