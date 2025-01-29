@@ -4,6 +4,7 @@ import React, { useCallback, useRef, useEffect } from "react";
 import { ShaderMaterial, Color } from "three";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useControls } from "leva";
 
 // Sphere radius
 const sphereRadius = 1000;
@@ -60,6 +61,13 @@ const Land = () => {
     []
   );
 
+  // Leva controls for material properties
+  const { roughness, metalness, flatShading } = useControls("Land Material", {
+    roughness: { value: 0.5, min: 0, max: 1, step: 0.01 },
+    metalness: { value: 0, min: 0, max: 1, step: 0.01 },
+    flatShading: { value: false },
+  });
+
   // Refs for animation
   const isAnimating = useRef(false);
   const startTime = useRef(0);
@@ -103,8 +111,9 @@ const Land = () => {
         <meshStandardMaterial
           ref={materialRef}
           onBeforeCompile={OBC}
-          metalness={0.8}
-          roughness={0.6}
+          roughness={roughness}
+          metalness={metalness}
+          flatShading={flatShading}
         />
       </Sphere>
     </mesh>
