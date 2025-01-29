@@ -63,7 +63,7 @@ const Land = () => {
 
   // Leva controls for material properties
   const { roughness, metalness, flatShading } = useControls("Land Material", {
-    roughness: { value: 0.5, min: 0, max: 1, step: 0.01 },
+    roughness: { value: 0.6, min: 0, max: 1, step: 0.01 },
     metalness: { value: 0, min: 0, max: 1, step: 0.01 },
     flatShading: { value: false },
   });
