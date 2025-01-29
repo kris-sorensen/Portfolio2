@@ -1,35 +1,36 @@
 import React, { useRef, useEffect, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
+import { useControls } from "leva";
 import { treesData } from "./data/trees.data";
 import useStore from "@/app/store/useStore";
+
 const Trees: React.FC = React.memo(() => {
   const EnableShadows = useStore((state) => state.EnableShadows);
   const gltf = useGLTF("./models/tree-transformed.glb");
 
-  // ✅ Ensure `nodes` exists and properly type it
+  // Leva controls for material properties
+  const { roughness, metalness, flatShading } = useControls("Tree Material", {
+    roughness: { value: 0.3, min: 0, max: 1, step: 0.01 },
+    metalness: { value: 0, min: 0, max: 1, step: 0.01 },
+    flatShading: { value: true },
+  });
+
   const nodes = useMemo(
     () => gltf.nodes as Record<string, THREE.Mesh>,
     [gltf.nodes]
   );
 
-  // ✅ Create a merged geometry (trunk + leaves) with vertex colors
   const mergedGeometry = useMemo(() => {
     const trunkMesh = nodes["Cylinder"] as THREE.Mesh;
     const leavesMesh = nodes["Cone002"] as THREE.Mesh;
 
-    if (
-      !trunkMesh ||
-      !trunkMesh.geometry ||
-      !leavesMesh ||
-      !leavesMesh.geometry
-    )
-      return null;
+    if (!trunkMesh?.geometry || !leavesMesh?.geometry) return null;
 
     const trunkGeo = trunkMesh.geometry.clone();
     const leavesGeo = leavesMesh.geometry.clone();
 
-    // Offset leaves to correct position
+    // Offset leaves
     const leavesOffset = new THREE.Vector3(0, 5.297, 0);
     leavesGeo.translate(leavesOffset.x, leavesOffset.y, leavesOffset.z);
 
@@ -49,7 +50,7 @@ const Trees: React.FC = React.memo(() => {
     const normals = new Float32Array([...trunkNormals, ...leavesNormals]);
     const indices = new Uint16Array([...trunkIndices, ...leavesIndices]);
 
-    // Assign vertex colors (trunk = brown, leaves = green)
+    // Assign vertex colors
     const trunkColor = new THREE.Color(0x8b5a2b);
     const leavesColor = new THREE.Color(0x228b22);
 
@@ -111,7 +112,12 @@ const Trees: React.FC = React.memo(() => {
         castShadow={EnableShadows}
         receiveShadow={EnableShadows}
       >
-        <meshStandardMaterial vertexColors />
+        <meshStandardMaterial
+          vertexColors
+          roughness={roughness}
+          metalness={metalness}
+          flatShading={flatShading}
+        />
       </instancedMesh>
     </group>
   );
