@@ -2,8 +2,9 @@ import React, { useRef, useEffect, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { treesData } from "./data/trees.data";
-
+import useStore from "@/app/store/useStore";
 const Trees: React.FC = React.memo(() => {
+  const EnableShadows = useStore((state) => state.EnableShadows);
   const gltf = useGLTF("./models/tree-transformed.glb");
 
   // ✅ Ensure `nodes` exists and properly type it
@@ -32,13 +33,11 @@ const Trees: React.FC = React.memo(() => {
     const leavesOffset = new THREE.Vector3(0, 5.297, 0);
     leavesGeo.translate(leavesOffset.x, leavesOffset.y, leavesOffset.z);
 
-    // ✅ Use `Array.from()` to avoid TypeScript iteration errors
     const trunkPositions = Array.from(trunkGeo.attributes.position.array);
     const leavesPositions = Array.from(leavesGeo.attributes.position.array);
     const trunkNormals = Array.from(trunkGeo.attributes.normal.array);
     const leavesNormals = Array.from(leavesGeo.attributes.normal.array);
 
-    // ✅ Use `?.map()` safely for indices
     const trunkIndices = trunkGeo.index ? Array.from(trunkGeo.index.array) : [];
     const leavesIndices = leavesGeo.index
       ? Array.from(leavesGeo.index.array).map(
@@ -46,18 +45,13 @@ const Trees: React.FC = React.memo(() => {
         )
       : [];
 
-    // Merge trunk and leaves positions
     const positions = new Float32Array([...trunkPositions, ...leavesPositions]);
-
-    // Merge normals
     const normals = new Float32Array([...trunkNormals, ...leavesNormals]);
-
-    // Merge indices
     const indices = new Uint16Array([...trunkIndices, ...leavesIndices]);
 
     // Assign vertex colors (trunk = brown, leaves = green)
-    const trunkColor = new THREE.Color(0x8b5a2b); // Tree trunk brown
-    const leavesColor = new THREE.Color(0x228b22); // Evergreen green
+    const trunkColor = new THREE.Color(0x8b5a2b);
+    const leavesColor = new THREE.Color(0x228b22);
 
     const colors = new Float32Array(positions.length);
     const trunkVertexCount = trunkGeo.attributes.position.count;
@@ -76,7 +70,6 @@ const Trees: React.FC = React.memo(() => {
       colors[index + 2] = leavesColor.b;
     }
 
-    // ✅ Create merged geometry
     const merged = new THREE.BufferGeometry();
     merged.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     merged.setAttribute("normal", new THREE.BufferAttribute(normals, 3));
@@ -86,7 +79,6 @@ const Trees: React.FC = React.memo(() => {
     return merged;
   }, [nodes]);
 
-  // ✅ InstancedMesh reference
   const instancedRef = useRef<THREE.InstancedMesh>(null);
 
   useEffect(() => {
@@ -109,15 +101,15 @@ const Trees: React.FC = React.memo(() => {
     instancedRef.current.instanceMatrix.needsUpdate = true;
   }, [mergedGeometry]);
 
-  if (!mergedGeometry) return null; // Prevent rendering if geometry isn't ready
+  if (!mergedGeometry) return null;
 
   return (
     <group position={[0, 600, -800]}>
       <instancedMesh
         ref={instancedRef}
         args={[mergedGeometry, undefined, treesData.length]}
-        // castShadow
-        // receiveShadow
+        castShadow={EnableShadows}
+        receiveShadow={EnableShadows}
       >
         <meshStandardMaterial vertexColors />
       </instancedMesh>
@@ -125,7 +117,7 @@ const Trees: React.FC = React.memo(() => {
   );
 });
 
-Trees.displayName = "Trees"; // ✅ Fix ESLint display name error
+Trees.displayName = "Trees";
 
 useGLTF.preload("./models/tree-transformed.glb");
 

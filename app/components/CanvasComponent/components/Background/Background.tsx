@@ -11,7 +11,7 @@ const Background = React.memo(() => {
   const planeHeight = viewport.height;
 
   return (
-    <mesh visible={true} position={[0, 0, -1000]}>
+    <mesh visible={true} position={[0, 0, -1500]}>
       <Plane args={[planeWidth, planeHeight, 2, 2]}>
         <BackgroundMaterial />
       </Plane>

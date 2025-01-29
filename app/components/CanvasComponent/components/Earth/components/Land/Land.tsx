@@ -6,7 +6,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 // Sphere radius
-const sphereRadius = 1000; // Radius of the sphere
+const sphereRadius = 1000;
 
 interface Uniforms {
   uProgress: { value: number };
@@ -53,6 +53,7 @@ const onBeforeCompile = (
 
 const Land = () => {
   const applyPage2Props = useStore((state) => state.Page2PropsActive);
+  const EnableShadows = useStore((state) => state.EnableShadows); // Get shadow toggle
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
   const OBC = useCallback(
     (shader: any) => onBeforeCompile(shader as ShaderMaterial),
@@ -68,8 +69,8 @@ const Land = () => {
   useEffect(() => {
     if (materialRef.current) {
       isAnimating.current = true;
-      startTime.current = performance.now() / 1000; // Start time in seconds
-      startValue.current = uniforms.uProgress.value; // Get the current progress
+      startTime.current = performance.now() / 1000;
+      startValue.current = uniforms.uProgress.value;
     }
   }, [applyPage2Props]);
 
@@ -77,11 +78,10 @@ const Land = () => {
   useFrame(() => {
     if (isAnimating.current) {
       const elapsedTime = performance.now() / 1000 - startTime.current;
-      const duration = 12; // Duration of the color transition in seconds
+      const duration = 12;
       let t = elapsedTime / duration;
-      t = Math.min(t, 1); // Ensure t does not exceed 1
+      t = Math.min(t, 1);
 
-      // Calculate the current progress
       const start = startValue.current;
       const end = applyPage2Props ? 1 : 0;
       uniforms.uProgress.value = start + (end - start) * t;
@@ -93,7 +93,12 @@ const Land = () => {
   });
 
   return (
-    <mesh position={[0, 0, 0]} name={"floor"}>
+    <mesh
+      position={[0, 0, 0]}
+      name={"floor"}
+      receiveShadow={EnableShadows}
+      castShadow={EnableShadows}
+    >
       <Sphere args={[sphereRadius, 128, 128]}>
         <meshStandardMaterial
           ref={materialRef}

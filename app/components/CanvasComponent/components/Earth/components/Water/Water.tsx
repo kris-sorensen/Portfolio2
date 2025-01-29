@@ -75,10 +75,15 @@ const Water = React.memo(() => {
   });
 
   // Material attributes
-  (waterMaterial as any).transmission = 1;
+  // (waterMaterial as any).transmission = 1;
+  // (waterMaterial as any).metalness = 0;
+  // (waterMaterial as any).roughness = 0;
+  (waterMaterial as any).transmission = 0.5;
   (waterMaterial as any).metalness = 0;
   (waterMaterial as any).roughness = 0;
+  // (waterMaterial as any).reflectivity = 0;
   (waterMaterial as any).color = new Color("#183774");
+  (waterMaterial as any).ior = 1.33;
 
   // Ensuring defines is initialized
   if (!waterMaterial.defines) {

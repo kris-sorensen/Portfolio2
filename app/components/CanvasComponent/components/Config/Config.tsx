@@ -1,9 +1,11 @@
 import React from "react";
 import Camera from "./components/Camera/Camera";
-// import useCanvasClick from "./hooks/useCanvasClick";
+import useShadows from "./hooks/useShadows";
 
 const Config = () => {
-  // useCanvasClick();
+  useShadows();
+  console.log(`config`);
+
   return (
     <>
       <Camera />

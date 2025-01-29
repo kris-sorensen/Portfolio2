@@ -1,31 +1,33 @@
 "use client";
-import React, { Suspense } from "react";
-import { Loader } from "@react-three/drei";
+import React, { Suspense, useEffect } from "react";
+import { Loader, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Scene from "./Scene";
 import DevToolsR3F from "./components/DevTools/DevToolsR3F";
 import Config from "./components/Config/Config";
 import { Leva } from "leva";
+import useStore from "@/app/store/useStore";
 
 const CanvasComponent: React.FC = () => {
+  const EnableShadows = useStore((state) => state.EnableShadows);
+
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none pointer-events-auto">
-      <Leva hidden />
+      <Leva collapsed />
       <Canvas
         dpr={[1, 2]}
+        shadows={EnableShadows}
         camera={{
           position: [0, 1.25, 30],
           zoom: 1.05,
-          near: -1500,
-          far: 1500,
+          near: -2000,
+          far: 2000,
         }}
         orthographic
-        // shadows={true}
       >
         <Config />
-        {/* <OrbitControls makeDefault enableZoom={true} /> */}
+        <OrbitControls makeDefault enableZoom={true} />
         <Suspense fallback={null}>
-          {/* <Suspense fallback={<LoadingScreen />}> */}
           <Scene />
         </Suspense>
         <DevToolsR3F />

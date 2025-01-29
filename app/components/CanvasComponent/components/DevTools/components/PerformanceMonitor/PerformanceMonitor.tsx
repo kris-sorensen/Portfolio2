@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Perf } from "r3f-perf";
 
 const PerformanceMonitor = () => {
-  const [isVisible, setIsVisible] = useState(false); // Initially hidden
+  const [isVisible, setIsVisible] = useState(true); // Initially hidden
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {

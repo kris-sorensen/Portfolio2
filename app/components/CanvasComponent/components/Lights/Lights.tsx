@@ -1,6 +1,6 @@
 // import { useThree, useFrame } from "@react-three/fiber";
-// import { useRef } from "react";
-// import * as THREE from "three";
+import { useRef } from "react";
+import * as THREE from "three";
 // import { getAnimProgress } from "@/app/anim/animManager";
 import React from "react";
 import { Environment } from "@react-three/drei";
@@ -8,7 +8,7 @@ import { Environment } from "@react-three/drei";
 // todo: ambient light follow the sun?
 
 const Lights = React.memo(() => {
-  // const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
+  const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
   // const { scene } = useThree();
 
   // useFrame(() => {
@@ -27,8 +27,8 @@ const Lights = React.memo(() => {
 
   return (
     <>
-      <Environment preset="sunset" />
-      {/* <ambientLight ref={ambientLightRef} intensity={0.1} /> */}
+      {/* <Environment preset="sunset" /> */}
+      <ambientLight ref={ambientLightRef} intensity={0.1} />
     </>
   );
 });
