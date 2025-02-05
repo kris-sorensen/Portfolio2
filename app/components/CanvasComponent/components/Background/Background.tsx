@@ -1,6 +1,6 @@
 import React from "react";
 import { useThree } from "@react-three/fiber";
-import { Plane } from "@react-three/drei";
+import { Plane, Sphere } from "@react-three/drei";
 import BackgroundMaterial from "./shader/BackgroundMaterial/BackgroundMaterial";
 
 const Background = React.memo(() => {
@@ -11,10 +11,13 @@ const Background = React.memo(() => {
   const planeHeight = viewport.height;
 
   return (
-    <mesh visible={true} position={[0, 0, -1500]}>
-      <Plane args={[planeWidth, planeHeight, 2, 2]}>
+    <mesh visible={true} position={[0, 0, 0]}>
+      {/* <mesh visible={true} position={[0, 0, -1500]}> */}
+      {/* <Plane args={[planeWidth, planeHeight, 2, 2]}> */}
+      <Sphere args={[3000]} renderOrder={2}>
         <BackgroundMaterial />
-      </Plane>
+      </Sphere>
+      {/* </Plane> */}
     </mesh>
   );
 });

@@ -80,6 +80,7 @@ const BackgroundMaterial: React.FC = () => {
       transparent={true}
       depthWrite={false}
       depthTest={true}
+      side={1}
     />
   );
 };
