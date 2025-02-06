@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import DarkModeToggle from "./components/DarkModeToggle/DarkModeToggle";
 import ShowExperienceBtn from "./components/ShowExperienceBtn/ShowExperienceBtn";
 import NameRole from "./components/NameRole/NameRole";
+import SocialIcons from "./components/SocialIcons/SocialIcons";
 
 // Dynamically import the Portfolio component
 const Portfolio = dynamic(() => import("./components/Portfolio/Portfolio"), {
@@ -15,6 +16,7 @@ const Css: React.FC = () => {
       <ShowExperienceBtn />
       <DarkModeToggle />
       <NameRole />
+      <SocialIcons />
       <Suspense fallback={<div>Loading...</div>}>
         <Portfolio />
       </Suspense>
