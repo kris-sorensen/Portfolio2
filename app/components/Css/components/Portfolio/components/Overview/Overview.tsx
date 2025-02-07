@@ -41,12 +41,12 @@ const Overview: React.FC<OverviewProps> = ({
   return (
     <div
       ref={containerRef}
-      className="z-40 absolute right-0 w-[35rem] h-screen flex flex-col justify-center items-end pr-8 bg-zinc-950 bg-gradient-to-tr bg-opacity-95 pointer-events-none rounded-l-sm opacity-0"
+      className="z-40 absolute right-0 w-[35rem] h-screen flex flex-col justify-center items-end pr-8 bg-gradient-radial from-black/75 to-gray-900/75 pointer-events-none rounded-l-sm opacity-0"
     >
       {projects.map((project: Project) => (
         <div
           key={project.id}
-          className="w-full hover:bg-indigo-800 rounded-sm pl-10"
+          className="w-full hover:bg-blue-950 rounded-sm pl-10"
         >
           <div
             onClick={() => openProject(project.id)}
@@ -55,7 +55,7 @@ const Overview: React.FC<OverviewProps> = ({
             <h2 className="font-frantz tracking-wider text-right text-5xl font-bold hover:underline mb-1 overview-title text-gray-300">
               {project.title}
             </h2>
-            <p className="font-sans text-right text-blue-400 overview-subtitle">
+            <p className="font-sans text-right text-blue-500 overview-subtitle">
               {project.role} {project.awards && ` | ${project.awards}`}
             </p>
           </div>
