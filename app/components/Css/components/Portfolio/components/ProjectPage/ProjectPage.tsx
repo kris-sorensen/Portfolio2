@@ -44,7 +44,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({
   return (
     <div
       ref={containerRef}
-      className="z-50 absolute w-screen h-screen bg-black bg-cover bg-center bg-opacity-85"
+      className="z-50 absolute w-screen h-screen bg-gradient-to-tr from-black/95 to-gray-900/85 bg-cover bg-center "
     >
       {/* Close Button */}
       <button
