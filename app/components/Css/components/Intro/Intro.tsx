@@ -1,25 +1,36 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 const Intro: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(true); // State to control component visibility
   const introRef = useRef<HTMLDivElement>(null);
   const scrollIconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
   const scrollTextRef = useRef<HTMLParagraphElement>(null);
+  const allowWheelEvents = useRef<boolean>(false);
+
+  const wheelEventsOn = () => {
+    allowWheelEvents.current = true;
+  };
 
   useEffect(() => {
-    // Fade out intro on scroll
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
+    // Function to handle scroll event and unmount component
+    const handleWheel = () => {
+      if (!allowWheelEvents.current) return;
       if (introRef.current) {
+        // Animate fade out
         gsap.to(introRef.current, {
-          opacity: 1 - scrollPosition / window.innerHeight,
-          duration: 0.5,
+          opacity: 0,
+          duration: 1,
           ease: "power2.out",
+          onComplete: () => setIsVisible(false), // Unmount component after fade out
         });
       }
+
+      // Remove the wheel event listener after first trigger
+      window.removeEventListener("wheel", handleWheel);
     };
 
     // Animate background fade on load
@@ -36,7 +47,14 @@ const Intro: React.FC = () => {
       gsap.fromTo(
         scrollIconRef.current,
         { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 10 }
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          delay: 10,
+          onComplete: wheelEventsOn,
+        }
       );
     }
 
@@ -69,16 +87,19 @@ const Intro: React.FC = () => {
       });
     }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("wheel", handleWheel);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", handleWheel);
     };
   }, []);
+
+  // If not visible, don't render the component
+  if (!isVisible) return null;
 
   return (
     <div
       ref={introRef}
-      className="absolute w-full h-screen bg-black/75 flex items-center justify-center z-20"
+      className="absolute w-full h-screen bg-black/75 flex items-center justify-center z-20 select-none"
     >
       {/* Fog-like gradient background */}
       <div
