@@ -1,16 +1,29 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import useStore from "@/app/store/useStore";
 
 const ShowExperienceBtn = () => {
   const ShowWorkExperience = useStore((state) => state.ShowWorkExperience);
   const toggleWorkExperience = useStore((state) => state.toggleWorkExperience);
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleToggleWorkExperience = () => toggleWorkExperience();
 
+  useEffect(() => {
+    if (buttonRef.current) {
+      gsap.fromTo(
+        buttonRef.current,
+        { x: -50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "power3.out", delay: 1 }
+      );
+    }
+  }, []);
+
   return (
     <div
-      className="select-none pointer-events-auto z-30 absolute bottom-4 left-4 flex items-center cursor-pointer text-white text-lg font-semibold group hover:text-blue-400 transition-all duration-300 font-sans"
+      ref={buttonRef}
+      className="select-none pointer-events-auto z-50 absolute bottom-4 left-4 flex items-center cursor-pointer text-white text-lg font-semibold group hover:text-blue-400 transition-all duration-300 font-sans opacity-0"
       onClick={handleToggleWorkExperience}
     >
       <span>Show My Projects</span>

@@ -16,7 +16,7 @@ const SocialIcons: React.FC = () => {
         {
           opacity: 1,
           x: 0,
-          delay: 1,
+          delay: 2,
           duration: 1,
           stagger: 0.2,
           ease: "power3.out",
@@ -57,10 +57,10 @@ const SocialIcons: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center z-20 absolute">
+    <div className="min-h-screen flex flex-col items-center justify-center z-30 absolute">
       <div
         ref={iconsRef}
-        className="fixed bottom-4 right-4 z-20 flex flex-col space-y-4"
+        className="fixed bottom-4 right-4 z-30 flex flex-col space-y-4"
       >
         <a
           href="https://www.linkedin.com/in/kris-sorensen/"
@@ -75,7 +75,7 @@ const SocialIcons: React.FC = () => {
           href="mailto:krismsorensen@gmail.com"
           className="cursor-pointer pointer-events-auto"
         >
-          <AiOutlineMail className="w-8 h-8 text-gray-700" />
+          <AiOutlineMail className="w-8 h-8 text-gray-300" />
         </a>
       </div>
     </div>

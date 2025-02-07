@@ -12,12 +12,11 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = React.memo(() => {
 
   return (
     <>
-      <Title />
+      {/* <Title /> */}
       <Background />
       <SunMoon />
       <Earth />
       <Lights />
-      {/* <Fog /> */}
     </>
   );
 });

@@ -62,9 +62,9 @@
 }
 
 .toggle--label {
-  transform: scale(0.5);
+  transform: scale(0.3);
   transform-origin: top right;
-  z-index: 18;
+  z-index: 30;
   pointer-events: auto;
   position: fixed;
   top: 30px;

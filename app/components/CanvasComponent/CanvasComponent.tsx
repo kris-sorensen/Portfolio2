@@ -20,8 +20,8 @@ const CanvasComponent: React.FC = () => {
         camera={{
           position: [0, 1.25, 30],
           zoom: 1.05,
-          near: -2000,
-          far: 2000,
+          near: -3100,
+          far: 3100,
         }}
         orthographic
       >
