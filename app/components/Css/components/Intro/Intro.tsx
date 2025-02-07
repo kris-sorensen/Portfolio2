@@ -7,6 +7,7 @@ const Intro: React.FC = () => {
   const scrollIconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
+  const scrollTextRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     // Fade out intro on scroll
@@ -29,20 +30,13 @@ const Intro: React.FC = () => {
         { opacity: 0.75, duration: 5, ease: "power2.out" }
       );
     }
-    // if (introRef.current) {
-    //   gsap.fromTo(
-    //     introRef.current,
-    //     { opacity: 0 },
-    //     { opacity: 0.75, duration: 5, ease: "power2.out" }
-    //   );
-    // }
 
     // Animate scroll icon on page load
     if (scrollIconRef.current) {
       gsap.fromTo(
         scrollIconRef.current,
         { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 1 }
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 10 }
       );
     }
 
@@ -60,6 +54,19 @@ const Intro: React.FC = () => {
           stagger: 0.3,
         }
       );
+    }
+
+    // Light switch effect for Scroll text synced with bounce
+    if (scrollTextRef.current) {
+      gsap.to(scrollTextRef.current, {
+        opacity: 0.5,
+        repeat: -1,
+        yoyo: true,
+        duration: 0.1,
+        ease: "power1.inOut",
+        repeatDelay: 0.9,
+        delay: 10.9, // Sync with scrollIcon animation
+      });
     }
 
     window.addEventListener("scroll", handleScroll);
@@ -84,7 +91,7 @@ const Intro: React.FC = () => {
         <h1 className="text-6xl md:text-8xl font-extrabold text-white font-sans">
           Kris Sorensen
         </h1>
-        <p className="mt-5 text-2xl md:text-4xl font-medium text-gray-300 font-mono">
+        <p className="mt-4 text-2xl md:text-4xl font-medium text-gray-300 font-mono">
           Creative Developer
         </p>
       </div>
@@ -101,7 +108,10 @@ const Intro: React.FC = () => {
           <span className="w-2 h-2 bg-white rounded-full"></span>
         </div>
         {/* Scroll Text */}
-        <p className="mt-2 text-white text-sm uppercase tracking-widest font-sans animate-pulse delay-500 duration-1000 ease-in">
+        <p
+          ref={scrollTextRef}
+          className="mt-2 text-white text-sm uppercase tracking-widest font-sans"
+        >
           Scroll
         </p>
       </div>

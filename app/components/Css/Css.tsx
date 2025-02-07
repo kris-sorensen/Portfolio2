@@ -19,7 +19,7 @@ const Css: React.FC = () => {
       <DarkModeToggle />
       {/* <NameRole /> */}
       <SocialIcons />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={null}>
         <Portfolio />
       </Suspense>
     </>
