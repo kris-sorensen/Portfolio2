@@ -2,13 +2,13 @@ import React, { useMemo } from "react";
 import * as THREE from "three";
 import MountainMaterial from "../../shader/MountainMaterial";
 
-const Triangle = ({ vertices, position, color }) => {
+const Triangle = ({ vertices, position, color }: { vertices: any[]; position: [number, number, number]; color: string }) => {
   const f32array = useMemo(
     () =>
       Float32Array.from(
         new Array(vertices.length)
-          .fill()
-          .flatMap((item, index) => vertices[index].toArray())
+          .fill(null)
+          .flatMap((_item, index) => vertices[index].toArray())
       ),
     [vertices]
   );

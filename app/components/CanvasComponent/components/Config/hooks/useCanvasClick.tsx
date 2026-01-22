@@ -12,7 +12,7 @@ const useCanvasClick = () => {
     console.log("canvas", canvas);
 
     // Event handler for canvas click
-    const handleCanvasClick = (event) => {
+    const handleCanvasClick = (event: MouseEvent) => {
       console.log("Canvas clicked!", event);
       setPage(Page === 2 ? 1 : 2);
     };

@@ -46,7 +46,7 @@ const Moon = () => {
   // });
 
   return (
-    <mesh visible={page === 3} ref={mesh} position={[0, 0, 0]}>
+    <mesh visible={page !== 1} ref={mesh} position={[0, 0, 0]}>
       <Circle ref={circleRef} args={[0.39, 64, 64]}>
         <meshBasicMaterial color="#000000" />
       </Circle>

@@ -6,7 +6,7 @@ import fragmentShader from "./mountainMaterial.fragment.glsl";
 import mountainShapeChunk from "../includes/mountainShape.glsl";
 import { getAnimProgress } from "@/app/anim/animManager";
 
-THREE.ShaderChunk.mountainShape = mountainShapeChunk;
+(THREE.ShaderChunk as any).mountainShape = mountainShapeChunk;
 
 const MountainMaterial: React.FC = () => {
   const mat = useRef<THREE.ShaderMaterial | null>(null);

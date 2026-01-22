@@ -5,7 +5,7 @@ import {
   initialVertexShader,
 } from "../../../../data/currentShader";
 
-const ShaderPlatform = ({ vertexShader, fragmentShader }) => {
+const ShaderPlatform = ({ vertexShader, fragmentShader }: { vertexShader: string; fragmentShader: string }) => {
   return <Plane>{/* <Shader/> */}</Plane>;
 };
 
@@ -17,7 +17,7 @@ const LiveShaderViewer = () => {
   const [FragmentShader, setFragmentShader] = useState(initialFragmentShader);
   const [VertexShader, setVertexShader] = useState(initialVertexShader);
 
-  useEffect(() => {}, [UpdateLiveShader]);
+  useEffect(() => {}, []);
 
   return (
     <ShaderPlatform
