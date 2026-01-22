@@ -248,7 +248,7 @@ const Ellipsoid: React.FC<EllipsoidProps> = ({
   const depthMaterial = useMemo(() => {
     const mat = new THREE.MeshDepthMaterial();
     mat.depthPacking = THREE.RGBADepthPacking;
-    mat.onBeforeCompile = onBeforeCompileDepth;
+    (mat as any).onBeforeCompile = onBeforeCompileDepth;
     return mat;
   }, []);
 
@@ -269,7 +269,7 @@ const Ellipsoid: React.FC<EllipsoidProps> = ({
         receiveShadow
       >
         <sphereGeometry args={[1, 32, 32]} />
-        <meshPhysicalMaterial onBeforeCompile={OBC} {...props} />
+        <meshPhysicalMaterial onBeforeCompile={OBC as any} {...props} />
       </mesh>
     </Suspense>
   );

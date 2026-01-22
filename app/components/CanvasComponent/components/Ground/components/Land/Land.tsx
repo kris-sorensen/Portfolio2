@@ -110,7 +110,7 @@ const Land = () => {
           {/* <Sphere args={[sphereRadius, 100, 100]}> */}
           <meshStandardMaterial
             ref={materialRef}
-            onBeforeCompile={OBC}
+            onBeforeCompile={OBC as any}
             metalness={0.3}
             roughness={0.6}
           />

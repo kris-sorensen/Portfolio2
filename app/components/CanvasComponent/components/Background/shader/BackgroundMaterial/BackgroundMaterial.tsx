@@ -11,11 +11,11 @@ import meteorstormChunk from "../includes/meteorstorm.glsl";
 import { getAnimProgress } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
 
-THREE.ShaderChunk.starMaker = starMakerChunk;
-THREE.ShaderChunk.random = randomChunk;
-THREE.ShaderChunk.random2 = random2Chunk;
-THREE.ShaderChunk.meteor = meteorChunk;
-THREE.ShaderChunk.meteorstorm = meteorstormChunk;
+(THREE.ShaderChunk as any).starMaker = starMakerChunk;
+(THREE.ShaderChunk as any).random = randomChunk;
+(THREE.ShaderChunk as any).random2 = random2Chunk;
+(THREE.ShaderChunk as any).meteor = meteorChunk;
+(THREE.ShaderChunk as any).meteorstorm = meteorstormChunk;
 
 const BackgroundMaterial: React.FC = () => {
   const applyPage2Props = useStore((state) => state.Page2PropsActive);

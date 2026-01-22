@@ -2,7 +2,7 @@ import React from "react";
 import { useThree } from "@react-three/fiber";
 import { Plane } from "@react-three/drei";
 import { fragmentShader } from "./shader/overlay";
-import { vertexShader } from "@/app/shaders/BasicShader/BasicShader.shader";
+import { vertexShader } from "@/app/Shaders/BasicShader/BasicShader.shader";
 
 const OverlayMaterial = () => {
   return (

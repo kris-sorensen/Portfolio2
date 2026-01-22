@@ -4,7 +4,7 @@ import * as THREE from "three";
 import {
   vertexShader,
   AnimatedFrameFragment,
-} from "@/app/shaders/BasicShader/BasicShader.shader";
+} from "@/app/Shaders/BasicShader/BasicShader.shader";
 
 const FrameMaterial = () => {
   const { viewport } = useThree();

@@ -10,7 +10,7 @@ import ConeTopShader from "./components/ConeTopShader/ConeTopShader";
 import {
   wallGlow,
   vertexShader,
-} from "@/app/shaders/BasicShader/BasicShader.shader";
+} from "@/app/Shaders/BasicShader/BasicShader.shader";
 
 const WallMaterial = () => {
   return (
