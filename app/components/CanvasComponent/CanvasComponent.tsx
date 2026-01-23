@@ -10,7 +10,7 @@ import { Leva } from "leva";
 const CanvasComponent: React.FC = () => {
   return (
     <div className="absolute top-[0px] left-0 w-full h-full outline-none pointer-events-none">
-      <Leva collapsed />
+      <Leva hidden />
       <Canvas
         dpr={[1, 2]}
         camera={{
@@ -27,7 +27,7 @@ const CanvasComponent: React.FC = () => {
         <Suspense fallback={null}>
           <Scene />
         </Suspense>
-        <DevToolsR3F />
+        {/* <DevToolsR3F /> */}
       </Canvas>
       <Loader />
     </div>

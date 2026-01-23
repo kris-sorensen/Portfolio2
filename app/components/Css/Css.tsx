@@ -7,7 +7,7 @@ const Css: React.FC = () => {
 
   return (
     <>
-      <Title />
+      {/* <Title /> */}
       <Menu/>
     </>
   );
