@@ -10,7 +10,33 @@ import {
   getAnimProgress,
 } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
-import { page2GodRaysProps, totalDuration, directionalLightOffsetY } from "./constants/sunMoon.constant";
+import {
+  page2GodRaysProps,
+  totalDuration,
+  directionalLightOffsetY,
+  directionalLightTargetY,
+  directionalLightHelperSize,
+  showDirectionalLightHelper,
+  lightShadowCameraLeft,
+  lightShadowCameraRight,
+  lightShadowCameraTop,
+  lightShadowCameraBottom,
+  lightShadowCameraFar,
+  arcRadiusScale,
+  leftArcRadiusOffset,
+  rightArcRadiusOffset,
+  arcCenterYOffset,
+  initialArcAngle,
+  reverseInitialArcAngle,
+  newArcAngle,
+  parallaxLerpSpeed,
+  ambientLightMinIntensity,
+  ambientLightMaxIntensity,
+  directionalLightMinIntensity,
+  directionalLightMaxIntensity,
+  ambientLightAnimProgressMultiplier,
+  directionalLightIntensityOffset,
+} from "./constants/sunMoon.constant";
 
 export interface SunMoonProps {}
 
@@ -79,14 +105,19 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   useEffect(() => {
     if (lightRef.current && !lightHelperRef.current) {
       // Extend the light's camera frustum to reach further
-      lightRef.current.shadow.camera.left = -2000;
-      lightRef.current.shadow.camera.right = 2000;
-      lightRef.current.shadow.camera.top = 2000;
-      lightRef.current.shadow.camera.bottom = -2000;
-      lightRef.current.shadow.camera.far = 5000;
+      lightRef.current.shadow.camera.left = lightShadowCameraLeft;
+      lightRef.current.shadow.camera.right = lightShadowCameraRight;
+      lightRef.current.shadow.camera.top = lightShadowCameraTop;
+      lightRef.current.shadow.camera.bottom = lightShadowCameraBottom;
+      lightRef.current.shadow.camera.far = lightShadowCameraFar;
 
-      lightHelperRef.current = new THREE.DirectionalLightHelper(lightRef.current, 500);
-      group.current?.add(lightHelperRef.current);
+      if (showDirectionalLightHelper) {
+        lightHelperRef.current = new THREE.DirectionalLightHelper(
+          lightRef.current,
+          directionalLightHelperSize
+        );
+        group.current?.add(lightHelperRef.current);
+      }
     }
 
     return () => {
@@ -124,11 +155,11 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     }
 
     // Adjusting the arc radius and positions
-    const arcRadius = (0.3 * viewport.width) / 2;
-    const leftArcRadius = (1 * viewport.width) / 2 - 50;
-    const rightArcRadius = (1 * viewport.width) / 2 + 150;
-    const rightArcCenterY = (-1 * viewport.height) / 2 - 200;
-    const leftArcCenterY = (-1 * viewport.height) / 2 - 200; //- leftArcRadius * 0.07;
+    const arcRadius = (arcRadiusScale * viewport.width) / 2;
+    const leftArcRadius = (1 * viewport.width) / 2 + leftArcRadiusOffset;
+    const rightArcRadius = (1 * viewport.width) / 2 + rightArcRadiusOffset;
+    const rightArcCenterY = (-1 * viewport.height) / 2 + arcCenterYOffset;
+    const leftArcCenterY = (-1 * viewport.height) / 2 + arcCenterYOffset;
 
     if (Page !== prevPage.current) {
       parallaxReady.current = false;
@@ -172,7 +203,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     switch (animationPhase.current) {
       case "initial":
         if (progress < 1) {
-          const currentAngle = Math.PI * 0.63 * easedProgress;
+          const currentAngle = Math.PI * initialArcAngle * easedProgress;
 
           sunRef.current.position.x = rightArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
@@ -187,10 +218,10 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         if (progress < 1) {
           if (initialSunPosition.current) {
             tempVector3_1.current.set(
-              rightArcRadius * Math.cos(Math.PI * 0.75 * (1 - easedProgress)),
+              rightArcRadius * Math.cos(Math.PI * reverseInitialArcAngle * (1 - easedProgress)),
               rightArcCenterY +
                 rightArcRadius *
-                  Math.sin(Math.PI * 0.75 * (1 - easedProgress)),
+                  Math.sin(Math.PI * reverseInitialArcAngle * (1 - easedProgress)),
               sunRef.current.position.z
             );
             sunRef.current.position.lerpVectors(
@@ -213,7 +244,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
 
       case "newArc":
         if (progress < 1) {
-          const currentAngle = Math.PI - Math.PI * 0.68 * easedProgress;
+          const currentAngle = Math.PI - Math.PI * newArcAngle * easedProgress;
           sunRef.current.position.x = leftArcRadius * Math.cos(currentAngle);
           sunRef.current.position.y =
             leftArcCenterY + leftArcRadius * Math.sin(currentAngle);
@@ -229,10 +260,10 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             // Interpolate from the initial saved position to the reverse new arc position
             tempVector3_2.current.set(
               leftArcRadius *
-                Math.cos(Math.PI - Math.PI * 0.68 * (1 - easedProgress)),
+                Math.cos(Math.PI - Math.PI * newArcAngle * (1 - easedProgress)),
               leftArcCenterY +
                 leftArcRadius *
-                  Math.sin(Math.PI - Math.PI * 0.68 * (1 - easedProgress)),
+                  Math.sin(Math.PI - Math.PI * newArcAngle * (1 - easedProgress)),
               sunRef.current.position.z
             );
             sunRef.current.position.lerpVectors(
@@ -261,7 +292,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
             -pointer.y * viewport.height,
             sunRef.current.position.z
           );
-          sunRef.current.position.lerp(tempVector3_3.current, 0.006);
+          sunRef.current.position.lerp(tempVector3_3.current, parallaxLerpSpeed);
         }
         break;
     }
@@ -272,23 +303,22 @@ const SunMoon: React.FC<SunMoonProps> = () => {
 
     const animProgress = getAnimProgress();
     ambientLightRef.current.intensity = THREE.MathUtils.lerp(
-      0.1,
-      2 * (1 + sunRef.current.position.y / window.innerHeight),
-      animProgress * 0.5
+      ambientLightMinIntensity,
+      ambientLightMaxIntensity * (1 + sunRef.current.position.y / window.innerHeight),
+      animProgress * ambientLightAnimProgressMultiplier
     );
 
     lightRef.current.intensity = THREE.MathUtils.lerp(
-      0,
-      1,
-      sunRef.current.position.y / window.innerHeight + 0.5
+      directionalLightMinIntensity,
+      directionalLightMaxIntensity,
+      sunRef.current.position.y / window.innerHeight + directionalLightIntensityOffset
     );
 
     // Point light from sun toward the center of the water
-    // Water is positioned at y = -70 + (-320) = -390 (from nested group positions)
     // Target stays at a fixed water point while light follows sun
     lightRef.current.target.position.set(
       0,
-      -390,
+      directionalLightTargetY,
       0
     );
 
