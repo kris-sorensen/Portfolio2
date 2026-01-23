@@ -19,7 +19,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   const Page2PropsActive = useStore((state) => state.Page2PropsActive);
   const setPage2PropsActive = useStore((state) => state.setPage2PropsActive);
 
-  const { scene } = useThree();
+
   const [isInitialRender, setIsInitialRender] = useState(true);
   const page2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const initialized = useRef(true);
