@@ -99,7 +99,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [Page]);
 
   // Initialize directional light helper
   useEffect(() => {
