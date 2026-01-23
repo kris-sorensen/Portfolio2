@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Logo from "./components/Logo/Logo";
+import Title from "./components/Title/Title";
 import NextPageBtn from "./components/NextPageBtn/NextPageBtn";
 import useAnimProgressUpdater from "@/app/hook/useAnimProgressUpdater";
 import Background from "./components/Background/Background";
@@ -12,7 +12,7 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
 
   return (
     <>
-      <Logo />
+      <Title />
       <Background />
       <SunMoon />
       <Ground />

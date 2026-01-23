@@ -6,7 +6,7 @@ import { useThree, useFrame } from "@react-three/fiber";
 
 import useStore from "@/app/store/useStore";
 
-const Logo: React.FC = () => {
+const Title: React.FC = () => {
   const Page = useStore((state) => state.Page);
   const { viewport } = useThree();
   const groupRef = useRef<THREE.Group | null>(null);
@@ -70,4 +70,4 @@ const Logo: React.FC = () => {
   );
 };
 
-export default Logo;
+export default Title;
