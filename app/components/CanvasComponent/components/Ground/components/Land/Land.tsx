@@ -66,16 +66,19 @@ const Land = () => {
   useEffect(() => {
     if (materialRef.current) {
       isAnimating.current = true;
-      startTime.current = performance.now() / 1000; // Start time in seconds
+      startTime.current = 0; // Will be set in useFrame
       // Get the current progress
       startValue.current = uniforms.uProgress.value;
     }
   }, [applyPage2Props]);
 
   // Update 'uProgress' uniform every frame
-  useFrame(() => {
+  useFrame((state) => {
     if (isAnimating.current) {
-      const elapsedTime = performance.now() / 1000 - startTime.current;
+      if (startTime.current === 0) {
+        startTime.current = state.clock.getElapsedTime();
+      }
+      const elapsedTime = state.clock.getElapsedTime() - startTime.current;
       const duration = 12; // Duration of the color transition in seconds
       let t = elapsedTime / duration;
       t = Math.min(t, 1); // Ensure t does not exceed 1
@@ -95,7 +98,7 @@ const Land = () => {
 
   return (
     <mesh position={[0, 0, 0]} name={"floor"}>
-      <Sphere args={[sphereRadius, 100, 100]}>
+      <Sphere args={[sphereRadius, 24, 24]}>
         <meshStandardMaterial
           ref={materialRef}
           onBeforeCompile={OBC}

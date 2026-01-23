@@ -65,7 +65,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     const handleMouseMove = () => {
       if (!parallaxStarted.current && parallaxReady.current) {
         parallaxStarted.current = true;
-        // window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("mousemove", handleMouseMove);
       }
     };
     window.addEventListener("mousemove", handleMouseMove);
@@ -86,6 +86,11 @@ const SunMoon: React.FC<SunMoonProps> = () => {
 
   // Define the variable to store the initial position at the start of reverseInitial animation
   const initialSunPosition = useRef<THREE.Vector3 | null>(null);
+
+  // Reusable Vector3 objects to avoid memory allocation in useFrame
+  const tempVector3_1 = useRef(new THREE.Vector3());
+  const tempVector3_2 = useRef(new THREE.Vector3());
+  const tempVector3_3 = useRef(new THREE.Vector3());
 
   useFrame((state, delta) => {
     if (!sunRef.current || !lightRef.current || !ambientLightRef.current)
@@ -159,15 +164,16 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       case "reverseInitial":
         if (progress < 1) {
           if (initialSunPosition.current) {
+            tempVector3_1.current.set(
+              rightArcRadius * Math.cos(Math.PI * 0.75 * (1 - easedProgress)),
+              rightArcCenterY +
+                rightArcRadius *
+                  Math.sin(Math.PI * 0.75 * (1 - easedProgress)),
+              sunRef.current.position.z
+            );
             sunRef.current.position.lerpVectors(
               initialSunPosition.current,
-              new THREE.Vector3(
-                rightArcRadius * Math.cos(Math.PI * 0.75 * (1 - easedProgress)),
-                rightArcCenterY +
-                  rightArcRadius *
-                    Math.sin(Math.PI * 0.75 * (1 - easedProgress)),
-                sunRef.current.position.z
-              ),
+              tempVector3_1.current,
               easedProgress
             );
           }
@@ -199,16 +205,17 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         if (progress < 1) {
           if (initialSunPosition.current) {
             // Interpolate from the initial saved position to the reverse new arc position
+            tempVector3_2.current.set(
+              leftArcRadius *
+                Math.cos(Math.PI - Math.PI * 0.68 * (1 - easedProgress)),
+              leftArcCenterY +
+                leftArcRadius *
+                  Math.sin(Math.PI - Math.PI * 0.68 * (1 - easedProgress)),
+              sunRef.current.position.z
+            );
             sunRef.current.position.lerpVectors(
               initialSunPosition.current,
-              new THREE.Vector3(
-                leftArcRadius *
-                  Math.cos(Math.PI - Math.PI * 0.68 * (1 - easedProgress)),
-                leftArcCenterY +
-                  leftArcRadius *
-                    Math.sin(Math.PI - Math.PI * 0.68 * (1 - easedProgress)),
-                sunRef.current.position.z
-              ),
+              tempVector3_2.current,
               easedProgress
             );
           }
@@ -227,14 +234,12 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       case "idle":
       default:
         if (parallaxStarted.current) {
-          sunRef.current.position.lerp(
-            new THREE.Vector3(
-              -pointer.x * viewport.width,
-              -pointer.y * viewport.height,
-              sunRef.current.position.z
-            ),
-            0.006
+          tempVector3_3.current.set(
+            -pointer.x * viewport.width,
+            -pointer.y * viewport.height,
+            sunRef.current.position.z
           );
+          sunRef.current.position.lerp(tempVector3_3.current, 0.006);
         }
         break;
     }
@@ -266,7 +271,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           name={"sunMoonMesh"}
           position={[viewport.width / 2, viewport.height / 2, -1050]}
         >
-          <sphereGeometry args={[sphereRadius, 36, 36]} />
+          <sphereGeometry args={[sphereRadius, 24, 24]} />
           <SunMoonMaterial
             materialRef={shaderMaterialRef}
             sunOpacity={0.4}
@@ -290,7 +295,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         <ambientLight ref={ambientLightRef} intensity={0.1} />
 
         {sunRef.current && !isInitialRender && (
-          <EffectComposer multisampling={4}>
+          <EffectComposer multisampling={2}>
             <GodRays
               ref={godRaysRef}
               sun={sunRef.current}

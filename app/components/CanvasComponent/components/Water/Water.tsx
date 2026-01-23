@@ -13,6 +13,7 @@ import {
 } from "./shader/waterShader";
 import CustomShaderMaterialImpl from "three-custom-shader-material/vanilla";
 import { Environment } from "@react-three/drei";
+import { useRef, useMemo } from "react";
 
 const HEIGHT = 400;
 // const WIDTH = 2400;
@@ -21,79 +22,94 @@ const BOUNDS = 3000;
 // const WIDTH = 128;
 const WIDTH = 512;
 
-let waterUniforms;
-let heightmapVariable;
-let gpuCompute;
-
 const Water = () => {
   const { viewport, gl, pointer } = useThree();
 
-  const waterMaterial = new CustomShaderMaterialImpl({
-    baseMaterial: MeshPhysicalMaterial,
-    vertexShader: waterVertexShader,
-    uniforms: UniformsUtils.merge([
-      ShaderLib["physical"].uniforms,
-      { heightmap: { value: null } },
-    ]),
-  });
+  const waterMaterialRef = useRef(null);
+  const gpuComputeRef = useRef(null);
+  const heightmapVariableRef = useRef(null);
+  const waterUniformsRef = useRef(null);
+  const initializationRef = useRef(false);
+  const frameCounterRef = useRef(0);
 
-  // Material attributes
-  waterMaterial.transmission = 1;
-  waterMaterial.metalness = 0;
-  waterMaterial.roughness = 0;
-  waterMaterial.color = new Color("#183774");
-  // waterMaterial.envMapIntensity = 5;
-  // waterMaterial.color = new Color(0x217d9c);
+  // Initialize water material and GPU compute only once
+  if (!initializationRef.current) {
+    initializationRef.current = true;
 
-  // Defines
-  waterMaterial.defines.WIDTH = WIDTH.toFixed(1);
-  waterMaterial.defines.BOUNDS = BOUNDS.toFixed(1);
+    waterMaterialRef.current = new CustomShaderMaterialImpl({
+      baseMaterial: MeshPhysicalMaterial,
+      vertexShader: waterVertexShader,
+      uniforms: UniformsUtils.merge([
+        ShaderLib["physical"].uniforms,
+        { heightmap: { value: null } },
+      ]),
+    });
 
-  waterUniforms = waterMaterial.uniforms;
+    // Material attributes
+    waterMaterialRef.current.transmission = 1;
+    waterMaterialRef.current.metalness = 0;
+    waterMaterialRef.current.roughness = 0;
+    waterMaterialRef.current.color = new Color("#183774");
+    // waterMaterialRef.current.envMapIntensity = 5;
+    // waterMaterialRef.current.color = new Color(0x217d9c);
 
-  gpuCompute = new GPUComputationRenderer(WIDTH, WIDTH, gl);
+    // Defines
+    waterMaterialRef.current.defines.WIDTH = WIDTH.toFixed(1);
+    waterMaterialRef.current.defines.BOUNDS = BOUNDS.toFixed(1);
 
-  const heightmap0 = gpuCompute.createTexture();
-  heightmapVariable = gpuCompute.addVariable(
-    "heightmap",
-    heightmapFragmentShader,
-    heightmap0
-  );
-  gpuCompute.setVariableDependencies(heightmapVariable, [heightmapVariable]);
-  heightmapVariable.material.uniforms["mousePos"] = {
-    value: new Vector2(10000, 10000),
-  };
-  heightmapVariable.material.uniforms["mouseSize"] = { value: 20.0 };
-  heightmapVariable.material.uniforms["viscosityConstant"] = { value: 0.98 };
-  heightmapVariable.material.uniforms["heightCompensation"] = { value: 0 };
-  heightmapVariable.material.defines.BOUNDS = BOUNDS.toFixed(1);
+    waterUniformsRef.current = waterMaterialRef.current.uniforms;
 
-  const error = gpuCompute.init();
-  if (error !== null) {
-    console.error(error);
+    gpuComputeRef.current = new GPUComputationRenderer(WIDTH, WIDTH, gl);
+
+    const heightmap0 = gpuComputeRef.current.createTexture();
+    heightmapVariableRef.current = gpuComputeRef.current.addVariable(
+      "heightmap",
+      heightmapFragmentShader,
+      heightmap0
+    );
+    gpuComputeRef.current.setVariableDependencies(heightmapVariableRef.current, [heightmapVariableRef.current]);
+    heightmapVariableRef.current.material.uniforms["mousePos"] = {
+      value: new Vector2(10000, 10000),
+    };
+    heightmapVariableRef.current.material.uniforms["mouseSize"] = { value: 20.0 };
+    heightmapVariableRef.current.material.uniforms["viscosityConstant"] = { value: 0.98 };
+    heightmapVariableRef.current.material.uniforms["heightCompensation"] = { value: 0 };
+    heightmapVariableRef.current.material.defines.BOUNDS = BOUNDS.toFixed(1);
+
+    const error = gpuComputeRef.current.init();
+    if (error !== null) {
+      console.error(error);
+    }
   }
 
   useFrame(() => {
-    const uniforms = heightmapVariable.material.uniforms;
+    const uniforms = heightmapVariableRef.current.material.uniforms;
     // uniforms["mousePos"].value.set(pointer.x * 200, -pointer.y * 200);
     uniforms["mousePos"].value.set(0, -pointer.y * 200);
-    gpuCompute.compute();
-    waterUniforms["heightmap"].value =
-      gpuCompute.getCurrentRenderTarget(heightmapVariable).texture;
+
+    // Run GPU computation every other frame for performance
+    if (frameCounterRef.current % 2 === 0) {
+      gpuComputeRef.current.compute();
+      waterUniformsRef.current["heightmap"].value =
+        gpuComputeRef.current.getCurrentRenderTarget(heightmapVariableRef.current).texture;
+    }
+    frameCounterRef.current++;
   });
+
+  const envMap = useMemo(() => <Environment preset="sunset" />, []);
 
   return (
     <>
-      <Environment preset="sunset" />
+      {envMap}
       <mesh
-        material={waterMaterial}
+        material={waterMaterialRef.current}
         position={[0, -320, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
         // scale={0.4}
         // castShadow
         // receiveShadow
       >
-        <planeGeometry args={[viewport.width, BOUNDS, WIDTH, WIDTH]} />
+        <planeGeometry args={[viewport.width, BOUNDS, 128, 128]} />
       </mesh>
     </>
   );

@@ -64,7 +64,6 @@ const Trees = () => {
           scale={tree.scale}
           position={tree.position}
           rotation={tree.rotation}
-          castShadow
         />
       ))}
     </mesh>
