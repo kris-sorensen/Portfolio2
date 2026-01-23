@@ -6,8 +6,8 @@ import ParticleBackground from "./components/ParticleBackground/ParticleBackgrou
 const Css: React.FC = () => {
   return (
     <>
-      <ParticleBackground />
-      <Title />
+      {/* <ParticleBackground /> */}
+      {/* <Title /> */}
       <Menu />
     </>
   );

@@ -2,30 +2,43 @@ import React, { useEffect, useRef } from "react";
 import { Text } from "@react-three/drei";
 import TitleShaderMaterial from "./shader/TitleMaterial/TitleMaterial";
 import * as THREE from "three";
-import { useThree } from "@react-three/fiber";
+import { useThree, useFrame } from "@react-three/fiber";
 
 import useStore from "@/app/store/useStore";
 
 const Logo: React.FC = () => {
   const Page = useStore((state) => state.Page);
   const { viewport } = useThree();
+  const groupRef = useRef<THREE.Group | null>(null);
   const text = useRef<THREE.Mesh | null>(null);
 
   // Font scale variable
-  const fontScale = 500; // Adjust this scale as needed
+  const fontScale = 400; // Adjust this scale as needed
+
+  // Floating animation
+  const baseY = 220;
+  useFrame(({ clock }) => {
+    // if (groupRef.current) {
+    //   groupRef.current.position.y = baseY + Math.sin(clock.getElapsedTime() * 0.5) * 20;
+    // }
+  });
 
   useEffect(() => {
     // Add your visibility logic here
   }, [Page]);
 
   return (
-    <group scale={[1.5, 1.5, 1.5]} position={[0, viewport.height / 2.1, 800]}>
+    <group
+      ref={groupRef}
+      scale={[1.5, 1.5, 1.5]}
+      position={[0, baseY, -800]}
+    >
       {/* PAGE 1 */}
       <mesh>
         <Text
           ref={text}
           letterSpacing={0.0001}
-          fontSize={0.12 * fontScale}
+          fontSize={0.18 * fontScale}
           anchorX={"center"}
           font="./fonts/dessau-heavy-regular.woff"
         >
@@ -40,14 +53,14 @@ const Logo: React.FC = () => {
       <mesh position={[0, -50, 0]}>
         <Text
           ref={text}
-          letterSpacing={0.25}
-          fontSize={0.04 * fontScale}
+          letterSpacing={0.35}
+          fontSize={0.045 * fontScale}
           anchorX={"center"}
-          font="./fonts/dessau-heavy-regular.woff"
+          font="./fonts/altehaasgroteskregular.woff"
         >
           <TitleShaderMaterial
-            color="#ffffff"
-            color2="#ffffff"
+            color="#d0d4ff"
+            color2="#d0d4ff"
             activePage={0}
           />
           KRISTOPHER SORENSEN
