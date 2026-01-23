@@ -9,8 +9,9 @@ import {
 import { GPUComputationRenderer } from "three-stdlib";
 import {
   heightmapFragmentShader,
-  waterVertexShader,
-} from "./shader/waterShader";
+  improvedWaterVertexShader,
+  waterShaderCallback,
+} from "./shader/improvedWaterShader";
 import CustomShaderMaterialImpl from "three-custom-shader-material/vanilla";
 import { Environment } from "@react-three/drei";
 import { useRef, useMemo } from "react";
@@ -36,22 +37,31 @@ const Water = () => {
   if (!initializationRef.current) {
     initializationRef.current = true;
 
+    const baseMaterial = new MeshPhysicalMaterial();
+    baseMaterial.onBeforeCompile = (shader) => {
+      waterShaderCallback(shader, baseMaterial.uniforms);
+    };
+
     waterMaterialRef.current = new CustomShaderMaterialImpl({
-      baseMaterial: MeshPhysicalMaterial,
-      vertexShader: waterVertexShader,
+      baseMaterial,
+      vertexShader: improvedWaterVertexShader,
       uniforms: UniformsUtils.merge([
         ShaderLib["physical"].uniforms,
-        { heightmap: { value: null } },
+        {
+          heightmap: { value: null },
+          uTime: { value: 0 },
+          uLightPos: { value: [10, 50, 20] },
+          uLightColor: { value: [1.0, 0.95, 0.8] },
+        },
       ]),
     });
 
-    // Material attributes
-    waterMaterialRef.current.transmission = 1;
+    // Material attributes - heavily dampened to prevent blow-out from sun
+    waterMaterialRef.current.transmission = 0.8;
     waterMaterialRef.current.metalness = 0;
-    waterMaterialRef.current.roughness = 0;
-    waterMaterialRef.current.color = new Color("#183774");
-    // waterMaterialRef.current.envMapIntensity = 5;
-    // waterMaterialRef.current.color = new Color(0x217d9c);
+    waterMaterialRef.current.roughness = 0.5;
+    waterMaterialRef.current.color = new Color("#1a4d6f");
+    waterMaterialRef.current.envMapIntensity = 0.6;
 
     // Defines
     waterMaterialRef.current.defines.WIDTH = WIDTH.toFixed(1);
@@ -82,10 +92,12 @@ const Water = () => {
     }
   }
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     const uniforms = heightmapVariableRef.current.material.uniforms;
-    // uniforms["mousePos"].value.set(pointer.x * 200, -pointer.y * 200);
     uniforms["mousePos"].value.set(0, -pointer.y * 200);
+
+    // Update time uniform for caustics and animations
+    waterUniformsRef.current["uTime"].value = clock.getElapsedTime();
 
     // Run GPU computation every other frame for performance
     if (frameCounterRef.current % 2 === 0) {
