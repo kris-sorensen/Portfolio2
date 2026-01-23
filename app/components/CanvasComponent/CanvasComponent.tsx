@@ -20,7 +20,7 @@ const CanvasComponent: React.FC = () => {
           far: 1500,
         }}
         orthographic
-        shadows={true}
+        shadows={false}
       >
         <Config />
         <OrbitControls makeDefault enableZoom={true} />
