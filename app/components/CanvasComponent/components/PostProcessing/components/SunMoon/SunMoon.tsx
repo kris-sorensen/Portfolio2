@@ -30,6 +30,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
   const lightRef = useRef<THREE.DirectionalLight | null>(null);
   const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
+  const lightHelperRef = useRef<THREE.DirectionalLightHelper | null>(null);
 
   const {
     sunOpacity,
@@ -71,6 +72,20 @@ const SunMoon: React.FC<SunMoonProps> = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  // Initialize directional light helper
+  useEffect(() => {
+    if (lightRef.current && !lightHelperRef.current) {
+      lightHelperRef.current = new THREE.DirectionalLightHelper(lightRef.current, 500);
+      group.current?.add(lightHelperRef.current);
+    }
+
+    return () => {
+      if (lightHelperRef.current && group.current) {
+        group.current.remove(lightHelperRef.current);
+      }
     };
   }, []);
 
@@ -244,8 +259,9 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
     }
 
+    // Position light at the top of the sun/moon mesh
     lightRef.current.position.copy(sunRef.current.position);
-    // lightRef.current.target.position.set(0, -sunRef.current.position.y, 0);
+    lightRef.current.position.y += sphereRadius;
 
     const animProgress = getAnimProgress();
     ambientLightRef.current.intensity = THREE.MathUtils.lerp(
@@ -259,7 +275,20 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       1,
       sunRef.current.position.y / window.innerHeight + 0.5
     );
-    lightRef.current.target.position.set(0, 0, -100);
+
+    // Point light from sun toward the center of the ground
+    // Ground is positioned at y = -70 + (-1070) = -1140 (from nested group positions)
+    // Target stays at a fixed ground point while light follows sun
+    lightRef.current.target.position.set(
+      0,
+      -70,
+      0
+    );
+
+    // Update the light helper to follow the light
+    if (lightHelperRef.current) {
+      lightHelperRef.current.update();
+    }
   });
 
   return (
@@ -288,7 +317,7 @@ const SunMoon: React.FC<SunMoonProps> = () => {
           ref={lightRef}
           position={[viewport.width / 2, viewport.height / 2, 0]}
           intensity={1}
-          castShadow={true}
+          // castShadow={true}
           color={Page2PropsActive ? "#fcffc4" : "#349ef5"}
         />
 
