@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background: transparent;
+}
+
+.title-content {
+  text-align: center;
+  position: relative;
+  animation: titleFloat 6s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.main-title {
+  font-size: 5.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  line-height: 1.1;
+  word-spacing: 0.2em;
+}
+
+.title-gradient {
+  display: inline-block;
+  background: linear-gradient(135deg,
+    #00d4ff 0%,
+    #7c3aed 50%,
+    #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.3));
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 50px rgba(0, 212, 255, 0.4));
+  }
+}
+
+.subtitle-wrapper {
+  margin-top: 30px;
+  animation: fadeInUp 1.5s ease-out 0.3s backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0 40px;
+  border-bottom: 2px solid rgba(124, 58, 237, 0.5);
+  padding-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.title-accent {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #7c3aed, transparent);
+  margin: 40px auto 0;
+  animation: accentPulse 3s ease-in-out infinite;
+}
+
+@keyframes accentPulse {
+  0%, 100% {
+    width: 60px;
+    opacity: 0.5;
+  }
+  50% {
+    width: 120px;
+    opacity: 1;
+  }
+}
