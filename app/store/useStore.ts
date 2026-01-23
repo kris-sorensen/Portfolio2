@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 interface StoreState {
-  Page: number;
-  setPage(page: number): void;
+  Page: 1 | 2 | 3;
+  setPage(page: 1 | 2 | 3): void;
   nextPage(): void;
   prevPage(): void;
 
