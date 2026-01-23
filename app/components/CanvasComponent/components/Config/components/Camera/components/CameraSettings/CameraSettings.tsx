@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useThree } from "@react-three/fiber";
+import { OrthographicCamera } from "three";
 
 const CameraSettings = () => {
   const { camera, viewport } = useThree();
 
   useEffect(() => {
-    if (camera.isOrthographicCamera) {
+    if (camera instanceof OrthographicCamera) {
       camera.left = -viewport.width / 2;
       camera.right = viewport.width / 2;
       camera.top = viewport.height / 2;

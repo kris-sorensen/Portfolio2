@@ -1,18 +1,15 @@
 import React from "react";
 import "./css/menu.style.css";
 
-interface MenuProps {
-  addBalloon: () => void;
-  toggleVisibility: () => void;
-}
 
-const Menu: React.FC<MenuProps> = ({ addBalloon, toggleVisibility }) => {
+
+const Menu: React.FC = () => {
   return (
     <div className="app-container">
-      <button className="corner-button top-left" onClick={addBalloon}>
+      <button className="corner-button top-left" >
         Balloon
       </button>
-      <button className="corner-button bottom-left" onClick={toggleVisibility}>
+      <button className="corner-button bottom-left" >
         Custom
       </button>
       <button className="corner-button top-right">About Me</button>
