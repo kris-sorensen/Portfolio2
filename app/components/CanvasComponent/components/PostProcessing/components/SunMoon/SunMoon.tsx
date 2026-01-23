@@ -10,7 +10,7 @@ import {
   getAnimProgress,
 } from "@/app/anim/animManager";
 import useStore from "@/app/store/useStore";
-import { page2GodRaysProps, totalDuration } from "./constants/sunMoon.constant";
+import { page2GodRaysProps, totalDuration, directionalLightOffsetY } from "./constants/sunMoon.constant";
 
 export interface SunMoonProps {}
 
@@ -78,6 +78,13 @@ const SunMoon: React.FC<SunMoonProps> = () => {
   // Initialize directional light helper
   useEffect(() => {
     if (lightRef.current && !lightHelperRef.current) {
+      // Extend the light's camera frustum to reach further
+      lightRef.current.shadow.camera.left = -2000;
+      lightRef.current.shadow.camera.right = 2000;
+      lightRef.current.shadow.camera.top = 2000;
+      lightRef.current.shadow.camera.bottom = -2000;
+      lightRef.current.shadow.camera.far = 5000;
+
       lightHelperRef.current = new THREE.DirectionalLightHelper(lightRef.current, 500);
       group.current?.add(lightHelperRef.current);
     }
@@ -259,9 +266,9 @@ const SunMoon: React.FC<SunMoonProps> = () => {
         break;
     }
 
-    // Position light at the top of the sun/moon mesh
+    // Position light very close above the sun/moon mesh
     lightRef.current.position.copy(sunRef.current.position);
-    lightRef.current.position.y += sphereRadius;
+    lightRef.current.position.y += directionalLightOffsetY;
 
     const animProgress = getAnimProgress();
     ambientLightRef.current.intensity = THREE.MathUtils.lerp(
@@ -276,12 +283,12 @@ const SunMoon: React.FC<SunMoonProps> = () => {
       sunRef.current.position.y / window.innerHeight + 0.5
     );
 
-    // Point light from sun toward the center of the ground
-    // Ground is positioned at y = -70 + (-1070) = -1140 (from nested group positions)
-    // Target stays at a fixed ground point while light follows sun
+    // Point light from sun toward the center of the water
+    // Water is positioned at y = -70 + (-320) = -390 (from nested group positions)
+    // Target stays at a fixed water point while light follows sun
     lightRef.current.target.position.set(
       0,
-      -70,
+      -390,
       0
     );
 
