@@ -16,8 +16,8 @@ const CanvasComponent: React.FC = () => {
         camera={{
           position: [0, 2.8, 30],
           zoom: 1.06,
-          near: -1500,
-          far: 1500,
+          near: -3000,
+          far: 3000,
         }}
         orthographic
         shadows={false}
@@ -27,7 +27,7 @@ const CanvasComponent: React.FC = () => {
         <Suspense fallback={null}>
           <Scene />
         </Suspense>
-        {/* <DevToolsR3F /> */}
+        <DevToolsR3F />
       </Canvas>
       <Loader />
     </div>

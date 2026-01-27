@@ -17,7 +17,13 @@ THREE.ShaderChunk.random2 = random2Chunk;
 THREE.ShaderChunk.meteor = meteorChunk;
 THREE.ShaderChunk.meteorstorm = meteorstormChunk;
 
-const BackgroundMaterial: React.FC = () => {
+interface BackgroundMaterialProps {
+  side?: THREE.Side;
+}
+
+const BackgroundMaterial: React.FC<BackgroundMaterialProps> = ({
+  side = THREE.FrontSide,
+}) => {
   const applyPage2Props = useStore((state) => state.Page2PropsActive);
   const mat = useRef<THREE.ShaderMaterial | null>(null);
   const { size, pointer, scene } = useThree(); // Get pointer (mouse) data
@@ -80,6 +86,7 @@ const BackgroundMaterial: React.FC = () => {
       transparent={true}
       depthWrite={false}
       depthTest={true}
+      side={side}
     />
   );
 };

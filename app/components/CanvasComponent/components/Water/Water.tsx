@@ -15,13 +15,13 @@ import {
 import CustomShaderMaterialImpl from "three-custom-shader-material/vanilla";
 import { Environment } from "@react-three/drei";
 import { useRef, useMemo } from "react";
-
-const HEIGHT = 400;
-// const WIDTH = 2400;
-const BOUNDS = 3000;
-// Texture width
-// const WIDTH = 128;
-const WIDTH = 512;
+import {
+  HEIGHT,
+  BOUNDS,
+  WIDTH,
+  WATER_CIRCLE_RADIUS,
+  WATER_CIRCLE_SEGMENTS,
+} from "./constants/water.constant";
 
 const Water = () => {
   const { viewport, gl, pointer } = useThree();
@@ -121,7 +121,7 @@ const Water = () => {
         // castShadow
         // receiveShadow
       >
-        <planeGeometry args={[viewport.width, BOUNDS, 128, 128]} />
+        <circleGeometry args={[WATER_CIRCLE_RADIUS, WATER_CIRCLE_SEGMENTS]} />
       </mesh>
     </>
   );

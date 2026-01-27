@@ -16,7 +16,7 @@ const Scene: React.FC<JSX.IntrinsicElements["group"]> = (props) => {
       <Background />
       <SunMoon />
       <Ground />
-      {/* <Fog /> */}
+      <Fog />
       <NextPageBtn />
     </>
   );
