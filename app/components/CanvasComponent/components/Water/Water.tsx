@@ -21,7 +21,7 @@ import {
   WIDTH,
   WATER_CIRCLE_RADIUS,
   WATER_CIRCLE_SEGMENTS,
-} from "./constants/water.constant";
+} from "@/app/constants/sceneGeometry.const";
 
 const Water = () => {
   const { viewport, gl, pointer } = useThree();

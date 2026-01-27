@@ -6,7 +6,7 @@ import {
   sphereWidthSegments,
   sphereHeightSegments,
   spherePosition,
-} from "./constants/background.constant";
+} from "@/app/constants/sceneGeometry.const";
 
 const Background = () => {
   return (
