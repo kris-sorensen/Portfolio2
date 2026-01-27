@@ -18,7 +18,7 @@ export const useGodRaysControls = (page: number) => {
     sunColor: "#349ef5", // #e5d093, #34f57e,#349ef5,#e193cb
     sunOpacity: { value: 1.0, min: 0, max: 1, step: 0.1 },
     sphereRadius: {
-      value: 250,
+      value: 200,
       min: 0.001,
       max: 1000,
       step: 0.001,
